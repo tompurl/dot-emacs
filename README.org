@@ -1,0 +1,7 @@
+#+TITLE: README
+
+Hey, you're reading Tom's Emacs config files! I hope a few of you get
+some use out of them. 99% of my config is in the [[file:emacs-init.org][emacs-init.org]] file,
+and that should be somewhat easy to follow if you know a little bit
+about emacs. If you have any questions, open an issue or contact me at
+[[mailto:tom@tompurl.com][tom@tompurl.com]].
