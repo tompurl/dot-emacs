@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: newcodediagram
+# contributor : Tom Purl <tom@tompurl.com>
+# key: ncd
+# --
+#+BEGIN_SRC dot :file ./images/${1:`(get-current-date-for-links)`-`(get-current-time-no-delim)`}.png
+
+  digraph ${Name} {
+      ${Hello->World}
+  }
+
+#+END_SRC

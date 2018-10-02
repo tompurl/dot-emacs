@@ -1,0 +1,8 @@
+/emacs-init.el
+*~
+emojis/
+/ido.last
+/bookmarks
+elpa/
+server/
+/customizations/packages/autoit-mode/

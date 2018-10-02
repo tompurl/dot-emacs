@@ -1,0 +1,791 @@
+#+TITLE: Tom's Emacs Init File
+ 
+So this is fun. Let's get started by adding my custom folders to my
+load path:
+ 
+* Bootstrap
+** Debugging
+
+#+BEGIN_SRC emacs-lisp 
+  (setq debug-on-error nil)
+#+END_SRC
+
+#+RESULTS:
+: t
+
+** Package Management
+ 
+Here's where I install local packages:
+ 
+#+BEGIN_SRC emacs-lisp 
+  (let ((default-directory  "~/.emacs.d/customizations/packages/"))
+    (normal-top-level-add-subdirs-to-load-path))
+ 
+  (add-to-list 'load-path "~/.emacs.d/customizations/lisp/")
+#+END_SRC
+
+#+RESULTS:
+| ~/.emacs.d/customizations/lisp/ | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/site-lisp | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/site-lisp | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/vc | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/url | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/textmodes | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/progmodes | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/play | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/org | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/nxml | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/net | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/mh-e | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/mail | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/leim | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/language | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/international | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/gnus | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/eshell | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/erc | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/emulation | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/emacs-parallel | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/emacs-lisp | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/cedet | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/calendar | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/calc | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/obsolete |
+
+ 
+I guess I'll add the melpa stuff even though I don't think I can 
+use it:
+ 
+#+BEGIN_SRC emacs-lisp
+  (require 'package) ;; You might already have this line
+  (add-to-list 'package-archives
+               '("melpa" . "http://stable.melpa.org/packages/"))
+  (package-initialize) ;; You might already have this line
+#+END_SRC
+
+#+RESULTS:
+: t
+ 
+** Global Properties
+ 
+Open everything in Firefox:
+ 
+#+BEGIN_SRC emacs-lisp
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
+#+END_SRC
+
+#+RESULTS:
+: C:/Program Files (x86)/Google/Chrome/Application/chrome.exe
+ 
+Now on to Org
+
+** System Path
+
+Since I usually don't start Emacs from the command line I need to
+append some of my custom apps to the Emacs path.
+
+#+BEGIN_SRC emacs-lisp
+  (setq chocolatey-root "c:/ProgramData/chocolatey")
+  (setq chocolatey-lib
+	(concat chocolatey-root "/" "lib"))
+  (setq chocolatey-bin
+	(concat chocolatey-root "/" "bin"))
+  (setenv "PATH"
+	  (concat
+	   "C:/Program Files/Git/bin" ";"
+	   "C:/Python27" ";"
+	   "c:/ProgramData/chocolatey/bin" ";"
+	   (getenv "PATH")
+	   )
+	  )
+#+END_SRC
+
+* Eye Candy
+** Themes
+*** Moe Theme
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/customizations/packages/moe-theme.el-master/moe-theme.el/")
+  (load "moe-theme.el")
+  (require 'moe-theme)
+  (moe-light)
+#+END_SRC
+** centered-window-mode
+#+BEGIN_SRC emacs-lisp
+(require 'centered-window)
+(centered-window-mode t)
+#+END_SRC
+** Font
+#+BEGIN_SRC emacs-lisp
+  ; (set-frame-font "Ubuntu Mono 14" nil t)
+(set-frame-font "Hack 12" nil t)
+
+#+END_SRC
+
+#+RESULTS:
+** Emojify mode
+Let's make it globally accessible.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'after-init-hook #'global-emojify-mode)
+#+END_SRC
+** Powerline
+#+BEGIN_SRC emacs-lisp
+  (powerline-default-theme)
+#+END_SRC
+* YAS
+** Bootstrap
+#+BEGIN_SRC emacs-lisp
+  (load "yasnippet.el")
+  (require 'yasnippet)
+  (yas-global-mode 1)
+#+END_SRC
+* ORG!!!!!!!!!!!!!!!
+** Global Varables
+#+BEGIN_SRC emacs-lisp 
+  (setq org-directory "~/Documents/td/gtd/org/")
+  (setq org-log-done 'time)
+#+END_SRC
+ 
+Here are global properties that are available to each file. For more
+information on the "*_ALL" properties check this out:
+ 
+- https://www.gnu.org/software/emacs/manual/html_node/org/Property-syntax.html
+ 
+#+BEGIN_SRC emacs-lisp
+  ;; Effort and global properties
+  (setq org-global-properties
+        '(
+          ("POM_Estimate_ALL". "n/a 1 2 3 4 5 6 7 8 9 10")))
+#+END_SRC
+ 
+** Keymaps
+#+BEGIN_SRC emacs-lisp 
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+  (global-set-key (kbd "<f4>") 'set-org-agenda-files)
+  (define-key global-map "\C-cc" 'org-capture)
+  (global-set-key (kbd "C-c h") 'open-org-html-file-in-browser)
+  (global-set-key (kbd "<f6>") (lambda() (interactive)(org-publish-current-file)))
+#+END_SRC
+ 
+I know this doesn't work but I think I'm close:
+ 
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c C-x C-p") 'org-pomodoro)
+#+END_SRC
+** Eye Candy
+*** No extra lines between headers
+Org sometimes adds an extra line between headers, which drives me
+nuts. This fixes that:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-blank-before-new-entry
+	'((heading . nil) (plain-list-item . nil)))
+#+END_SRC
+
+#+RESULTS:
+| heading         |
+| plain-list-item |
+
+** Spell Checking
+*** Configure Spell Checker Name
+#+BEGIN_SRC emacs-lisp
+  (setq ispell-program-name 
+	(concat chocolatey-lib "/" "hunspell.portable/tools/bin/hunspell"))
+#+END_SRC
+*** Use flyspell in Org
+#+BEGIN_SRC emacs-lisp
+  (dolist (hook '(org-mode-hook))
+        (add-hook hook (lambda () (flyspell-mode 1))))
+#+END_SRC
+** Navigation
+*** Open links in the same window, from here:
+ 
+- http://stackoverflow.com/a/13075322
+ 
+#+BEGIN_SRC emacs-lisp
+  (setq org-link-frame-setup (quote ((vm . vm-visit-folder-other-frame)
+                                     (vm-imap . vm-visit-imap-folder-other-frame)
+                                     (gnus . org-gnus-no-new-news)
+                                     (file . find-file)
+                                     (wl . wl-other-frame))))
+#+END_SRC
+** Org-agenda
+*** Specify the files that can be used in an agenda
+ 
+#+BEGIN_SRC emacs-lisp
+  (defun set-org-agenda-files ()
+    (interactive)
+    (message "Saving all org buffers to keep agenda files list clean")
+    (org-save-all-org-buffers)
+    (setq org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))
+    (message "Done setting org agenda files."))
+ 
+  (set-org-agenda-files)
+#+END_SRC
+ 
+#+RESULTS:
+: Done setting org agenda files.
+ 
+*** Custom Views
+ 
+Here's my custom agenda view that uses "column view". 
+ 
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-overriding-columns-format
+        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %3POM_Estimate(Est.) %6POM_Pomodori(Poms) %6POM_Interruptions(Ints) %TAGS %12CLOCKSUM_T(Today's Time) %12CLOCKSUM(Total Time)")
+  (setq org-agenda-view-columns-initially t)
+  (setq org-agenda-custom-commands
+        '(("." "Simple agenda view"
+           ((tags "+today"
+                       ((org-agenda-span 'day)
+                        ))
+            (agenda "")))))
+#+END_SRC
+ 
+#+RESULTS:
+| . | Simple agenda view | ((tags +today ((org-agenda-span (quote day)))) (agenda )) |
+ 
+This only shows today's tasks in the agenda view by default:
+ 
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-span 1)
+#+END_SRC
+ 
+Finally, this appears to be necessary to get the =clocksum= functions
+to run properly on startup:
+ 
+#+BEGIN_SRC emacs-lisp
+(org-clock-sum)
+#+END_SRC
+ 
+*** Helpers
+ 
+**** Removing the today tag from a todo 
+ 
+This function clears out the "today" tag from the tasks in my custom
+view above.
+ 
+Note: This function is *very* brittle and will need to change if you
+make any changes to your org-agenda view.
+ 
+#+BEGIN_SRC emacs-lisp
+  (fset 'tp/org-remove-today-tag
+        (lambda (&optional arg)
+          "Keyboard macro."
+          (interactive "p")
+          (kmacro-exec-ring-item
+           (quote ([6 6 6 6 6 6 101 116 return 14 1] 0 "%d")) arg))) 
+#+END_SRC
+ 
+**** Removing The Recorded Pomodoro Count
+ 
+#+BEGIN_SRC emacs-lisp
+  (fset 'tp/org-remove-pom-count
+        (lambda (&optional arg)
+          "Removes the pomodoro count from a task while viewing the agenda in column mode."
+          (interactive "p")
+          (kmacro-exec-ring-item
+           (quote ([6 6 6 6 101 1 11 return 14 1] 0 "%d")) arg)))
+#+END_SRC
+ 
+** Org-capture
+*** Properties
+#+BEGIN_SRC emacs-lisp
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
+#+END_SRC
+*** Templates
+#+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates
+	'(
+	  ("t" "Todo" entry (file+headline (lambda () (concat org-directory "inbox.org")) "In-Process") "* TODO %? %^g")
+	  ;; ("t" "Todo" entry (file+headline "~/inbox.org" "Tasks") "* TODO %?\n %i\n %a")
+	  ("w" "Work Log" entry (file+headline (lambda () (concat org-directory "/WorkLogs.org")) "On-Deck") "** %(create-org-link 1) %?")
+	  ("r" "Research Note" entry (file+headline (lambda () (concat org-directory "/ResearchNotes.org")) "In-Process") "** %(create-org-link nil) %?")
+	  ("l" "Lessons Learned" entry (file+headline (lambda () (concat org-directory "/LessonsLearned.org")) "Drafts") "** %(create-org-link nil) %?")
+	  ("m" "Meeting Minute" entry (file+headline (lambda () (concat org-directory "/MeetingMinutes.org")) "In-Process") "** %(create-org-link 1) %?")
+	  ))
+#+END_SRC
+
+** To-do Lists
+*** Workflow States
+ 
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+#+END_SRC
+*** Misc Props
+Have org measure todo completion percentage recursively. =nil= means
+that you want it to look recursively.
+ 
+#+BEGIN_SRC emacs-lisp
+  (setq org-hierarchical-todo-statistics nil)
+#+END_SRC
+ 
+** Functions
+*** Calculating Dates
+#+BEGIN_SRC emacs-lisp
+  (defvar org-link-date-stamp-format "%y%m%d"
+    "Format of date stamps to use in Org links")
+ 
+  (defun add-date-stamp-to-file-name (org-link)
+    "Add a date stamp to the file name portion of an org link"
+    (replace-regexp-in-string ":" 
+                              (concat ":" 
+                                      (format-time-string org-link-date-stamp-format (current-time))
+                                      "-") org-link))
+ 
+  (defun add-date-stamp-to-link-title (org-link)
+    "Add a date stamp to the title portion of an org link"
+    (replace-regexp-in-string "\\]\\[" 
+                              (concat "][" 
+                                      (format-time-string org-link-date-stamp-format (current-time)) 
+                                      " - ") org-link))
+#+END_SRC
+*** Misc
+ 
+This is just a minor utility function.
+ 
+#+BEGIN_SRC emacs-lisp
+  (defun escape-file-titles (title)
+    "Take an arbitrary string and replace all of the bad chars with
+    underscores"
+    (replace-regexp-in-string " " "_" title))
+#+END_SRC
+ 
+Here's a much better version of my create-org-link function courtesy
+of -> http://emacs.stackexchange.com/a/12166/8228
+ 
+#+BEGIN_SRC emacs-lisp
+  (defun create-org-link (addDate? &optional title)
+    "Takes a human-readable title for a link and returns a
+     nicely-formatted file link."
+    (interactive)
+    (unless title
+      (setq title
+            (read-string "Please enter a title: ")))
+    (let ((plain-file-link
+           (format "[[file:%s.org][%s]]" (escape-file-titles title) title)))
+      (let ((formatted-file-link
+             (if addDate?
+                 (add-date-stamp-to-file-name (add-date-stamp-to-link-title plain-file-link))
+               plain-file-link)))
+        (if (called-interactively-p)
+            (insert formatted-file-link)
+          formatted-file-link))))
+#+END_SRC
+ 
+*** Browser-related
+#+BEGIN_SRC emacs-lisp
+  (defun org-file-name-convert-to-html (org-file-name)
+    "Convert an org file name into its HTML eqlivalent"
+    (replace-regexp-in-string 
+     "\\(.*\\)\\/org\\/\\(.*\\)\.org$" 
+     "\\1/org/public_html/\\2.html" org-file-name))
+ 
+  (defun open-org-html-file-in-browser ()
+    "Open the current html version of the current org file in a web
+    browser."
+    (interactive)
+    (browse-url-of-file (org-file-name-convert-to-html (buffer-file-name))))
+#+END_SRC
+** Auto Insertion
+ 
+When creating new org files I like to insert a nicely-formatted title
+at the top that's based on the file name. The code below does things
+like replace underscores with spaces so that a file name like
+"This_Is_Cool.org" will automatically have a title of "This Is Cool".
+ 
+#+BEGIN_SRC emacs-lisp
+  (defun format-page-title-from-buffer-name ()
+    "Takes a buffer name and returns a much more friendly looking
+    title.
+ 
+    Note: This function assumes that the create-org-link function
+    replaces spaces with underscores"
+    (interactive)
+    (replace-regexp-in-string "\.org" ""
+                              (replace-regexp-in-string "_" " "
+                                                        (replace-regexp-in-string "\w-\w" " - " (buffer-name))))
+    )
+ 
+  (defun org-file-header ()
+    "Generate a header for an org mode file"
+    (interactive)
+    (let ((out (format "#+TITLE: %s
+ 
+  "
+                       (format-page-title-from-buffer-name))))
+      out))
+ 
+  (defun org-file-insert ()
+    "Insert a header containing HTML boilerplate and a title and
+     whatever else you want."
+    (interactive)
+    (insert (org-file-header)))
+ 
+  (add-hook 'find-file-hook 'auto-insert)
+  (define-auto-insert ".*\.org$" 'org-file-insert)
+ 
+                                          ; Don't ask for confirmation if auto-insert is called non-interactively.
+  (setq auto-insert-query nil)
+#+END_SRC
+ 
+** Org-publish
+*** Bootstrap
+ 
+#+BEGIN_SRC emacs-lisp
+(require 'ox-publish)
+#+END_SRC
+
+#+RESULTS:
+: ox-publish
+
+*** Projects
+ 
+Since this is an alist I don't know how to embed functions in
+it. Thats's why I've replaced the org-directory var with the literal
+value.
+ 
+#+BEGIN_SRC emacs-lisp
+  (setq org-publish-project-alist
+        '(
+          ("org-notes"               ;Used to export .org file
+           :base-directory "~/Documents/td/gtd/org/"  ;directory holds .org files 
+           :base-extension "org"     ;process .org file only    
+           :publishing-directory "~/Documents/td/gtd/org/public_html/"    ;export destination
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :headline-levels 4               ; Just the default for this project.
+           :auto-preamble t
+           :auto-sitemap t                  ; Generate sitemap.org automagically...
+           :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
+           :sitemap-title "Sitemap"         ; ... with title 'Sitemap'.
+           :export-creator-info nil    ; Disable the inclusion of "Created by Org" in the postamble.
+           :export-author-info nil     ; Disable the inclusion of "Author: Your Name" in the postamble.
+           :auto-postamble nil         ; Disable auto postamble 
+           :table-of-contents t        ; Set this to "t" if you want a table of contents, set to "nil" disables TOC.
+           :section-numbers nil        ; Set this to "t" if you want headings to have numbers.
+           :html-postamble "    <p class=\"postamble\">Last Updated %d.</p> " ; your personal postamble
+           :style-include-default nil  ;Disable the default css style
+           :html-head "<link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' />"
+           
+           ("org-static"                ;Used to publish static files
+            :base-directory "~/Documents/td/gtd/org/static/"
+            :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+            :publishing-directory "~/Documents/td/gtd/org/public_html/"
+            :recursive t
+            :publishing-function org-publish-attachment
+            )
+           ("org" :components ("org-notes" "org-static"))) ;combine "org-static" and "org-static" into one function call
+          ))
+#+END_SRC
+
+#+RESULTS:
+| org-notes | :base-directory | ~/Documents/td/gtd/org/ | :base-extension | org | :publishing-directory | ~/Documents/td/gtd/org/public_html/ | :recursive | t | :publishing-function | org-html-publish-to-html | :headline-levels | 4 | :auto-preamble | t | :auto-sitemap | t | :sitemap-filename | sitemap.org | :sitemap-title | Sitemap | :export-creator-info | nil | :export-author-info | nil | :auto-postamble | nil | :table-of-contents | t | :section-numbers | nil | :html-postamble | <p class="postamble">Last Updated %d.</p> | :style-include-default | nil | :html-head | <link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' /> | (org-static :base-directory ~/Documents/td/gtd/org/static/ :base-extension css\ | js\ | png\ | jpg\ | gif\ | pdf\ | mp3\ | ogg\ | swf :publishing-directory ~/Documents/td/gtd/org/public_html/ :recursive t :publishing-function org-publish-attachment) | (org :components (org-notes org-static)) |
+
+** Yasnippet
+#+BEGIN_SRC emacs-lisp
+  (defun yas/org-very-safe-expand ()
+    (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+ 
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (make-variable-buffer-local 'yas/trigger-key)
+              (setq yas/trigger-key [tab])
+              (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+              (define-key yas/keymap [tab] 'yas/next-field)))
+#+END_SRC
+
+#+RESULTS:
+| (lambda nil (make-variable-buffer-local (quote yas/trigger-key)) (setq yas/trigger-key [tab]) (add-to-list (quote org-tab-first-hook) (quote yas/org-very-safe-expand)) (define-key yas/keymap [tab] (quote yas/next-field))) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes |
+
+** Babel
+ 
+Here's the languages that I can interpret:
+ 
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((js . t)
+     (emacs-lisp . t)
+     (shell . t)
+     (python . t)
+     (dot . t)))
+#+END_SRC
+
+#+RESULTS:
+
+ 
+I don't want to manually confirm that code written in the following
+languages can be executed:
+ 
+#+BEGIN_SRC emacs-lisp
+  (defun my-org-confirm-evaluate (lang body)
+    (and (not (string= lang "js"))
+         (not (string= lang "dot"))
+         (not (string= lang "python"))))
+ 
+  (setq org-confirm-babel-evaluate 'my-org-confirm-evaluate)
+#+END_SRC
+
+#+RESULTS:
+: my-org-confirm-evaluate
+
+ 
+Here are my global =src= block headers. So far, all this does is
+ensure that the publishing process never executes the code in src
+block (unless it's overrided at a lower lever of course).
+ 
+#+BEGIN_SRC emacs-lisp
+  (setq org-babel-default-header-args
+        (cons '(:eval . "never-export")
+              (assq-delete-all :eval org-babel-default-header-args)))
+#+END_SRC
+
+#+RESULTS:
+
+** Org-pomodoro
+ 
+#+BEGIN_SRC emacs-lisp
+(setq org-pomodoro-keep-killed-pomodoro-time 't)
+ 
+; Show a popup every time a pom is completed.
+(add-hook 'org-pomodoro-finished-hook
+          (lambda () (shell-command "c:\\Users\\pp87775\\Documents\\Dev\\PS\\show-pom-end-popup.bat" nil nil)))
+(add-hook 'org-pomodoro-break-finished-hook
+          (lambda () (shell-command "C:\\Users\\pp87775\\Documents\\Dev\\PS\\show-break-end-popup.bat" nil nil)))
+#+END_SRC
+
+#+RESULTS:
+| lambda | nil | (shell-command C:\Users\pp87775\Documents\Dev\PS\show-break-end-popup.bat nil nil) |
+
+ 
+...and duh.
+** Tags
+These are the tags that I will use the most when creating new tasks.
+ 
+#+BEGIN_SRC emacs-lisp
+  (setq org-tag-alist '(
+			("today" . ?t)
+			("goal" . ?g)
+			("objective" . ?o)))
+#+END_SRC
+ 
+** Org bullets
+Of course you need these :smile:
+ 
+#+BEGIN_SRC emacs-lisp 
+  (require 'org-bullets)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+END_SRC
+
+#+RESULTS:
+| (lambda nil (org-bullets-mode 1)) | (lambda nil (make-variable-buffer-local (quote yas/trigger-key)) (setq yas/trigger-key [tab]) (add-to-list (quote org-tab-first-hook) (quote yas/org-very-safe-expand)) (define-key yas/keymap [tab] (quote yas/next-field))) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes |
+
+* Magit
+** Bootstrap
+ 
+I'm currently stuck in dependency hell here and the old version of
+magit doesn't work so I'm just going to comment all of this out.
+ 
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'exec-path "c:/Program Files/Git/bin")
+#+END_SRC
+
+* Completion
+ 
+** ido-ubiquitous
+ 
+This is the package that auto-completes file names when you press =C-x C-f=.
+ 
+#+BEGIN_SRC emacs-lisp
+  (ido-mode 1)
+  (ido-everywhere 1)
+#+END_SRC
+
+#+RESULTS:
+: t
+
+ 
+** smex
+ 
+This package is a lot like ido-ubiquitous but it autocompletes values
+when you press =M-x=:
+ 
+#+BEGIN_SRC emacs-lisp
+  (require 'smex) ; Not needed if you use package.el
+  (smex-initialize)
+ 
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+  ;; This is your old M-x.
+  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+#+END_SRC
+
+#+RESULTS:
+: execute-extended-command
+ 
+* Timestamp Stuff
+ 
+#+BEGIN_SRC emacs-lisp
+  (defvar current-date-time-format "%a %b %d %H:%M:%S %Z %Y"
+    "Format of date to insert with `insert-current-date-time' func
+  See help of `format-time-string' for possible replacements")
+
+  (defvar current-date-format-for-org "** %m/%d/%Y"
+    "Format of date to insert with `insert-current-date' func for org files.
+  See help of `format-time-string' for possible replacements")
+
+  (defvar current-date-format-for-links "%m-%d-%Y"
+    "This format works better for HTML links than the org format.")
+
+  (defvar current-date-format "%m/%d/%Y"
+    "Format of date to insert with `insert-current-date' func.
+  Note the weekly scope of the command's precision.")
+
+  (defvar current-time-format-for-org "*** %H:%M"
+    "Format of date to insert with `insert-current-time' func for org files.
+  Note the weekly scope of the command's precision.")
+
+  (defvar current-time-format "%H:%M:%S"
+    "Format of date to insert with `insert-current-time' func.
+  Note the weekly scope of the command's precision.")
+
+  (defvar current-time-format-no-delim "%H%M%S"
+    "Format of date with no delimiters.")
+
+  (defun insert-current-date-for-org ()
+    "insert the current date as a heading into an org file.
+  Uses `current-date-time-format' for the formatting the date/time."
+    (interactive)
+    (insert (format-time-string current-date-format-for-org (current-time)))
+    (insert "\n")
+    )
+
+  (defun insert-current-date-for-links ()
+    "Insert the current date in a way that works in HTML
+    links."
+    (interactive)
+    (insert (format-time-string current-date-format-for-links (current-time)))
+    )
+
+  (defun get-current-date-for-links ()
+    "Retrieves the current date in a way that works in HTML
+    links."
+    (interactive)
+    (format-time-string current-date-format-for-links (current-time))
+    )
+
+  (defun insert-current-date ()
+    "insert the current date into current buffer.
+  Uses `current-date-time-format' for the formatting the date/time."
+    (interactive)
+    (insert (format-time-string current-date-format (current-time)))
+    )
+
+  (defun get-current-date ()
+    "Returns the current date. Uses `current-date-time-format` for the formatting of the date/time"
+    (interactive)
+    (format-time-string current-date-format (current-time)))
+
+  (defun insert-current-time-for-org ()
+    "insert the current time as a heading into an org file."
+    (interactive)
+    (insert (format-time-string current-time-format-for-org (current-time)))
+    (insert "\n")
+    )
+
+  (defun insert-new-day-headings ()
+    "insert the 'new day' heading into an org file"
+    (interactive)
+    (insert-current-date-for-org)
+    (insert "\n")
+    (insert-current-time-for-org)
+    (insert "\n")
+    )
+
+  (defun insert-current-date-time ()
+    "insert the current date and time into current buffer.
+  Uses `current-date-time-format' for the formatting the date/time."
+    (interactive)
+    (insert "==========\n")
+					  ;       (insert (let () (comment-start)))
+    (insert (format-time-string current-date-time-format (current-time)))
+    (insert "\n")
+    )
+
+  (defun insert-current-time ()
+    "insert the current time (1-week scope) into the current buffer."
+    (interactive)
+    (insert (format-time-string current-time-format (current-time)))
+    )
+
+  (defun get-current-time ()
+    "Returns the current time (1-week scope).."
+    (interactive)
+    (format-time-string current-time-format (current-time)))
+
+  (defun get-current-time-no-delim ()
+    "Returns the current time with no delimiters."
+    (interactive)
+    (format-time-string current-time-format-no-delim (current-time)))
+
+  (global-set-key "\C-c\C-d" 'insert-current-date-time)
+  (global-set-key "\C-c\C-t" 'insert-current-time)
+#+END_SRC
+
+#+RESULTS:
+: insert-current-time
+
+* Vim Compat
+ 
+Here's some of the keystrokes from Vim that I still like to use.
+ 
+This emulates Vim's "gg top" mnemonic:
+ 
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x gg") 'beginning-of-buffer)
+  (global-set-key (kbd "C-x G")  'end-of-buffer)
+#+END_SRC
+
+#+RESULTS:
+: end-of-buffer
+* Dev
+** Misc
+*** Rainbow Delimiters
+
+ #+BEGIN_SRC emacs-lisp
+   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+ #+END_SRC
+
+ #+RESULTS:
+ | rainbow-delimiters-mode |
+
+** Powershell
+ 
+ #+BEGIN_SRC emacs-lisp
+ (require 'powershell)
+ (autoload 'powershell "powershell" "Run powershell as a shell within emacs." t) 
+ #+END_SRC
+ 
+ #+RESULTS:
+** Robot Mode
+*** Bootstrap
+ #+BEGIN_SRC emacs-lisp
+   (load "robot-mode")
+   (add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
+ #+END_SRC
+** Lisp
+*** Paredit
+
+Let's just turn it on for everything :smile: 
+
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+    (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+    (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+  #+END_SRC
+** Autoit
+#+BEGIN_SRC emacs-lisp
+  (require 'autoit-mode)
+  (add-to-list 'auto-mode-alist '("\\.au3\\'" . autoit-mode))
+#+END_SRC
+
+* Registers
+** Org
+#+BEGIN_SRC emacs-lisp 
+  (set-register ?w (cons 'file (concat org-directory "/WorkLogs.org")))
+  (set-register ?i (cons 'file (concat org-directory "/index.org")))
+  (set-register ?m (cons 'file (concat org-directory "/MeetingMinutes.org")))
+#+END_SRC
+
+#+RESULTS:
+: (file . ~/org/MeetingMinutes.org)
+
+** Misc
+#+BEGIN_SRC emacs-lisp 
+  (set-register ?e (cons 'file "~/.emacs.d/emacs-init.org"))
+  (set-register ?p (cons 'file "c:/tools/cmder/config/user-profile.ps1"))
+  (set-register ?h (cons 'file "~/Documents/Dev/AHK/hotstrings.ahk"))
+  (set-register ?b (cons 'file "~/appData/Roaming/bug.n/Config.ini"))
+  (set-register ?r (cons 'file "c:/users/tom.purl/git/braindump/index.org"))
+#+END_SRC
