@@ -12,7 +12,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ssh-agency ecukes feature-mode web-mode graphviz-dot-mode groovy-mode ack htmlize json-reformat yaml-mode powerline magit paredit rainbow-delimiters emojify ahk-mode yasnippet smex powershell org-bullets org moe-theme))))
+    (ecukes feature-mode web-mode graphviz-dot-mode groovy-mode ack htmlize json-reformat yaml-mode powerline magit paredit rainbow-delimiters emojify ahk-mode yasnippet smex powershell org-bullets org moe-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
