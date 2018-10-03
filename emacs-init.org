@@ -567,7 +567,22 @@ magit doesn't work so I'm just going to comment all of this out.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'exec-path "c:/Program Files/Git/bin")
 #+END_SRC
+** SSH Stuff
 
+Pushing to an SSH repo using Windows is a bit tricky. Here's what I
+did to make it work:
+
+1. Install the regular Git package.
+2. Install the PuTTY tools, including =pageant= and =plink=.
+3. Manage your SSH keys using =pageant=
+   1. Ideally, load your git-related keys on Windows startup.
+
+After all of that I only needed the following config:
+
+#+BEGIN_SRC emacs-lisp 
+  (setenv "SSH_ASKPASS" "git-gui--askpass")
+  (setenv "GIT_SSH" "C:/Program Files/PuTTY/plink.exe")
+#+END_SRC
 * Completion
  
 ** ido-ubiquitous
