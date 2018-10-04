@@ -784,6 +784,36 @@ Let's just turn it on for everything :smile:
   (require 'autoit-mode)
   (add-to-list 'auto-mode-alist '("\\.au3\\'" . autoit-mode))
 #+END_SRC
+** Web
+*** Running a web server
+**** Overview
+    [[https://elpa.gnu.org/packages/web-server.html][web-server]] is a great module that can interpret elisp or just
+    serve up static files (which is how I use it). For me it provides
+    a really easy way viewing HTML files in a browser in a "real" way.
+**** Bootstrap
+#+BEGIN_SRC emacs-lisp
+  (require 'web-server)
+#+END_SRC
+**** Convenience Functions
+     This function starts a server on port 9003 that serves up static
+     content that's located in the PWD (which is also your DOCROOT). 
+#+BEGIN_SRC emacs-lisp
+  (defun tp/start-server-in-pwd ()
+    (interactive)
+    (lexical-let ((docroot default-directory))
+      (ws-start
+       (lambda (request)
+	 (with-slots (process headers) request
+	   (let ((path (substring (cdr (assoc :GET headers)) 1)))
+	     (if (ws-in-directory-p docroot path)
+		 (if (file-directory-p path)
+		     (ws-send-directory-list process
+					     (expand-file-name path docroot) "^[^\.]")
+		   (ws-send-file process (expand-file-name path docroot)))
+	       (ws-send-404 process)))))
+       9003))
+    (message "Serving up files on port 9003."))
+#+END_SRC
 
 * Registers
 ** Org
