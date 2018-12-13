@@ -7,11 +7,11 @@ load path:
 ** Debugging
 
 #+BEGIN_SRC emacs-lisp 
-  (setq debug-on-error nil)
+  (setq debug-on-error 1)
 #+END_SRC
 
 #+RESULTS:
-: t
+: 1
 
 ** Package Management
  
@@ -76,6 +76,9 @@ append some of my custom apps to the Emacs path.
 	  )
 #+END_SRC
 
+#+RESULTS:
+: C:/Program Files/Git/bin;C:/Python27;c:/ProgramData/chocolatey/bin;c:/Users/tom.purl/AppData/Roaming/.virtualenvs/tdd-django/Scripts;C:/Program Files/Git/bin;C:/Python27;c:/ProgramData/chocolatey/bin;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files (x86)\Tesseract-OCR;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Program Files\TortoiseGit\bin;C:\Users\tom.purl\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\tom.purl\AppData\Local\Programs\Python\Python36\;C:\Users\tom.purl\AppData\Local\Microsoft\WindowsApps;C:\tools\cmder;C:\Program Files (x86)\Nmap;C:\Program Files (x86)\Sophos\Sophos SSL VPN Client\bin
+
 * Eye Candy
 ** Themes
 *** Moe Theme
@@ -129,10 +132,11 @@ information on the "*_ALL" properties check this out:
 #+BEGIN_SRC emacs-lisp
   ;; Effort and global properties
   (setq org-global-properties
-        '(
-          ("POM_Estimate_ALL". "n/a 1 2 3 4 5 6 7 8 9 10")))
+	'(
+	  ("POM_Estimate_ALL". "n/a 1 2 3 4 5 6 7 8 9 10")
+	  ("PRIORITIES" . "AAA AA A B C")))
 #+END_SRC
- 
+
 ** Keymaps
 #+BEGIN_SRC emacs-lisp 
   (define-key global-map "\C-cl" 'org-store-link)
@@ -193,9 +197,9 @@ nuts. This fixes that:
     (interactive)
     (message "Saving all org buffers to keep agenda files list clean")
     (org-save-all-org-buffers)
-    (setq org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))
+    (setq org-agenda-files (list "~/org"))
     (message "Done setting org agenda files."))
- 
+
   (set-org-agenda-files)
 #+END_SRC
  
@@ -751,6 +755,33 @@ This emulates Vim's "gg top" mnemonic:
 
  #+RESULTS:
  | rainbow-delimiters-mode |
+*** Linting
+
+Flycheck relies on external programs to analyze your code. Here's what
+you need to install for your favorite programming languages:
+
+- Python
+  - pylint
+- Bash
+  - shellcheck
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+#+END_SRC
+*** Projectile
+    [[https://www.projectile.mx/en/latest/usage/][Projectile]] is a fantastic package that makes it easier to work
+    within a project using Emacs.
+
+    I'm not a huge fan of it's built-in prefix though so let's fix
+    that:
+
+#+BEGIN_SRC emacs-lisp 
+  (use-package projectile
+    :init
+    (setq projectile-keymap-prefix (kbd "C-c p"))
+    :config
+    (projectile-mode +1))
+#+END_SRC
 
 ** Powershell
  
@@ -813,6 +844,43 @@ Let's just turn it on for everything :smile:
 	       (ws-send-404 process)))))
        9003))
     (message "Serving up files on port 9003."))
+#+END_SRC
+*** HTML
+web-mode is awesome!
+
+#+BEGIN_SRC emacs-lisp
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+#+END_SRC
+
+** Python
+*** Virtualenv
+#+BEGIN_SRC emacs-lisp
+  (require 'virtualenvwrapper)
+  (venv-initialize-interactive-shells) ;; if you want interactive shell support
+  (venv-initialize-eshell) ;; if you want eshell support
+#+END_SRC
+
+Wouldn't it be nice if projectile asked you if you would like to
+switch virtualenv's when switching projects?
+
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-switch-project-action 'venv-projectile-auto-workon)
+#+END_SRC
+
+*** Auto-completion
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+#+END_SRC
+** Text Search
+*** Ack
+
+None of this currently works. I think that the ack plugin doesn't work
+with the Windows shell.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'exec-path "c:/ProgramData/chocolatey/bin")
 #+END_SRC
 
 * Registers
