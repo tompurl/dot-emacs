@@ -7,3 +7,8 @@ elpa/
 server/
 /customizations/packages/autoit-mode/
 customizations
+/.python-environments
+*.dat
+eshell/
+/projectile-bookmarks.eld
+/projectile.cache
