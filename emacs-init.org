@@ -861,13 +861,6 @@ web-mode is awesome!
   (venv-initialize-eshell) ;; if you want eshell support
 #+END_SRC
 
-Wouldn't it be nice if projectile asked you if you would like to
-switch virtualenv's when switching projects?
-
-#+BEGIN_SRC emacs-lisp
-  (setq projectile-switch-project-action 'venv-projectile-auto-workon)
-#+END_SRC
-
 *** Auto-completion
 #+BEGIN_SRC emacs-lisp
   (add-hook 'python-mode-hook 'jedi:setup)
