@@ -120,7 +120,7 @@ Let's make it globally accessible.
 * ORG!!!!!!!!!!!!!!!
 ** Global Varables
 #+BEGIN_SRC emacs-lisp 
-  (setq org-directory "~/Documents/td/gtd/org/")
+  (setq org-directory "~/org/")
   (setq org-log-done 'time)
 #+END_SRC
  
@@ -883,9 +883,6 @@ with the Windows shell.
   (set-register ?i (cons 'file (concat org-directory "/index.org")))
   (set-register ?m (cons 'file (concat org-directory "/MeetingMinutes.org")))
 #+END_SRC
-
-#+RESULTS:
-: (file . ~/org/MeetingMinutes.org)
 
 ** Misc
 #+BEGIN_SRC emacs-lisp 
