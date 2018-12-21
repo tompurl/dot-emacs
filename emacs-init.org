@@ -430,9 +430,9 @@ value.
   (setq org-publish-project-alist
         '(
           ("org-notes"               ;Used to export .org file
-           :base-directory "~/Documents/td/gtd/org/"  ;directory holds .org files 
+           :base-directory "~/org/"  ;directory holds .org files 
            :base-extension "org"     ;process .org file only    
-           :publishing-directory "~/Documents/td/gtd/org/public_html/"    ;export destination
+           :publishing-directory "~/org/public_html/"    ;export destination
            :recursive t
            :publishing-function org-html-publish-to-html
            :headline-levels 4               ; Just the default for this project.
@@ -450,9 +450,9 @@ value.
            :html-head "<link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' />"
            
            ("org-static"                ;Used to publish static files
-            :base-directory "~/Documents/td/gtd/org/static/"
+            :base-directory "~/org/static/"
             :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-            :publishing-directory "~/Documents/td/gtd/org/public_html/"
+            :publishing-directory "~/org/public_html/"
             :recursive t
             :publishing-function org-publish-attachment
             )
@@ -461,7 +461,7 @@ value.
 #+END_SRC
 
 #+RESULTS:
-| org-notes | :base-directory | ~/Documents/td/gtd/org/ | :base-extension | org | :publishing-directory | ~/Documents/td/gtd/org/public_html/ | :recursive | t | :publishing-function | org-html-publish-to-html | :headline-levels | 4 | :auto-preamble | t | :auto-sitemap | t | :sitemap-filename | sitemap.org | :sitemap-title | Sitemap | :export-creator-info | nil | :export-author-info | nil | :auto-postamble | nil | :table-of-contents | t | :section-numbers | nil | :html-postamble | <p class="postamble">Last Updated %d.</p> | :style-include-default | nil | :html-head | <link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' /> | (org-static :base-directory ~/Documents/td/gtd/org/static/ :base-extension css\ | js\ | png\ | jpg\ | gif\ | pdf\ | mp3\ | ogg\ | swf :publishing-directory ~/Documents/td/gtd/org/public_html/ :recursive t :publishing-function org-publish-attachment) | (org :components (org-notes org-static)) |
+| org-notes | :base-directory | ~/org/ | :base-extension | org | :publishing-directory | ~/org/public_html/ | :recursive | t | :publishing-function | org-html-publish-to-html | :headline-levels | 4 | :auto-preamble | t | :auto-sitemap | t | :sitemap-filename | sitemap.org | :sitemap-title | Sitemap | :export-creator-info | nil | :export-author-info | nil | :auto-postamble | nil | :table-of-contents | t | :section-numbers | nil | :html-postamble | <p class="postamble">Last Updated %d.</p> | :style-include-default | nil | :html-head | <link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' /> | (org-static :base-directory ~/org/static/ :base-extension css\ | js\ | png\ | jpg\ | gif\ | pdf\ | mp3\ | ogg\ | swf :publishing-directory ~/org/public_html/ :recursive t :publishing-function org-publish-attachment) | (org :components (org-notes org-static)) |
 
 ** Yasnippet
 #+BEGIN_SRC emacs-lisp
@@ -869,11 +869,13 @@ web-mode is awesome!
 ** Text Search
 *** Ack
 
-None of this currently works. I think that the ack plugin doesn't work
-with the Windows shell.
+    The =ack= Emacs plugin looked sweet but I couldn't get it to work
+    on Windows :-( Luckily the Silver Searcher worked!
+
+*** Ag (The Silver Searcher)
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'exec-path "c:/ProgramData/chocolatey/bin")
+  (use-package ag)
 #+END_SRC
 
 * Registers
