@@ -280,6 +280,7 @@ make any changes to your org-agenda view.
 	  ("t" "Todo" entry (file+headline (lambda () (concat org-directory "inbox.org")) "In-Process") "* TODO %? %^g")
 	  ;; ("t" "Todo" entry (file+headline "~/inbox.org" "Tasks") "* TODO %?\n %i\n %a")
 	  ("w" "Work Log" entry (file+headline (lambda () (concat org-directory "/WorkLogs.org")) "On-Deck") "** %(create-org-link 1) %?")
+	  ("d" "Daily Review" entry (file+headline (lambda () (concat org-directory "/Personal_Reviews.org")) "Daily") "** %(create-org-link 1) %?")
 	  ("r" "Research Note" entry (file+headline (lambda () (concat org-directory "/ResearchNotes.org")) "In-Process") "** %(create-org-link nil) %?")
 	  ("l" "Lessons Learned" entry (file+headline (lambda () (concat org-directory "/LessonsLearned.org")) "Drafts") "** %(create-org-link nil) %?")
 	  ("m" "Meeting Minute" entry (file+headline (lambda () (concat org-directory "/MeetingMinutes.org")) "In-Process") "** %(create-org-link 1) %?")
@@ -782,6 +783,16 @@ you need to install for your favorite programming languages:
     :config
     (projectile-mode +1))
 #+END_SRC
+*** Indent
+    This turns off tabs and replaces them with 4 spaces for most major
+    modes:
+
+ #+BEGIN_SRC emacs-lisp
+   (setq-default c-basic-offset 4)
+   (setq indent-tabs-mode nil)
+ #+END_SRC
+
+    This doesn't yet work for robot mode.
 
 ** Powershell
  
@@ -893,4 +904,5 @@ web-mode is awesome!
   (set-register ?h (cons 'file "~/Documents/Dev/AHK/hotstrings.ahk"))
   (set-register ?b (cons 'file "~/appData/Roaming/bug.n/Config.ini"))
   (set-register ?r (cons 'file "c:/users/tom.purl/git/braindump/index.org"))
+  (set-register ?g (cons 'file "c:/users/tom.purl/.gitconfig"))
 #+END_SRC
