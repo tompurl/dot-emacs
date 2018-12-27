@@ -110,6 +110,15 @@ Let's make it globally accessible.
 #+BEGIN_SRC emacs-lisp
   (powerline-default-theme)
 #+END_SRC
+** Hide DOS EOL Char's (^M)
+   This is thanks to https://stackoverflow.com/a/750933/1380901
+ #+BEGIN_SRC emacs-lisp
+   (defun tp/remove-dos-eol ()
+     "Do not show ^M in files containing mixed UNIX and DOS line endings."
+     (interactive)
+     (setq buffer-display-table (make-display-table))
+     (aset buffer-display-table ?\^M []))
+ #+END_SRC
 * YAS
 ** Bootstrap
 #+BEGIN_SRC emacs-lisp
@@ -807,6 +816,10 @@ you need to install for your favorite programming languages:
  #+BEGIN_SRC emacs-lisp
    (load "robot-mode")
    (add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
+ #+END_SRC
+*** Hiding =^M= Characters In Robot Files
+ #+BEGIN_SRC emacs-lisp
+   (add-hook 'robot-mode-hook 'tp/remove-dos-eol)
  #+END_SRC
 ** Lisp
 *** Paredit
