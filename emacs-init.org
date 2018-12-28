@@ -24,9 +24,6 @@ Here's where I install local packages:
   (add-to-list 'load-path "~/.emacs.d/customizations/lisp/")
 #+END_SRC
 
-#+RESULTS:
-| ~/.emacs.d/customizations/lisp/ | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/site-lisp | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/site-lisp | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/vc | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/url | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/textmodes | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/progmodes | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/play | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/org | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/nxml | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/net | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/mh-e | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/mail | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/leim | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/language | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/international | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/gnus | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/eshell | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/erc | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/emulation | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/emacs-parallel | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/emacs-lisp | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/cedet | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/calendar | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/calc | c:/ProgramData/chocolatey/lib/Emacs/tools/share/emacs/24.5/lisp/obsolete |
-
  
 I guess I'll add the melpa stuff even though I don't think I can 
 use it:
@@ -75,9 +72,6 @@ append some of my custom apps to the Emacs path.
 	   )
 	  )
 #+END_SRC
-
-#+RESULTS:
-: C:/Program Files/Git/bin;C:/Python27;c:/ProgramData/chocolatey/bin;c:/Users/tom.purl/AppData/Roaming/.virtualenvs/tdd-django/Scripts;C:/Program Files/Git/bin;C:/Python27;c:/ProgramData/chocolatey/bin;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files (x86)\Tesseract-OCR;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Program Files\TortoiseGit\bin;C:\Users\tom.purl\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\tom.purl\AppData\Local\Programs\Python\Python36\;C:\Users\tom.purl\AppData\Local\Microsoft\WindowsApps;C:\tools\cmder;C:\Program Files (x86)\Nmap;C:\Program Files (x86)\Sophos\Sophos SSL VPN Client\bin
 
 * Eye Candy
 ** Themes
@@ -154,8 +148,15 @@ information on the "*_ALL" properties check this out:
   (define-key global-map "\C-cc" 'org-capture)
   (global-set-key (kbd "C-c h") 'open-org-html-file-in-browser)
   (global-set-key (kbd "<f6>") (lambda() (interactive)(org-publish-current-file)))
+
+  (progn
+    (define-prefix-command 'tp/ag-key-map)
+    (define-key tp/ag-key-map (kbd "p") 'ag-project)
+    (define-key tp/ag-key-map (kbd "f") 'ag))
+
+  (global-set-key (kbd "\C-cf") tp/ag-key-map)
 #+END_SRC
- 
+
 I know this doesn't work but I think I'm close:
  
 #+BEGIN_SRC emacs-lisp
@@ -598,7 +599,6 @@ After all of that I only needed the following config:
   (setenv "GIT_SSH" "C:/Program Files/PuTTY/plink.exe")
 #+END_SRC
 * Completion
- 
 ** ido-ubiquitous
  
 This is the package that auto-completes file names when you press =C-x C-f=.
@@ -611,7 +611,6 @@ This is the package that auto-completes file names when you press =C-x C-f=.
 #+RESULTS:
 : t
 
- 
 ** smex
  
 This package is a lot like ido-ubiquitous but it autocompletes values
@@ -629,7 +628,17 @@ when you press =M-x=:
 
 #+RESULTS:
 : execute-extended-command
- 
+** Helm
+   Use =helm= for =M-x= function searching:
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x b") 'helm-mini)
+#+END_SRC
+
+#+RESULTS:
+: helm-mini
+
 * Timestamp Stuff
  
 #+BEGIN_SRC emacs-lisp
@@ -790,8 +799,11 @@ you need to install for your favorite programming languages:
     :init
     (setq projectile-keymap-prefix (kbd "C-c p"))
     :config
-    (projectile-mode +1))
+    (projectile-mode +1)
+    (setq projectile-completion-system 'helm)
+    (helm-projectile-on))
 #+END_SRC
+
 *** Indent
     This turns off tabs and replaces them with 4 spaces for most major
     modes:
@@ -898,8 +910,23 @@ web-mode is awesome!
 
 *** Ag (The Silver Searcher)
 
+    Here's the basics:
+
 #+BEGIN_SRC emacs-lisp
   (use-package ag)
+#+END_SRC
+
+    I thought it would be nice to access the =ag-*= functions using a
+    =Ctrl-c f= prefix, and the code below does exactly that (thanks to
+    [[http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html][Xah Lee]] once again)
+
+#+BEGIN_SRC emacs-lisp 
+  (progn
+    (define-prefix-command 'tp/ag-key-map)
+    (define-key tp/ag-key-map (kbd "p") 'ag-project)
+    (define-key tp/ag-key-map (kbd "f") 'ag))
+
+  (global-set-key (kbd "\C-cf") tp/ag-key-map)
 #+END_SRC
 
 * Registers
