@@ -148,13 +148,6 @@ information on the "*_ALL" properties check this out:
   (define-key global-map "\C-cc" 'org-capture)
   (global-set-key (kbd "C-c h") 'open-org-html-file-in-browser)
   (global-set-key (kbd "<f6>") (lambda() (interactive)(org-publish-current-file)))
-
-  (progn
-    (define-prefix-command 'tp/ag-key-map)
-    (define-key tp/ag-key-map (kbd "p") 'ag-project)
-    (define-key tp/ag-key-map (kbd "f") 'ag))
-
-  (global-set-key (kbd "\C-cf") tp/ag-key-map)
 #+END_SRC
 
 I know this doesn't work but I think I'm close:
@@ -222,7 +215,7 @@ Here's my custom agenda view that uses "column view".
  
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-overriding-columns-format
-        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %3POM_Estimate(Est.) %6POM_Pomodori(Poms) %6POM_Interruptions(Ints) %TAGS %12CLOCKSUM_T(Today's Time) %12CLOCKSUM(Total Time)")
+        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %3POM_Estimate(Est.) %10POM_Pomodori(Poms) %6POM_Interruptions(Ints) %TAGS %12CLOCKSUM_T(Today's Time) %12CLOCKSUM(Total Time)")
   (setq org-agenda-view-columns-initially t)
   (setq org-agenda-custom-commands
         '(("." "Simple agenda view"
@@ -231,10 +224,7 @@ Here's my custom agenda view that uses "column view".
                         ))
             (agenda "")))))
 #+END_SRC
- 
-#+RESULTS:
-| . | Simple agenda view | ((tags +today ((org-agenda-span (quote day)))) (agenda )) |
- 
+  
 This only shows today's tasks in the agenda view by default:
  
 #+BEGIN_SRC emacs-lisp
@@ -634,10 +624,8 @@ when you press =M-x=:
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x b") 'helm-mini)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
 #+END_SRC
-
-#+RESULTS:
-: helm-mini
 
 * Timestamp Stuff
  
@@ -908,7 +896,7 @@ web-mode is awesome!
     The =ack= Emacs plugin looked sweet but I couldn't get it to work
     on Windows :-( Luckily the Silver Searcher worked!
 
-*** Ag (The Silver Searcher)
+*** Ag (The Silver Searcher) And Helm Swoop
 
     Here's the basics:
 
@@ -918,13 +906,23 @@ web-mode is awesome!
 
     I thought it would be nice to access the =ag-*= functions using a
     =Ctrl-c f= prefix, and the code below does exactly that (thanks to
-    [[http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html][Xah Lee]] once again)
+    [[http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html][Xah Lee]] once again).
+
+    I also added a few =helm-swoop= shortcuts since that's also an
+    excellent tool for searching files.
 
 #+BEGIN_SRC emacs-lisp 
   (progn
     (define-prefix-command 'tp/ag-key-map)
-    (define-key tp/ag-key-map (kbd "p") 'ag-project)
-    (define-key tp/ag-key-map (kbd "f") 'ag))
+    ; Find in project
+    (define-key tp/ag-key-map (kbd "p") 'helm-multi-swoop-projectile)
+    ; Find in file
+    (define-key tp/ag-key-map (kbd "f") 'ag)
+    ; Find using plain-old swoop :-)
+    (define-key tp/ag-key-map (kbd "s") 'helm-swoop)
+    ; Find using multi-swoop
+    (define-key tp/ag-key-map (kbd "m") 'helm-multi-swoop)
+    )
 
   (global-set-key (kbd "\C-cf") tp/ag-key-map)
 #+END_SRC
