@@ -84,9 +84,10 @@ append some of my custom apps to the Emacs path.
 #+END_SRC
 ** centered-window-mode
 #+BEGIN_SRC emacs-lisp
-(require 'centered-window)
-(centered-window-mode t)
+  (require 'centered-window)
+  (global-set-key (kbd "<f5>") 'centered-window-mode)
 #+END_SRC
+
 ** Font
 #+BEGIN_SRC emacs-lisp
   ; (set-frame-font "Ubuntu Mono 14" nil t)
@@ -588,6 +589,19 @@ After all of that I only needed the following config:
   (setenv "SSH_ASKPASS" "git-gui--askpass")
   (setenv "GIT_SSH" "C:/Program Files/PuTTY/plink.exe")
 #+END_SRC
+** Keymaps
+#+BEGIN_SRC emacs-lisp 
+  (progn
+    (define-prefix-command 'tp/magit-key-map)
+    (define-key tp/magit-key-map (kbd "s") 'magit-status)
+    (define-key tp/magit-key-map (kbd "b") 'magit-branch-popup)
+    (define-key tp/magit-key-map (kbd "c") 'magit-checkout)
+    (define-key tp/magit-key-map (kbd "d") 'magit-diff-popup)
+    )
+
+  (global-set-key (kbd "\C-cm") tp/magit-key-map)
+#+END_SRC
+
 * Completion
 ** ido-ubiquitous
  
@@ -798,7 +812,7 @@ you need to install for your favorite programming languages:
 
  #+BEGIN_SRC emacs-lisp
    (setq-default c-basic-offset 4)
-   (setq indent-tabs-mode nil)
+   (setq-default indent-tabs-mode nil)
  #+END_SRC
 
     This doesn't yet work for robot mode.
@@ -890,13 +904,13 @@ web-mode is awesome!
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t)
 #+END_SRC
-** Text Search
-*** Ack
+* Text Search
+** Ack
 
-    The =ack= Emacs plugin looked sweet but I couldn't get it to work
-    on Windows :-( Luckily the Silver Searcher worked!
+   The =ack= Emacs plugin looked sweet but I couldn't get it to work
+   on Windows :-( Luckily the Silver Searcher worked!
 
-*** Ag (The Silver Searcher) And Helm Swoop
+** Ag (The Silver Searcher) And Helm Swoop
 
     Here's the basics:
 
@@ -914,14 +928,16 @@ web-mode is awesome!
 #+BEGIN_SRC emacs-lisp 
   (progn
     (define-prefix-command 'tp/ag-key-map)
-    ; Find in project
-    (define-key tp/ag-key-map (kbd "p") 'helm-multi-swoop-projectile)
-    ; Find in file
-    (define-key tp/ag-key-map (kbd "f") 'ag)
-    ; Find using plain-old swoop :-)
-    (define-key tp/ag-key-map (kbd "s") 'helm-swoop)
-    ; Find using multi-swoop
-    (define-key tp/ag-key-map (kbd "m") 'helm-multi-swoop)
+    ; I'm having trouble searching within a project in a really fast way. Oh well.
+    ;(define-key tp/ag-key-map (kbd "p") 'projectile-ag)
+    ; Find in the current buffer.
+    (define-key tp/ag-key-map (kbd "b") 'helm-swoop)
+    ; Find using all open buffers
+    (define-key tp/ag-key-map (kbd "o") 'helm-multi-swoop)
+    ; Search all of your org buffers
+    (define-key tp/ag-key-map (kbd "r") 'helm-org-rifle)
+    ; And if you didn't trust any of these, try plain-old ag :-)
+    (define-key tp/ag-key-map (kbd "a") 'ag)
     )
 
   (global-set-key (kbd "\C-cf") tp/ag-key-map)
