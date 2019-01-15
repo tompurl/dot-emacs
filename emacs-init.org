@@ -77,11 +77,24 @@ append some of my custom apps to the Emacs path.
 ** Themes
 *** Moe Theme
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/customizations/packages/moe-theme.el-master/moe-theme.el/")
-  (load "moe-theme.el")
-  (require 'moe-theme)
-  (moe-light)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/customizations/packages/moe-theme.el-master/moe-theme.el/") ;;
+  ;; (load "moe-theme.el")                                                                                        ;;
+  ;; (require 'moe-theme)                                                                                         ;;
+  ;; (moe-light)                                                                                                  ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #+END_SRC
+*** Poet Theme
+#+BEGIN_SRC emacs-lisp
+  (require 'poet-theme)
+  (add-hook 'text-mode-hook
+            (lambda ()
+              (variable-pitch-mode 1)))
+  (set-face-attribute 'default nil :family "Hack" :height 110)
+  (set-face-attribute 'fixed-pitch nil :family "Hack")
+  (set-face-attribute 'variable-pitch nil :family "Georgia")
+#+END_SRC
+
 ** centered-window-mode
 #+BEGIN_SRC emacs-lisp
   (require 'centered-window)
@@ -89,12 +102,7 @@ append some of my custom apps to the Emacs path.
 #+END_SRC
 
 ** Font
-#+BEGIN_SRC emacs-lisp
-  ; (set-frame-font "Ubuntu Mono 14" nil t)
-(set-frame-font "Hack 12" nil t)
-
-#+END_SRC
-
+   The font is set in the [[*Poet Theme][Poet Theme]] section above.
 #+RESULTS:
 ** Emojify mode
 Let's make it globally accessible.
