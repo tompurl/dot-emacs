@@ -87,14 +87,7 @@ append some of my custom apps to the Emacs path.
 *** Poet Theme
 #+BEGIN_SRC emacs-lisp
   (require 'poet-theme)
-  (add-hook 'text-mode-hook
-            (lambda ()
-              (variable-pitch-mode 1)))
-  (set-face-attribute 'default nil :family "Hack" :height 110)
-  (set-face-attribute 'fixed-pitch nil :family "Hack")
-  (set-face-attribute 'variable-pitch nil :family "Georgia")
 #+END_SRC
-
 ** centered-window-mode
 #+BEGIN_SRC emacs-lisp
   (require 'centered-window)
@@ -102,8 +95,15 @@ append some of my custom apps to the Emacs path.
 #+END_SRC
 
 ** Font
-   The font is set in the [[*Poet Theme][Poet Theme]] section above.
-#+RESULTS:
+#+BEGIN_SRC emacs-lisp
+  ;; This allows us to show more than one font in a page.
+  (add-hook 'text-mode-hook
+            (lambda ()
+              (variable-pitch-mode 1)))
+  (set-face-attribute 'default nil :family "Hack" :height 110)
+  (set-face-attribute 'fixed-pitch nil :family "Hack")
+  (set-face-attribute 'variable-pitch nil :family "Lucida Bright")
+#+END_SRC
 ** Emojify mode
 Let's make it globally accessible.
 #+BEGIN_SRC emacs-lisp
