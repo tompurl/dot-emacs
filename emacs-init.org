@@ -7,11 +7,8 @@ load path:
 ** Debugging
 
 #+BEGIN_SRC emacs-lisp 
-  (setq debug-on-error 1)
+  (setq debug-on-error nil)
 #+END_SRC
-
-#+RESULTS:
-: 1
 
 ** Package Management
  
@@ -95,15 +92,27 @@ append some of my custom apps to the Emacs path.
 #+END_SRC
 
 ** Font
+*** Font Choices
+ #+BEGIN_SRC emacs-lisp
+   (set-face-attribute 'default nil :family "Hack" :height 110)
+   (set-face-attribute 'fixed-pitch nil :family "Hack")
+   (set-face-attribute 'variable-pitch nil :family "Lucida Bright")
+ #+END_SRC
+
+*** Viewing monospaced and non-monospaced fonts in the same document
+    Emacs has a great feature that allows you to view non-code text
+    using a proportional font (like Helvetica) and code text using a
+    non-proportional font (like Courier). You just have to run this below:
+
 #+BEGIN_SRC emacs-lisp
-  ;; This allows us to show more than one font in a page.
   (add-hook 'text-mode-hook
             (lambda ()
               (variable-pitch-mode 1)))
-  (set-face-attribute 'default nil :family "Hack" :height 110)
-  (set-face-attribute 'fixed-pitch nil :family "Hack")
-  (set-face-attribute 'variable-pitch nil :family "Lucida Bright")
 #+END_SRC
+
+#+RESULTS:
+| (lambda nil (variable-pitch-mode nil)) | (lambda nil (variable-pitch-mode 1)) | text-mode-hook-identify |
+
 ** Emojify mode
 Let's make it globally accessible.
 #+BEGIN_SRC emacs-lisp
