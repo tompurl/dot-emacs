@@ -140,7 +140,10 @@ Let's make it globally accessible.
 #+END_SRC
 ** Powerline
 #+BEGIN_SRC emacs-lisp
-  (powerline-default-theme)
+  (use-package powerline
+    :ensure t
+    :config
+    (powerline-default-theme))
 #+END_SRC
 ** Hide DOS EOL Char's (^M)
    This is thanks to https://stackoverflow.com/a/750933/1380901
@@ -160,14 +163,13 @@ Let's make it globally accessible.
     :ensure t)
 #+END_SRC
 
-#+RESULTS:q
-
 * YAS
 ** Bootstrap
 #+BEGIN_SRC emacs-lisp
-  (load "yasnippet.el")
-  (require 'yasnippet)
-  (yas-global-mode 1)
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-global-mode 1))
 #+END_SRC
 * ORG!!!!!!!!!!!!!!!
 ** Global Varables
