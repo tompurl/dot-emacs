@@ -292,8 +292,7 @@ to run properly on startup:
 (org-clock-sum)
 #+END_SRC
  
-*** Helpers
- 
+*** Helpers 
 **** Removing the today tag from a todo 
  
 This function clears out the "today" tag from the tasks in my custom
@@ -531,9 +530,6 @@ value.
               (define-key yas/keymap [tab] 'yas/next-field)))
 #+END_SRC
 
-#+RESULTS:
-| (lambda nil (make-variable-buffer-local (quote yas/trigger-key)) (setq yas/trigger-key [tab]) (add-to-list (quote org-tab-first-hook) (quote yas/org-very-safe-expand)) (define-key yas/keymap [tab] (quote yas/next-field))) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes |
-
 ** Babel
  
 Here's the languages that I can interpret:
@@ -579,23 +575,6 @@ block (unless it's overrided at a lower lever of course).
 
 #+RESULTS:
 
-** Org-pomodoro
- 
-#+BEGIN_SRC emacs-lisp
-(setq org-pomodoro-keep-killed-pomodoro-time 't)
- 
-; Show a popup every time a pom is completed.
-(add-hook 'org-pomodoro-finished-hook
-          (lambda () (shell-command "c:\\Users\\pp87775\\Documents\\Dev\\PS\\show-pom-end-popup.bat" nil nil)))
-(add-hook 'org-pomodoro-break-finished-hook
-          (lambda () (shell-command "C:\\Users\\pp87775\\Documents\\Dev\\PS\\show-break-end-popup.bat" nil nil)))
-#+END_SRC
-
-#+RESULTS:
-| lambda | nil | (shell-command C:\Users\pp87775\Documents\Dev\PS\show-break-end-popup.bat nil nil) |
-
- 
-...and duh.
 ** Tags
 These are the tags that I will use the most when creating new tasks.
  
@@ -610,12 +589,12 @@ These are the tags that I will use the most when creating new tasks.
 Of course you need these :smile:
  
 #+BEGIN_SRC emacs-lisp 
-  (require 'org-bullets)
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  (use-package org-bullets
+    :ensure t
+    :init
+    (require 'org-bullets)
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
-
-#+RESULTS:
-| (lambda nil (org-bullets-mode 1)) | (lambda nil (make-variable-buffer-local (quote yas/trigger-key)) (setq yas/trigger-key [tab]) (add-to-list (quote org-tab-first-hook) (quote yas/org-very-safe-expand)) (define-key yas/keymap [tab] (quote yas/next-field))) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes |
 
 * Magit
 ** Bootstrap
