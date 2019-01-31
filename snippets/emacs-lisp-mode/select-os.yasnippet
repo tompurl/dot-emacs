@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: select-os
+# key: sos
+# --
+(cond
+((string-equal system-type "windows-nt")
+(progn
+(${1})))
+((string-equal system-type "gnu/linux")
+(progn
+(${2})))
+)

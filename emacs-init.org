@@ -216,20 +216,23 @@ nuts. This fixes that:
 	'((heading . nil) (plain-list-item . nil)))
 #+END_SRC
 
-#+RESULTS:
-| heading         |
-| plain-list-item |
-
 ** Spell Checking
 *** Configure Spell Checker Name
 #+BEGIN_SRC emacs-lisp
-  (setq ispell-program-name 
-	(concat chocolatey-lib "/" "hunspell.portable/tools/bin/hunspell"))
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (setq ispell-program-name 
+            (concat chocolatey-lib "/" "hunspell.portable/tools/bin/hunspell"))))
+   )
 #+END_SRC
 *** Use flyspell in Org
 #+BEGIN_SRC emacs-lisp
-  (dolist (hook '(org-mode-hook))
-        (add-hook hook (lambda () (flyspell-mode 1))))
+  (use-package flyspell
+    :ensure t
+    :init
+    (add-hook 'org-mode-hook
+              (lambda () (flyspell-mode 1))))
 #+END_SRC
 ** Navigation
 *** Open links in the same window, from here:
