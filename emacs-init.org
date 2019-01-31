@@ -21,7 +21,6 @@ Here's where I install local packages:
   (add-to-list 'load-path "~/.emacs.d/customizations/lisp/")
 #+END_SRC
 
- 
 I guess I'll add the melpa stuff even though I don't think I can 
 use it:
  
@@ -42,16 +41,21 @@ And finally, =use-package=:
 
 ** Global Properties
  
-Open everything in Firefox:
+Open everything in the preferred browser:
  
 #+BEGIN_SRC emacs-lisp
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
+  (cond
+   ((string-equal system-type "windows-nt") ; Microsoft Windows
+    (progn
+      (setq browse-url-browser-function 'browse-url-generic
+            browse-url-generic-program "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")))
+   ((string-equal system-type "gnu/linux") ; linux
+    (progn
+      (setq browse-url-browser-function 'browse-url-generic
+            browse-url-generic-program "/usr/bin/chromium")))
+   )
 #+END_SRC
 
-#+RESULTS:
-: C:/Program Files (x86)/Google/Chrome/Application/chrome.exe
- 
 Now on to Org
 
 ** System Path
