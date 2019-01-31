@@ -160,7 +160,11 @@ Let's make it globally accessible.
   (use-package zone-nyan
     :ensure t)
   (use-package nyan-mode
-    :ensure t)
+    :ensure t
+    :init
+    (add-hook 'after-init-hook #'nyan-mode)
+    :config
+    (nyan-start-animation))
 #+END_SRC
 
 * YAS
@@ -603,7 +607,11 @@ I'm currently stuck in dependency hell here and the old version of
 magit doesn't work so I'm just going to comment all of this out.
  
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'exec-path "c:/Program Files/Git/bin")
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+  (add-to-list 'exec-path "c:/Program Files/Git/bin")    
+      )))
 #+END_SRC
 ** SSH Stuff
 
@@ -631,7 +639,7 @@ After all of that I only needed the following config:
     (define-key tp/magit-key-map (kbd "d") 'magit-diff-popup)
     )
 
-  (global-set-key (kbd "\C-cm") tp/magit-key-map)
+ (global-set-key (kbd "\C-cm") tp/magit-key-map)
 #+END_SRC
 
 * Completion
@@ -644,33 +652,35 @@ This is the package that auto-completes file names when you press =C-x C-f=.
   (ido-everywhere 1)
 #+END_SRC
 
-#+RESULTS:
-: t
-
 ** smex
  
 This package is a lot like ido-ubiquitous but it autocompletes values
 when you press =M-x=:
  
 #+BEGIN_SRC emacs-lisp
-  (require 'smex) ; Not needed if you use package.el
-  (smex-initialize)
- 
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-  ;; This is your old M-x.
-  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+  (use-package smex
+    :ensure t
+    :config
+    (smex-initialize)
+    ;; :bind (("M-x" . smex)
+    ;;        ("M-X" . smex-major-mode-commands)
+    ;;        ("C-c C-c M-x" . 'execute-extended-command))
+    )
 #+END_SRC
 
-#+RESULTS:
-: execute-extended-command
+Since I started using =helm= I don't think Smex does anything any more,
+but I'm afraid to delete it at this point :-)
+
 ** Helm
    Use =helm= for =M-x= function searching:
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x b") 'helm-mini)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (use-package helm
+    :ensure t
+    :bind (("M-x" . helm-M-x)
+           ("C-x b" . helm-mini)
+           ("C-x C-f" . helm-find-files))
+    )
 #+END_SRC
 
 * Timestamp Stuff
@@ -782,9 +792,6 @@ when you press =M-x=:
   (global-set-key "\C-c\C-t" 'insert-current-time)
 #+END_SRC
 
-#+RESULTS:
-: insert-current-time
-
 * Vim Compat
  
 Here's some of the keystrokes from Vim that I still like to use.
@@ -796,18 +803,16 @@ This emulates Vim's "gg top" mnemonic:
   (global-set-key (kbd "C-x G")  'end-of-buffer)
 #+END_SRC
 
-#+RESULTS:
-: end-of-buffer
 * Dev
 ** Misc
 *** Rainbow Delimiters
 
  #+BEGIN_SRC emacs-lisp
-   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+   (use-package rainbow-delimiters
+     :ensure t
+     :hook (prog-mode . rainbow-delimiters-mode))
  #+END_SRC
 
- #+RESULTS:
- | rainbow-delimiters-mode |
 *** Linting
 
 Flycheck relies on external programs to analyze your code. Here's what
@@ -819,7 +824,9 @@ you need to install for your favorite programming languages:
   - shellcheck
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (use-package flycheck
+    :ensure t
+    :hook (after-init . global-flycheck-mode))
 #+END_SRC
 *** Projectile
     [[https://www.projectile.mx/en/latest/usage/][Projectile]] is a fantastic package that makes it easier to work
@@ -830,6 +837,7 @@ you need to install for your favorite programming languages:
 
 #+BEGIN_SRC emacs-lisp 
   (use-package projectile
+    :ensure t
     :init
     (setq projectile-keymap-prefix (kbd "C-c p"))
     :config
@@ -847,18 +855,20 @@ you need to install for your favorite programming languages:
    (setq-default indent-tabs-mode nil)
  #+END_SRC
 
-    This doesn't yet work for robot mode.
-
 ** Powershell
  
  #+BEGIN_SRC emacs-lisp
- (require 'powershell)
- (autoload 'powershell "powershell" "Run powershell as a shell within emacs." t) 
+   (use-package powershell
+     :ensure t
+     :config
+     (autoload 'powershell "powershell" "Run powershell as a shell within emacs." t) 
+     )
  #+END_SRC
  
  #+RESULTS:
 ** Robot Mode
 *** Bootstrap
+    Unfortunately, you have to install =robot-mode= manually.
  #+BEGIN_SRC emacs-lisp
    (load "robot-mode")
    (add-to-list 'auto-mode-alist
@@ -883,6 +893,7 @@ Let's just turn it on for everything :smile:
     (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
   #+END_SRC
 ** Autoit
+   Yet another package that we can't install from melpa.
 #+BEGIN_SRC emacs-lisp
   (require 'autoit-mode)
   (add-to-list 'auto-mode-alist '("\\.au3\\'" . autoit-mode))
@@ -895,7 +906,8 @@ Let's just turn it on for everything :smile:
     a really easy way viewing HTML files in a browser in a "real" way.
 **** Bootstrap
 #+BEGIN_SRC emacs-lisp
-  (require 'web-server)
+  (use-package web-server
+    :ensure t)
 #+END_SRC
 **** Convenience Functions
      This function starts a server on port 9003 that serves up static
@@ -921,22 +933,29 @@ Let's just turn it on for everything :smile:
 web-mode is awesome!
 
 #+BEGIN_SRC emacs-lisp
-  (require 'web-mode)
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (use-package web-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 #+END_SRC
 
 ** Python
 *** Virtualenv
 #+BEGIN_SRC emacs-lisp
-  (require 'virtualenvwrapper)
-  (venv-initialize-interactive-shells) ;; if you want interactive shell support
-  (venv-initialize-eshell) ;; if you want eshell support
+  (use-package virtualenvwrapper
+    :ensure t
+    :config
+    (venv-initialize-interactive-shells)
+    (venv-initialize-eshell))
 #+END_SRC
 
 *** Auto-completion
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t)
+  (use-package jedi
+    :ensure t
+    :hook (python-mode . jedi:setup)
+    :config
+    (setq jedi:complete-on-dot t))
 #+END_SRC
 * Text Search
 ** Ack
@@ -949,7 +968,8 @@ web-mode is awesome!
     Here's the basics:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package ag)
+  (use-package ag
+    :ensure t)
 #+END_SRC
 
     I thought it would be nice to access the =ag-*= functions using a
@@ -984,13 +1004,22 @@ web-mode is awesome!
   (set-register ?i (cons 'file (concat org-directory "/index.org")))
   (set-register ?m (cons 'file (concat org-directory "/MeetingMinutes.org")))
 #+END_SRC
-
+** OS-Specific
+#+BEGIN_SRC emacs-lisp 
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (set-register ?p (cons 'file "c:/tools/cmder/config/user-profile.ps1"))
+      (set-register ?h (cons 'file "~/Documents/Dev/AHK/hotstrings.ahk"))
+      (set-register ?g (cons 'file "c:/users/tom.purl/.gitconfig"))
+      (set-register ?r (cons 'file "c:/users/tom.purl/git/braindump/index.org"))))
+   ((string-equal system-type "gnu/linux")
+    (progn
+      (set-register ?g (cons 'file "~/.gitconfig"))
+      (set-register ?r (cons 'file "~/braindump/index.org"))))
+   )
+#+END_SRC
 ** Misc
 #+BEGIN_SRC emacs-lisp 
   (set-register ?e (cons 'file "~/.emacs.d/emacs-init.org"))
-  (set-register ?p (cons 'file "c:/tools/cmder/config/user-profile.ps1"))
-  (set-register ?h (cons 'file "~/Documents/Dev/AHK/hotstrings.ahk"))
-  (set-register ?b (cons 'file "~/appData/Roaming/bug.n/Config.ini"))
-  (set-register ?r (cons 'file "c:/users/tom.purl/git/braindump/index.org"))
-  (set-register ?g (cons 'file "c:/users/tom.purl/.gitconfig"))
 #+END_SRC
