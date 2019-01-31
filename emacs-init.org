@@ -32,9 +32,14 @@ use it:
   (package-initialize) ;; You might already have this line
 #+END_SRC
 
-#+RESULTS:
-: t
- 
+And finally, =use-package=:
+
+#+BEGIN_SRC emacs-lisp
+  ;; This is only needed once, near the top of the file
+  (eval-when-compile
+    (require 'use-package))
+#+END_SRC
+
 ** Global Properties
  
 Open everything in Firefox:
@@ -85,19 +90,45 @@ append some of my custom apps to the Emacs path.
 #+BEGIN_SRC emacs-lisp
   (require 'poet-theme)
 #+END_SRC
-** centered-window-mode
+** Centering Prose
+*** Olivetti
+    This is a *sweet* minor mode that makes prose pages look much nicer. 
+    #+BEGIN_SRC emacs-lisp
+      (use-package olivetti
+        :ensure t
+        :init
+        :config
+        (add-hook 'org-mode-hook
+                  (lambda ()
+                    (olivetti-mode 1))))
+      (custom-set-variables
+       '(olivetti-body-width 100))
+    #+END_SRC
+
+    #+RESULTS:
+
+    Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't actually kill the entire line. Thanks to Xah yet again I have a solution:
+
 #+BEGIN_SRC emacs-lisp
-  (require 'centered-window)
-  (global-set-key (kbd "<f5>") 'centered-window-mode)
+(global-set-key (kbd "M-9") 'kill-whole-line)
 #+END_SRC
 
+*** centered-window-mode
+    I would like to keep this around in the short term just in case
+    Olivetti doesn't work out for me.
+ #+BEGIN_SRC emacs-lisp
+   (require 'centered-window)
+   (global-set-key (kbd "<f5>") 'centered-window-mode)
+ #+END_SRC
 ** Font
 *** Font Choices
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "Hack" :height 110)
+   (set-face-attribute 'default nil :family "Hack" :height 120)
    (set-face-attribute 'fixed-pitch nil :family "Hack")
    (set-face-attribute 'variable-pitch nil :family "Lucida Bright")
  #+END_SRC
+
+ #+RESULTS:
 
 *** Viewing monospaced and non-monospaced fonts in the same document
     Emacs has a great feature that allows you to view non-code text
@@ -131,6 +162,17 @@ Let's make it globally accessible.
      (setq buffer-display-table (make-display-table))
      (aset buffer-display-table ?\^M []))
  #+END_SRC
+** Dumb Stuff
+*** Nyan Cat Stuff
+#+BEGIN_SRC emacs-lisp
+  (use-package zone-nyan
+    :ensure t)
+  (use-package nyan-mode
+    :ensure t)
+#+END_SRC
+
+#+RESULTS:q
+
 * YAS
 ** Bootstrap
 #+BEGIN_SRC emacs-lisp
@@ -466,7 +508,7 @@ value.
            :section-numbers nil        ; Set this to "t" if you want headings to have numbers.
            :html-postamble "    <p class=\"postamble\">Last Updated %d.</p> " ; your personal postamble
            :style-include-default nil  ;Disable the default css style
-           :html-head "<link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' />"
+           :html-head "<link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' />\n<link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/custom.css' />"
            
            ("org-static"                ;Used to publish static files
             :base-directory "~/org/static/"
@@ -480,7 +522,7 @@ value.
 #+END_SRC
 
 #+RESULTS:
-| org-notes | :base-directory | ~/org/ | :base-extension | org | :publishing-directory | ~/org/public_html/ | :recursive | t | :publishing-function | org-html-publish-to-html | :headline-levels | 4 | :auto-preamble | t | :auto-sitemap | t | :sitemap-filename | sitemap.org | :sitemap-title | Sitemap | :export-creator-info | nil | :export-author-info | nil | :auto-postamble | nil | :table-of-contents | t | :section-numbers | nil | :html-postamble | <p class="postamble">Last Updated %d.</p> | :style-include-default | nil | :html-head | <link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' /> | (org-static :base-directory ~/org/static/ :base-extension css\ | js\ | png\ | jpg\ | gif\ | pdf\ | mp3\ | ogg\ | swf :publishing-directory ~/org/public_html/ :recursive t :publishing-function org-publish-attachment) | (org :components (org-notes org-static)) |
+| org-notes | :base-directory | ~/org/ | :base-extension | org | :publishing-directory | ~/org/public_html/ | :recursive | t | :publishing-function | org-html-publish-to-html | :headline-levels | 4 | :auto-preamble | t | :auto-sitemap | t | :sitemap-filename | sitemap.org | :sitemap-title | Sitemap | :export-creator-info | nil | :export-author-info | nil | :auto-postamble | nil | :table-of-contents | t | :section-numbers | nil | :html-postamble | <p class="postamble">Last Updated %d.</p> | :style-include-default | nil | :html-head | <link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' /> |
 
 ** Yasnippet
 #+BEGIN_SRC emacs-lisp
@@ -846,7 +888,9 @@ you need to install for your favorite programming languages:
 *** Bootstrap
  #+BEGIN_SRC emacs-lisp
    (load "robot-mode")
-   (add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
+   (add-to-list 'auto-mode-alist
+                '("\\.txt\\'" . robot-mode)
+                '("\\.robot\\'" . robot-mode))
  #+END_SRC
 *** Hiding =^M= Characters In Robot Files
  #+BEGIN_SRC emacs-lisp
