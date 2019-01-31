@@ -81,17 +81,9 @@ append some of my custom apps to the Emacs path.
 
 * Eye Candy
 ** Themes
-*** Moe Theme
-#+BEGIN_SRC emacs-lisp
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/customizations/packages/moe-theme.el-master/moe-theme.el/") ;;
-  ;; (load "moe-theme.el")                                                                                        ;;
-  ;; (require 'moe-theme)                                                                                         ;;
-  ;; (moe-light)                                                                                                  ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-#+END_SRC
 *** Poet Theme
 #+BEGIN_SRC emacs-lisp
+  ;; This has to be installed manually
   (require 'poet-theme)
 #+END_SRC
 ** Centering Prose
@@ -117,13 +109,6 @@ append some of my custom apps to the Emacs path.
 (global-set-key (kbd "M-9") 'kill-whole-line)
 #+END_SRC
 
-*** centered-window-mode
-    I would like to keep this around in the short term just in case
-    Olivetti doesn't work out for me.
- #+BEGIN_SRC emacs-lisp
-   (require 'centered-window)
-   (global-set-key (kbd "<f5>") 'centered-window-mode)
- #+END_SRC
 ** Font
 *** Font Choices
  #+BEGIN_SRC emacs-lisp
@@ -145,13 +130,13 @@ append some of my custom apps to the Emacs path.
               (variable-pitch-mode 1)))
 #+END_SRC
 
-#+RESULTS:
-| (lambda nil (variable-pitch-mode nil)) | (lambda nil (variable-pitch-mode 1)) | text-mode-hook-identify |
-
 ** Emojify mode
 Let's make it globally accessible.
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'after-init-hook #'global-emojify-mode)
+  (use-package emojify
+    :ensure t
+    :init
+    (add-hook 'after-init-hook #'global-emojify-mode))
 #+END_SRC
 ** Powerline
 #+BEGIN_SRC emacs-lisp
