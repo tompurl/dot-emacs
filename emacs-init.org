@@ -536,21 +536,30 @@ value.
 
 ** Babel
  
-Here's the languages that I can interpret:
+Here's the languages that I can interpret. Note that there's a difference between the way that the =shell= language is loaded between older and newer versions of Emacs. This my hacky way of fixing it for now:
  
 #+BEGIN_SRC emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((js . t)
-     (emacs-lisp . t)
-     (sh . t)
-     (python . t)
-     (dot . t)))
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((js . t)
+         (emacs-lisp . t)
+         (shell . t)
+         (python . t)
+         (dot . t)))))
+   ((string-equal system-type "gnu/linux")
+    (progn
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((js . t)
+         (emacs-lisp . t)
+         (sh . t)
+         (python . t)
+         (dot . t))))))
 #+END_SRC
 
-#+RESULTS:
-
- 
 I don't want to manually confirm that code written in the following
 languages can be executed:
  
