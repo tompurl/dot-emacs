@@ -543,7 +543,7 @@ Here's the languages that I can interpret:
    'org-babel-load-languages
    '((js . t)
      (emacs-lisp . t)
-     (shell . t)
+     (sh . t)
      (python . t)
      (dot . t)))
 #+END_SRC
@@ -602,6 +602,13 @@ Of course you need these :smile:
 
 * Magit
 ** Bootstrap
+
+First, install magit:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t)
+#+END_SRC
  
 I'm currently stuck in dependency hell here and the old version of
 magit doesn't work so I'm just going to comment all of this out.
@@ -895,9 +902,13 @@ Let's just turn it on for everything :smile:
 ** Autoit
    Yet another package that we can't install from melpa.
 #+BEGIN_SRC emacs-lisp
-  (require 'autoit-mode)
-  (add-to-list 'auto-mode-alist '("\\.au3\\'" . autoit-mode))
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (require 'autoit-mode)
+      (add-to-list 'auto-mode-alist '("\\.au3\\'" . autoit-mode)))))
 #+END_SRC
+   
 ** Web
 *** Running a web server
 **** Overview
