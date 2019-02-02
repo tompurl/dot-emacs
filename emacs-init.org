@@ -120,7 +120,7 @@ append some of my custom apps to the Emacs path.
        (set-face-attribute 'variable-pitch nil :family "Lucida Bright")))
     ((string-equal system-type "gnu/linux")
      (progn
-       (set-face-attribute 'variable-pitch nil :family "Roboto Regular"))))
+       (set-face-attribute 'variable-pitch nil :family "Sarabun Light"))))
  #+END_SRC
 
  #+RESULTS:
@@ -184,7 +184,14 @@ Let's make it globally accessible.
 * ORG!!!!!!!!!!!!!!!
 ** Global Varables
 #+BEGIN_SRC emacs-lisp 
-  (setq org-directory "~/org/")
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (setq org-directory "~/org/")))
+   ((string-equal system-type "gnu/linux")
+    (progn
+      (setq org-directory "~/gtd/org/"))))
+
   (setq org-log-done 'time)
 #+END_SRC
  
@@ -264,14 +271,11 @@ nuts. This fixes that:
     (interactive)
     (message "Saving all org buffers to keep agenda files list clean")
     (org-save-all-org-buffers)
-    (setq org-agenda-files (list "~/org"))
+    (setq org-agenda-files (list org-directory))
     (message "Done setting org agenda files."))
 
   (set-org-agenda-files)
 #+END_SRC
- 
-#+RESULTS:
-: Done setting org agenda files.
  
 *** Custom Views
  
