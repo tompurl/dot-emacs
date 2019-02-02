@@ -114,7 +114,13 @@ append some of my custom apps to the Emacs path.
  #+BEGIN_SRC emacs-lisp
    (set-face-attribute 'default nil :family "Hack" :height 120)
    (set-face-attribute 'fixed-pitch nil :family "Hack")
-   (set-face-attribute 'variable-pitch nil :family "Lucida Bright")
+   (cond
+    ((string-equal system-type "windows-nt")
+     (progn
+       (set-face-attribute 'variable-pitch nil :family "Lucida Bright")))
+    ((string-equal system-type "gnu/linux")
+     (progn
+       (set-face-attribute 'variable-pitch nil :family "Roboto Regular"))))
  #+END_SRC
 
  #+RESULTS:
@@ -848,7 +854,11 @@ you need to install for your favorite programming languages:
     :init
     (setq projectile-keymap-prefix (kbd "C-c p"))
     :config
-    (projectile-mode +1)
+    (projectile-mode +1))
+
+  (use-package helm-projectile
+    :ensure t
+    :config
     (setq projectile-completion-system 'helm)
     (helm-projectile-on))
 #+END_SRC
