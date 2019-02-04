@@ -101,9 +101,14 @@ append some of my custom apps to the Emacs path.
        '(olivetti-body-width 100))
     #+END_SRC
 
-    #+RESULTS:
+    Since the screen width for prose is now 100 I'm going to bump up paragraph width too:
 
-    Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't actually kill the entire line. Thanks to Xah yet again I have a solution:
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 100)
+#+END_SRC
+
+    Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't actually kill
+    the entire line. Thanks to Xah yet again I have a solution:
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "M-9") 'kill-whole-line)
@@ -111,16 +116,18 @@ append some of my custom apps to the Emacs path.
 
 ** Font
 *** Font Choices
+    Big fonts + Windows makes Emacs something somthing (slow down terribly). 
+#+BEGIN_SRC emacs-lisp
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (setq inhibit-compacting-font-caches 1))))
+#+END_SRC
+
  #+BEGIN_SRC emacs-lisp
    (set-face-attribute 'default nil :family "Hack" :height 120)
    (set-face-attribute 'fixed-pitch nil :family "Hack")
-   (cond
-    ((string-equal system-type "windows-nt")
-     (progn
-       (set-face-attribute 'variable-pitch nil :family "Lucida Bright")))
-    ((string-equal system-type "gnu/linux")
-     (progn
-       (set-face-attribute 'variable-pitch nil :family "Sarabun Light"))))
+   (set-face-attribute 'variable-pitch nil :family "Sarabun Light")
  #+END_SRC
 
  #+RESULTS:
