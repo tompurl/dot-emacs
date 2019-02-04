@@ -1,7 +1,6 @@
 #+TITLE: Tom's Emacs Init File
  
-So this is fun. Let's get started by adding my custom folders to my
-load path:
+So this is fun. Let's get started by adding my custom folders to my load path:
  
 * Bootstrap
 ** Debugging
@@ -21,8 +20,7 @@ Here's where I install local packages:
   (add-to-list 'load-path "~/.emacs.d/customizations/lisp/")
 #+END_SRC
 
-I guess I'll add the melpa stuff even though I don't think I can 
-use it:
+I guess I'll add the melpa stuff even though I don't think I can use it:
  
 #+BEGIN_SRC emacs-lisp
   (require 'package) ;; You might already have this line
@@ -107,8 +105,8 @@ append some of my custom apps to the Emacs path.
   (setq-default fill-column 100)
 #+END_SRC
 
-    Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't actually kill
-    the entire line. Thanks to Xah yet again I have a solution:
+    Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't actually kill the
+    entire line. Thanks to Xah yet again I have a solution:
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "M-9") 'kill-whole-line)
@@ -125,24 +123,21 @@ append some of my custom apps to the Emacs path.
 #+END_SRC
 
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "Hack" :height 120)
-   (set-face-attribute 'fixed-pitch nil :family "Hack")
-   (set-face-attribute 'variable-pitch nil :family "Sarabun Light")
+   (set-face-attribute 'default nil :family "Ubuntu Mono" :height 140)
+   (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono" :height 140)
+   (set-face-attribute 'variable-pitch nil :family "Ubuntu Light" :height 140)
  #+END_SRC
 
- #+RESULTS:
-
 *** Viewing monospaced and non-monospaced fonts in the same document
-    Emacs has a great feature that allows you to view non-code text
-    using a proportional font (like Helvetica) and code text using a
-    non-proportional font (like Courier). You just have to run this below:
+    Emacs has a great feature that allows you to view non-code text using a proportional font (like
+    Helvetica) and code text using a non-proportional font (like Courier). You just have to run this
+    below:
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'text-mode-hook
             (lambda ()
               (variable-pitch-mode 1)))
 #+END_SRC
-
 ** Emojify mode
 Let's make it globally accessible.
 #+BEGIN_SRC emacs-lisp
@@ -1069,3 +1064,10 @@ web-mode is awesome!
 #+BEGIN_SRC emacs-lisp 
   (set-register ?e (cons 'file "~/.emacs.d/emacs-init.org"))
 #+END_SRC
+* Misc?
+** Timers
+   Chronos seems to do this really well, but unfortunately it isn't available (as of 2/4/19) in
+   Melpa Stable. So you'll first want to download it and then do this:
+   #+BEGIN_SRC emacs-lisp
+     (require 'chronos)
+   #+END_SRC
