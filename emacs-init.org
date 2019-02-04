@@ -114,7 +114,13 @@ append some of my custom apps to the Emacs path.
  #+BEGIN_SRC emacs-lisp
    (set-face-attribute 'default nil :family "Hack" :height 120)
    (set-face-attribute 'fixed-pitch nil :family "Hack")
-   (set-face-attribute 'variable-pitch nil :family "Lucida Bright")
+   (cond
+    ((string-equal system-type "windows-nt")
+     (progn
+       (set-face-attribute 'variable-pitch nil :family "Lucida Bright")))
+    ((string-equal system-type "gnu/linux")
+     (progn
+       (set-face-attribute 'variable-pitch nil :family "Sarabun Light"))))
  #+END_SRC
 
  #+RESULTS:
@@ -178,7 +184,14 @@ Let's make it globally accessible.
 * ORG!!!!!!!!!!!!!!!
 ** Global Varables
 #+BEGIN_SRC emacs-lisp 
-  (setq org-directory "~/org/")
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (setq org-directory "~/org/")))
+   ((string-equal system-type "gnu/linux")
+    (progn
+      (setq org-directory "~/gtd/org/"))))
+
   (setq org-log-done 'time)
 #+END_SRC
  
@@ -258,14 +271,11 @@ nuts. This fixes that:
     (interactive)
     (message "Saving all org buffers to keep agenda files list clean")
     (org-save-all-org-buffers)
-    (setq org-agenda-files (list "~/org"))
+    (setq org-agenda-files (list org-directory))
     (message "Done setting org agenda files."))
 
   (set-org-agenda-files)
 #+END_SRC
- 
-#+RESULTS:
-: Done setting org agenda files.
  
 *** Custom Views
  
@@ -642,8 +652,11 @@ did to make it work:
 After all of that I only needed the following config:
 
 #+BEGIN_SRC emacs-lisp 
-  (setenv "SSH_ASKPASS" "git-gui--askpass")
-  (setenv "GIT_SSH" "C:/Program Files/PuTTY/plink.exe")
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (setenv "SSH_ASKPASS" "git-gui--askpass")
+      (setenv "GIT_SSH" "C:/Program Files/PuTTY/plink.exe"))))
 #+END_SRC
 ** Keymaps
 #+BEGIN_SRC emacs-lisp 
@@ -857,7 +870,11 @@ you need to install for your favorite programming languages:
     :init
     (setq projectile-keymap-prefix (kbd "C-c p"))
     :config
-    (projectile-mode +1)
+    (projectile-mode +1))
+
+  (use-package helm-projectile
+    :ensure t
+    :config
     (setq projectile-completion-system 'helm)
     (helm-projectile-on))
 #+END_SRC
@@ -901,12 +918,14 @@ you need to install for your favorite programming languages:
 Let's just turn it on for everything :smile: 
 
   #+BEGIN_SRC emacs-lisp
-    (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-    (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-    (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-    (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+    (use-package paredit
+      :ensure t
+      :hook ((emacs-lisp-mode . enable-paredit-mode)
+             (eval-expression-minibuffer-setup . enable-paredit-mode)
+             (ielm-mode . enable-paredit-mode)
+             (lisp-mode . enable-paredit-mode)
+             (lisp-interaction-mode . enable-paredit-mode)
+             (scheme-mode . enable-paredit-mode)))
   #+END_SRC
 ** Autoit
    Yet another package that we can't install from melpa.
