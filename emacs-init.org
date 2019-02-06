@@ -1071,3 +1071,15 @@ web-mode is awesome!
    #+BEGIN_SRC emacs-lisp
      (require 'chronos)
    #+END_SRC
+*** Notifications
+    This is definitely a work in progress :-)
+#+BEGIN_SRC emacs-lisp
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (setq chronos-shell-notify-program "c:/users/tom.purl/AppData/Roaming/Documents/td/apps/snarl 5.0/tools/heysnarl"
+            chronos-shell-notify-parameters '("notify?text=Important!&priority=1")
+            chronos-expiry-functions '(chronos-buffer-notify
+                                       chronos-shell-notify)))))
+#+END_SRC
+
