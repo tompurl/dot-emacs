@@ -1064,6 +1064,14 @@ web-mode is awesome!
 #+BEGIN_SRC emacs-lisp 
   (set-register ?e (cons 'file "~/.emacs.d/emacs-init.org"))
 #+END_SRC
+* Log Editing / Viewing
+** TODO Make mode load automatically *Log*.txt files
+** TODO Make mode change file to RO 
+  #+BEGIN_SRC emacs-lisp
+    (use-package logview
+      :ensure t
+      )
+  #+END_SRC
 * Misc?
 ** Timers
    Chronos seems to do this really well, but unfortunately it isn't available (as of 2/4/19) in
