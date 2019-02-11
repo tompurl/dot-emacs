@@ -345,15 +345,14 @@ make any changes to your org-agenda view.
 *** Templates
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
-	'(
-	  ("t" "Todo" entry (file+headline (lambda () (concat org-directory "inbox.org")) "In-Process") "* TODO %? %^g")
-	  ;; ("t" "Todo" entry (file+headline "~/inbox.org" "Tasks") "* TODO %?\n %i\n %a")
-	  ("w" "Work Log" entry (file+headline (lambda () (concat org-directory "/WorkLogs.org")) "On-Deck") "** %(create-org-link 1) %?")
-	  ("d" "Daily Review" entry (file+headline (lambda () (concat org-directory "/Personal_Reviews.org")) "Daily") "** %(create-org-link 1) %?")
-	  ("r" "Research Note" entry (file+headline (lambda () (concat org-directory "/ResearchNotes.org")) "In-Process") "** %(create-org-link nil) %?")
-	  ("l" "Lessons Learned" entry (file+headline (lambda () (concat org-directory "/LessonsLearned.org")) "Drafts") "** %(create-org-link nil) %?")
-	  ("m" "Meeting Minute" entry (file+headline (lambda () (concat org-directory "/MeetingMinutes.org")) "In-Process") "** %(create-org-link 1) %?")
-	  ))
+        '(
+          ("t" "Todo" entry (file+headline (lambda () (concat org-directory "inbox.org")) "In-Process") "* TODO %? %^g")
+          ("w" "Work Log" entry (file+headline (lambda () (concat org-directory "/WorkLogs.org")) "On-Deck") "** %(create-org-link 1) %?")
+          ("d" "Daily Review" entry (file+headline (lambda () (concat org-directory "/Personal_Reviews.org")) "Daily") "** %(create-org-link 1 \"Daily Review\") %?")
+          ("r" "Research Note" entry (file+headline (lambda () (concat org-directory "/ResearchNotes.org")) "In-Process") "** %(create-org-link nil) %?")
+          ("l" "Lessons Learned" entry (file+headline (lambda () (concat org-directory "/LessonsLearned.org")) "Drafts") "** %(create-org-link nil) %?")
+          ("m" "Meeting Minute" entry (file+headline (lambda () (concat org-directory "/MeetingMinutes.org")) "In-Process") "** %(create-org-link 1) %?")
+          ))
 #+END_SRC
 
 ** To-do Lists
@@ -423,7 +422,7 @@ of -> http://emacs.stackexchange.com/a/12166/8228
             (insert formatted-file-link)
           formatted-file-link))))
 #+END_SRC
- 
+
 *** Browser-related
 #+BEGIN_SRC emacs-lisp
   (defun org-file-name-convert-to-html (org-file-name)
