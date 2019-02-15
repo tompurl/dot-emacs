@@ -83,7 +83,13 @@ append some of my custom apps to the Emacs path.
 #+BEGIN_SRC emacs-lisp
   ;; This has to be installed manually
   (require 'poet-theme)
+  (load-theme 'poet-monochrome 1)
 #+END_SRC
+*** Dracula
+    #+BEGIN_SRC emacs-lisp
+      ;; (use-package dracula-theme
+      ;;   :ensure t)
+    #+END_SRC
 ** Centering Prose
 *** Olivetti
     This is a *sweet* minor mode that makes prose pages look much nicer. 
@@ -102,7 +108,7 @@ append some of my custom apps to the Emacs path.
     Since the screen width for prose is now 100 I'm going to bump up paragraph width too:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default fill-column 100)
+  (setq-default fill-column 90)
 #+END_SRC
 
     Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't actually kill the
