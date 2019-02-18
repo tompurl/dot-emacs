@@ -730,9 +730,7 @@ but I'm afraid to delete it at this point :-)
   (use-package helm
     :ensure t
     :bind (("M-x" . helm-M-x)
-           ("C-x b" . helm-mini)
-           ("C-x C-f" . helm-find-files))
-    )
+           ("C-x b" . helm-mini)))
 #+END_SRC
 
 * Timestamp Stuff
@@ -1103,7 +1101,9 @@ web-mode is awesome!
     (use-package sunrise-commander)
     (use-package sunrise-x-checkpoints
       :requires sunrise-commander)
+    (global-set-key "\C-x\C-f" 'sunrise-cd)
   #+END_SRC
+
 * Misc?
 ** Timers
    Chronos seems to do this really well, but unfortunately it isn't available (as of 2/4/19) in
