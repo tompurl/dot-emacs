@@ -83,7 +83,7 @@ append some of my custom apps to the Emacs path.
 #+BEGIN_SRC emacs-lisp
   ;; This has to be installed manually
   (require 'poet-theme)
-  (load-theme 'poet-monochrome 1)
+  (load-theme 'poet 1)
 #+END_SRC
 *** Dracula
     #+BEGIN_SRC emacs-lisp
@@ -168,6 +168,22 @@ Let's make it globally accessible.
      (setq buffer-display-table (make-display-table))
      (aset buffer-display-table ?\^M []))
  #+END_SRC
+** Toolbars And Menubars And Such
+   All of this is shamelessly stolen from https://writequit.org/eos/eos-core.html:
+   #+BEGIN_SRC emacs-lisp
+     (when (functionp 'menu-bar-mode)
+       (menu-bar-mode -1))
+     (when (functionp 'set-scroll-bar-mode)
+       (set-scroll-bar-mode 'nil))
+     (when (functionp 'mouse-wheel-mode)
+       (mouse-wheel-mode -1))
+     (when (functionp 'tooltip-mode)
+       (tooltip-mode -1))
+     (when (functionp 'tool-bar-mode)
+       (tool-bar-mode -1))
+     (when (functionp 'blink-cursor-mode)
+       (blink-cursor-mode -1))
+   #+END_SRC
 ** Dumb Stuff
 *** Nyan Cat Stuff
 #+BEGIN_SRC emacs-lisp
