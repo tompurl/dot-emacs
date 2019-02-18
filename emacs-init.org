@@ -1017,6 +1017,11 @@ web-mode is awesome!
     :config
     (setq jedi:complete-on-dot t))
 #+END_SRC
+*** Editing Pip Requirements Files
+    #+BEGIN_SRC emacs-lisp
+      (use-package pip-requirements
+        :ensure t)
+    #+END_SRC
 * Text Search
 ** Ack
 
