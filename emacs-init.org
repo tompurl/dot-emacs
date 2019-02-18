@@ -1093,6 +1093,17 @@ web-mode is awesome!
       :ensure t
       )
   #+END_SRC
+* Sunrise Commander
+  Sunrise commander is a clone of midnight commander, also known as an orthodox file
+  manager.
+
+  Unfortunately, this package isn't available in MELPA, so you need to install it manually.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package sunrise-commander)
+    (use-package sunrise-x-checkpoints
+      :requires sunrise-commander)
+  #+END_SRC
 * Misc?
 ** Timers
    Chronos seems to do this really well, but unfortunately it isn't available (as of 2/4/19) in
