@@ -1141,5 +1141,5 @@ web-mode is awesome!
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
     :ensure t
-    :bind (("M-o" . ace-window)))
+    :bind (("C-o" . ace-window)))
 #+END_SRC
