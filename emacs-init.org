@@ -218,7 +218,7 @@ Let's make it globally accessible.
 
   (setq org-log-done 'time)
 #+END_SRC
- 
+   
 Here are global properties that are available to each file. For more
 information on the "*_ALL" properties check this out:
  
@@ -1035,6 +1035,8 @@ web-mode is awesome!
 #+BEGIN_SRC emacs-lisp
   (use-package ag
     :ensure t)
+  (use-package helm-swoop
+    :ensure t)
 #+END_SRC
 
     I thought it would be nice to access the =ag-*= functions using a
@@ -1133,3 +1135,11 @@ web-mode is awesome!
                                        chronos-shell-notify)))))
 #+END_SRC
 
+** Jumping Between Buffers
+   =ace-window= works well for this.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :bind (("M-o" . ace-window)))
+#+END_SRC
