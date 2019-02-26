@@ -1061,7 +1061,12 @@ web-mode is awesome!
 
   (global-set-key (kbd "\C-cf") tp/ag-key-map)
 #+END_SRC
-
+** Wgrep
+   Why not? It looks so *cool*.
+#+BEGIN_SRC emacs-lisp
+  (use-package wgrep
+    :ensure t)
+#+END_SRC
 * Registers
 ** Org
 #+BEGIN_SRC emacs-lisp 
