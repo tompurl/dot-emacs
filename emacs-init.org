@@ -978,18 +978,6 @@ Let's just turn it on for everything :smile:
              (lisp-interaction-mode . enable-paredit-mode)
              (scheme-mode . enable-paredit-mode)))
   #+END_SRC
-*** Pretty Symbols
-    This is so cool! Once again something I stole from writequit:
-    #+BEGIN_SRC emacs-lisp
-      (when (boundp 'global-prettify-symbols-mode)
-        (add-hook 'emacs-lisp-mode-hook
-                  (lambda ()
-                    (push '("lambda" . ?λ) prettify-symbols-alist)))
-        (add-hook 'clojure-mode-hook
-                  (lambda ()
-                    (push '("fn" . ?ƒ) prettify-symbols-alist)))
-        (global-prettify-symbols-mode +1))
-    #+END_SRC
 ** Autoit
    Yet another package that we can't install from melpa.
 #+BEGIN_SRC emacs-lisp
