@@ -1,8 +1,12 @@
 #+TITLE: Tom's Emacs Init File
  
-So this is fun. Let's get started by adding my custom folders to my load path:
+So this is fun. I can now use literate programming to configure my OS..err text editor.
+
+Pleas note that a *HUGE* chunk of this file was shamelessly stolen from the snippets in
+https://writequit.org/eos. I am standing on the shoulders of giants. 
  
 * Bootstrap
+  Let's get started by adding my custom folders to my load path:
 ** Debugging
 
 #+BEGIN_SRC emacs-lisp 
@@ -94,7 +98,11 @@ append some of my custom apps to the Emacs path.
     (progn
       (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))))
 #+END_SRC
-
+** Startup Stuff
+   I don't want to see the startup screen. Just dump me into a scratch buffer.
+   #+BEGIN_SRC emacs-lisp
+     (setq inhibit-startup-screen t)
+   #+END_SRC
 * Eye Candy
 ** Themes
 *** Poet Theme
@@ -162,6 +170,10 @@ append some of my custom apps to the Emacs path.
             (lambda ()
               (variable-pitch-mode 1)))
 #+END_SRC
+
+#+RESULTS:
+| (lambda nil (variable-pitch-mode nil)) | (lambda nil (variable-pitch-mode 1)) | text-mode-hook-identify |
+
 ** Emojify mode
 Let's make it globally accessible.
 #+BEGIN_SRC emacs-lisp
@@ -966,6 +978,18 @@ Let's just turn it on for everything :smile:
              (lisp-interaction-mode . enable-paredit-mode)
              (scheme-mode . enable-paredit-mode)))
   #+END_SRC
+*** Pretty Symbols
+    This is so cool! Once again something I stole from writequit:
+    #+BEGIN_SRC emacs-lisp
+      (when (boundp 'global-prettify-symbols-mode)
+        (add-hook 'emacs-lisp-mode-hook
+                  (lambda ()
+                    (push '("lambda" . ?λ) prettify-symbols-alist)))
+        (add-hook 'clojure-mode-hook
+                  (lambda ()
+                    (push '("fn" . ?ƒ) prettify-symbols-alist)))
+        (global-prettify-symbols-mode +1))
+    #+END_SRC
 ** Autoit
    Yet another package that we can't install from melpa.
 #+BEGIN_SRC emacs-lisp
@@ -1093,6 +1117,7 @@ web-mode is awesome!
   (set-register ?w (cons 'file (concat org-directory "/WorkLogs.org")))
   (set-register ?i (cons 'file (concat org-directory "/index.org")))
   (set-register ?m (cons 'file (concat org-directory "/MeetingMinutes.org")))
+  (set-register ?v (cons 'file (concat org-directory "/Personal_Reviews.org")))
 #+END_SRC
 ** OS-Specific
 #+BEGIN_SRC emacs-lisp 
@@ -1161,3 +1186,8 @@ web-mode is awesome!
     :ensure t
     :bind (("C-o" . ace-window)))
 #+END_SRC
+** Sound
+   For god's sake, please don't beep.
+   #+BEGIN_SRC emacs-lisp
+     (setq ring-bell-function (lambda ()))
+   #+END_SRC
