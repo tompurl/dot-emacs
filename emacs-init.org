@@ -671,7 +671,12 @@ Of course you need these :smile:
     (require 'org-bullets)
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
+** Images
+   This turns on inline images at startup:
 
+   #+BEGIN_SRC emacs-lisp
+     (setq org-startup-with-inline-images t)
+   #+END_SRC
 * Magit
 ** Bootstrap
 
@@ -1153,6 +1158,20 @@ web-mode is awesome!
     (use-package sunrise-x-checkpoints
       :requires sunrise-commander)
     (global-set-key "\C-x\C-f" 'sunrise-cd)
+  #+END_SRC
+
+* Web Browsing
+  Make =eww= create a new buffer if executed from a non-=eww= buffer. This allows you to
+  easily create more than one =eww= buffer. Also, I copied this from
+  https://emacs.stackexchange.com/a/24477/8228, which was copied from Xah's erogemacs tips
+  (like a lot of stuff in this file).
+
+  #+BEGIN_SRC emacs-lisp
+    ;; Auto-rename new eww buffers
+    (defun xah-rename-eww-hook ()
+      "Rename eww browser's buffer so sites open in new page."
+      (rename-buffer "eww" t))
+    (add-hook 'eww-mode-hook #'xah-rename-eww-hook)
   #+END_SRC
 
 * Misc?

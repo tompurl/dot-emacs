@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: inlineimagelink
+# key: ii
+# --
+[[./images/`(current-kill 0)`.png]]$0
