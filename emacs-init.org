@@ -214,6 +214,11 @@ Let's make it globally accessible.
      (when (functionp 'blink-cursor-mode)
        (blink-cursor-mode -1))
    #+END_SRC
+** Line Numbers
+   Of course you need this!
+   #+BEGIN_SRC emacs-lisp
+     (global-linum-mode t)
+   #+END_SRC
 ** Dumb Stuff
 *** Nyan Cat Stuff
 #+BEGIN_SRC emacs-lisp
