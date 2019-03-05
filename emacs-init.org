@@ -1203,8 +1203,8 @@ web-mode is awesome!
 
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
-    :ensure t
-    :bind (("C-o" . ace-window)))
+    :ensure t)
+  (global-set-key (kbd "C-o") 'ace-window)
 #+END_SRC
 ** Sound
    For god's sake, please don't beep.
