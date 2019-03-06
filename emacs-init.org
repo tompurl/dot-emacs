@@ -588,7 +588,11 @@ value.
 
 #+RESULTS:
 | org-notes | :base-directory | ~/org/ | :base-extension | org | :publishing-directory | ~/org/public_html/ | :recursive | t | :publishing-function | org-html-publish-to-html | :headline-levels | 4 | :auto-preamble | t | :auto-sitemap | t | :sitemap-filename | sitemap.org | :sitemap-title | Sitemap | :export-creator-info | nil | :export-author-info | nil | :auto-postamble | nil | :table-of-contents | t | :section-numbers | nil | :html-postamble | <p class="postamble">Last Updated %d.</p> | :style-include-default | nil | :html-head | <link id='pagestyle' rel='stylesheet' type='text/css' href='static/css/org.css' /> |
-
+*** Exporting To (Github-Flavored) Markdown
+    #+BEGIN_SRC emacs-lisp
+      (use-package ox-gfm
+        :ensure t)
+    #+END_SRC
 ** Yasnippet
 #+BEGIN_SRC emacs-lisp
   (defun yas/org-very-safe-expand ()
@@ -1178,6 +1182,28 @@ web-mode is awesome!
       (rename-buffer "eww" t))
     (add-hook 'eww-mode-hook #'xah-rename-eww-hook)
   #+END_SRC
+* Scratch Buffer
+** Saving And Restoring The Buffer
+   Also stole from EOS:
+   #+BEGIN_SRC emacs-lisp
+     (defun eos/core/save-persistent-scratch ()
+       "Write the contents of *scratch* to the file name
+     `persistent-scratch-file-name'."
+       (with-current-buffer (get-buffer-create "*scratch*")
+         (write-region (point-min) (point-max) "~/.emacs.d/persistent-scratch")))
+
+     (defun eos/core/load-persistent-scratch ()
+       "Load the contents of `persistent-scratch-file-name' into the
+       scratch buffer, clearing its contents first."
+       (interactive)
+       (if (file-exists-p "~/.emacs.d/persistent-scratch")
+           (with-current-buffer (get-buffer "*scratch*")
+             (delete-region (point-min) (point-max))
+             (insert-file-contents "~/.emacs.d/persistent-scratch"))))
+
+     (add-hook 'after-init-hook 'eos/core/load-persistent-scratch)
+     (add-hook 'kill-emacs-hook 'eos/core/save-persistent-scratch)
+   #+END_SRC
 
 * Misc?
 ** Timers

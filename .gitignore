@@ -21,3 +21,4 @@ init.el
 /snippets/org-mode/newjobconversiontasklist.yasnippet
 snippets/dockerfile-mode
 .sx
+/persistent-scratch
