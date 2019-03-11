@@ -272,6 +272,7 @@ information on the "*_ALL" properties check this out:
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
   (global-set-key (kbd "<f4>") 'set-org-agenda-files)
+  (global-set-key (kbd "<f5>") 'org-toggle-inline-images)
   (define-key global-map "\C-cc" 'org-capture)
   (global-set-key (kbd "C-c h") 'open-org-html-file-in-browser)
   (global-set-key (kbd "<f6>") (lambda() (interactive)(org-publish-current-file)))
@@ -1230,8 +1231,9 @@ web-mode is awesome!
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
     :ensure t)
-  (global-set-key (kbd "C-o") 'ace-window)
+  (global-set-key (kbd "C-]") 'ace-window)
 #+END_SRC
+
 ** Sound
    For god's sake, please don't beep.
    #+BEGIN_SRC emacs-lisp
