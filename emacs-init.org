@@ -1206,6 +1206,23 @@ web-mode is awesome!
      (add-hook 'kill-emacs-hook 'eos/core/save-persistent-scratch)
    #+END_SRC
 
+* Syncing
+  I like to sync some of my files using Syncthing. The problem is when I do the following:
+
+  1. Edit a file on my laptop and save and sync without killing the buffer.
+  2. Edit the same file on my phone using Orgzly and sync.
+  3. Sync everything on my laptop and visit the same buffer in Emacs.
+
+  At this point I would be looking at the version of the file from step 1 on my laptop. To
+  view the step 2 updates I would need to manually revert the buffer, and chances are I
+  wouldn't know which buffers to revert.
+
+  I therefore am turning on =global-auto-revert-mode= to see if that helps.
+
+  #+BEGIN_SRC emacs-lisp
+    (global-auto-revert-mode 1)
+  #+END_SRC
+
 * Misc?
 ** Timers
    Chronos seems to do this really well, but unfortunately it isn't available (as of 2/4/19) in
