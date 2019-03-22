@@ -687,6 +687,13 @@ Of course you need these :smile:
    #+BEGIN_SRC emacs-lisp
      (setq org-startup-with-inline-images t)
    #+END_SRC
+
+   ... and this scales them down when viewing them inline:
+
+   #+BEGIN_SRC emacs-lisp
+     (setq org-image-actual-width 600)
+   #+END_SRC
+
 * Magit
 ** Bootstrap
 
