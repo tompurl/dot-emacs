@@ -69,17 +69,21 @@ append some of my custom apps to the Emacs path.
 #+BEGIN_SRC emacs-lisp
   (setq chocolatey-root "c:/ProgramData/chocolatey")
   (setq chocolatey-lib
-	(concat chocolatey-root "/" "lib"))
+        (concat chocolatey-root "/" "lib"))
   (setq chocolatey-bin
-	(concat chocolatey-root "/" "bin"))
-  (setenv "PATH"
-	  (concat
-	   "C:/Program Files/Git/bin" ";"
-	   "C:/Python27" ";"
-	   "c:/ProgramData/chocolatey/bin" ";"
-	   (getenv "PATH")
-	   )
-	  )
+        (concat chocolatey-root "/" "bin"))
+  ;; I'm 98% sure this doesn't actually do anything useful
+  ;; (setenv "PATH"
+  ;; 	(concat
+  ;; 	 "C:/Program Files/Git/bin" ";"
+  ;; 	 "C:/Python27" ";"
+  ;; 	 "c:/ProgramData/chocolatey/bin" ";"
+  ;; 	 (getenv "PATH")
+  ;; 	 )
+  ;; 	)
+  (setq exec-path (append '("C:/Python27"
+                            "c:/ProgramData/chocolatey/bin")
+                          exec-path))
 #+END_SRC
 ** Character Encoding
    UTF-8 is the only thing that makes sense for me.
