@@ -113,13 +113,13 @@ append some of my custom apps to the Emacs path.
 *** Poet Theme
 #+BEGIN_SRC emacs-lisp
   ;; This has to be installed manually
-  (require 'poet-theme)
-  (load-theme 'poet 1)
+  ;; (require 'poet-theme)
+  ;; (load-theme 'poet 1)
 #+END_SRC
 *** Dracula
     #+BEGIN_SRC emacs-lisp
-      ;; (use-package dracula-theme
-      ;;   :ensure t)
+      (use-package dracula-theme
+        :ensure t)
     #+END_SRC
 ** Centering Prose
 *** Olivetti
@@ -667,12 +667,21 @@ block (unless it's overrided at a lower lever of course).
 These are the tags that I will use the most when creating new tasks.
  
 #+BEGIN_SRC emacs-lisp
+
   (setq org-tag-alist '(
-			("today" . ?t)
-			("goal" . ?g)
-			("objective" . ?o)))
+                        ("goal" . ?g)
+                        ("c_admin" . ?a)
+                        ("c_coding" . ?c)
+                        ("c_hardware_troubleshooting" . ?h)
+                        ("c_manual_testing" . ?m)
+                        ("c_meetings" . ?e)
+                        ("objective" . ?o)
+                        ("today" . ?t)
+                        ("c_code_maintenance" . ?z)
+                        ))
 #+END_SRC
- 
+
+
 ** Org bullets
 Of course you need these :smile:
  
@@ -1246,6 +1255,23 @@ web-mode is awesome!
   #+BEGIN_SRC emacs-lisp
     (use-package markdown-mode
       :ensure t)
+  #+END_SRC
+* Window Management
+  I just love this, it was stupid simple to write and I think I use it a least 10 times a
+  day. It "moves" the current window into a new frame. 
+
+  What does that mean? Let's say you split your current window (which is called a *frame*
+  in Emacs) into 2 using =Ctrl-3= or something like that and then realize that you would
+  /really/ like to focus on the buffer in that "split" (which is called a *window* in
+  Emacs). Wouldn't it be great if you could just move it to a new frame?
+
+  #+BEGIN_SRC emacs-lisp 
+    (defun tp/move-window-to-new-frame ()
+      "Take the content of the current window and move it to its own
+       frame"
+      (interactive)
+      (make-frame)
+      (delete-window))
   #+END_SRC
 
 * Misc?
