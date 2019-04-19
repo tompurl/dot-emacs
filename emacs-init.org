@@ -113,14 +113,15 @@ append some of my custom apps to the Emacs path.
 *** Poet Theme
 #+BEGIN_SRC emacs-lisp
   ;; This has to be installed manually
-  ;; (require 'poet-theme)
-  ;; (load-theme 'poet 1)
+  (require 'poet-theme)
+  (load-theme 'poet 1)
 #+END_SRC
 *** Dracula
     #+BEGIN_SRC emacs-lisp
-      (use-package dracula-theme
-        :ensure t)
+      ;; (use-package dracula-theme
+      ;;   :ensure t)
     #+END_SRC
+
 ** Centering Prose
 *** Olivetti
     This is a *sweet* minor mode that makes prose pages look much nicer. 
@@ -348,7 +349,7 @@ Here's my custom agenda view that uses "column view".
  
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-overriding-columns-format
-        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %3POM_Estimate(Est.) %10POM_Pomodori(Poms) %6POM_Interruptions(Ints) %TAGS %12CLOCKSUM_T(Today's Time) %12CLOCKSUM(Total Time)")
+        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %3POM_Estimate(Est.) %10Effort(Effort){:} %10POM_Pomodori(Poms) %6POM_Interruptions(Ints) %TAGS %12CLOCKSUM_T(Today's Time) %12CLOCKSUM(Total Time)")
   (setq org-agenda-view-columns-initially t)
   (setq org-agenda-custom-commands
         '(("." "Simple agenda view"
@@ -357,7 +358,7 @@ Here's my custom agenda view that uses "column view".
                         ))
             (agenda "")))))
 #+END_SRC
-  
+
 This only shows today's tasks in the agenda view by default:
  
 #+BEGIN_SRC emacs-lisp
@@ -398,7 +399,21 @@ make any changes to your org-agenda view.
           (kmacro-exec-ring-item
            (quote ([6 6 6 6 101 1 11 return 14 1] 0 "%d")) arg)))
 #+END_SRC
- 
+** Org-Clock
+   Set your default parameters for clock reports when they are viewed i the agenda view:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-clockreport-parameter-plist
+        '(:scope agenda-with-archives :formula % :maxlevel 10 :tags t :fileskip0 t :compact t :narrow 60 :score 0))
+#+END_SRC
+
+   If I'm idle for more than X minutes then ask me what to do with the clock time:
+   
+   #+BEGIN_SRC emacs-lisp
+     (setq org-clock-idle-time 15)
+   #+END_SRC
+
+
 ** Org-capture
 *** Properties
 #+BEGIN_SRC emacs-lisp
@@ -680,7 +695,6 @@ These are the tags that I will use the most when creating new tasks.
                         ("c_code_maintenance" . ?z)
                         ))
 #+END_SRC
-
 
 ** Org bullets
 Of course you need these :smile:
