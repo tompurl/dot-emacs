@@ -349,7 +349,7 @@ Here's my custom agenda view that uses "column view".
  
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-overriding-columns-format
-        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %3POM_Estimate(Est.) %10Effort(Effort){:} %10POM_Pomodori(Poms) %6POM_Interruptions(Ints) %TAGS %12CLOCKSUM_T(Today's Time) %12CLOCKSUM(Total Time)")
+        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %11Effort(Est. Effort){:} %10POM_Pomodori(Poms) %TAGS")
   (setq org-agenda-view-columns-initially t)
   (setq org-agenda-custom-commands
         '(("." "Simple agenda view"
