@@ -177,8 +177,14 @@ append some of my custom apps to the Emacs path.
               (variable-pitch-mode 1)))
 #+END_SRC
 
-#+RESULTS:
-| (lambda nil (variable-pitch-mode nil)) | (lambda nil (variable-pitch-mode 1)) | text-mode-hook-identify |
+  For whatever reason I can never the name of the =variable-pitch-mode= function so here's
+  my own alias:
+
+#+BEGIN_SRC emacs-lisp
+  (defun tp/font/toggle-variable-pitch-mode ()
+    (interactive)
+    (variable-pitch-mode nil))
+#+END_SRC
 
 ** Emojify mode
 Let's make it globally accessible.
