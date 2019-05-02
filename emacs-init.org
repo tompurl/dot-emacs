@@ -64,27 +64,36 @@ Now on to Org
 ** System Path
 
 Since I usually don't start Emacs from the command line I need to
-append some of my custom apps to the Emacs path.
+append some of my custom apps to the Emacs path. 
+
+You need t update two variables: =exec-path= and =PATH=. Let's first update =exec-path=:
 
 #+BEGIN_SRC emacs-lisp
-  (setq chocolatey-root "c:/ProgramData/chocolatey")
-  (setq chocolatey-lib
-        (concat chocolatey-root "/" "lib"))
-  (setq chocolatey-bin
-        (concat chocolatey-root "/" "bin"))
-  ;; I'm 98% sure this doesn't actually do anything useful
-  ;; (setenv "PATH"
-  ;; 	(concat
-  ;; 	 "C:/Program Files/Git/bin" ";"
-  ;; 	 "C:/Python27" ";"
-  ;; 	 "c:/ProgramData/chocolatey/bin" ";"
-  ;; 	 (getenv "PATH")
-  ;; 	 )
-  ;; 	)
-  (setq exec-path (append '("C:/Python27"
-                            "c:/ProgramData/chocolatey/bin")
-                          exec-path))
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      (setq chocolatey-root "c:/ProgramData/chocolatey")
+      (setq chocolatey-lib
+            (concat chocolatey-root "/" "lib"))
+      (setq chocolatey-bin
+            (concat chocolatey-root "/" "bin"))
+      (setq exec-path (append '("C:/Python27"
+                                "c:/ProgramData/chocolatey/bin")
+                              exec-path))))
+   ;; ((string-equal system-type "gnu/linux")
+   ;;  (progn
+   ;;    (2)))
+   )
+
 #+END_SRC
+
+...and now =PATH=:
+
+#+BEGIN_SRC emacs-lisp
+  (setenv "PATH" (concat (getenv "PATH") ";"
+                         "c:\\ProgramData\\chocolatey\\bin"))
+#+END_SRC
+
 ** Character Encoding
    UTF-8 is the only thing that makes sense for me.
 #+BEGIN_SRC emacs-lisp
