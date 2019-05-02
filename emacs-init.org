@@ -243,7 +243,13 @@ Let's make it globally accessible.
     :config
     (nyan-start-animation))
 #+END_SRC
-
+** Presentation Helpers
+*** presentation mode
+    This is a cool way to control font size and such for sharing:
+    #+BEGIN_SRC emacs-lisp
+      (use-package presentation
+        :ensure t)
+    #+END_SRC
 * YAS
 ** Bootstrap
 #+BEGIN_SRC emacs-lisp
