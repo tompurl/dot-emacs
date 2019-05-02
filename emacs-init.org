@@ -197,12 +197,17 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 
 ** Emojify mode
 Let's make it globally accessible.
+
+Actually, let's turn it off for a little bit. I think it's having way too big of an impact on performance.
 #+BEGIN_SRC emacs-lisp
+  ;; (use-package emojify
+  ;;   :ensure t
+  ;;   :init
+  ;;   (add-hook 'after-init-hook #'global-emojify-mode))
   (use-package emojify
-    :ensure t
-    :init
-    (add-hook 'after-init-hook #'global-emojify-mode))
+    :ensure t)
 #+END_SRC
+
 ** Powerline
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
