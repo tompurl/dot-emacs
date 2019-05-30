@@ -130,7 +130,21 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
       ;; (use-package dracula-theme
       ;;   :ensure t)
     #+END_SRC
-
+*** Gotham
+    This is a nice dark theme but it doesn't handle org-mode tables well.
+    #+BEGIN_SRC emacs-lisp
+      ;; (use-package gotham-theme
+      ;;   :ensure t)
+      ;; (load-theme 'gotham t)
+    #+END_SRC
+*** Gruvbox
+    Man this is a great-looking, modular theme but like so many other awesome fonts it
+    doesn't support variable-pitch fonts.
+    #+BEGIN_SRC emacs-lisp
+      ;; (use-package gruvbox-theme
+      ;;   :ensure t)
+      ;; (load-theme 'gruvbox-light-soft t)
+    #+END_SRC
 ** Centering Prose
 *** Olivetti
     This is a *sweet* minor mode that makes prose pages look much nicer. 
