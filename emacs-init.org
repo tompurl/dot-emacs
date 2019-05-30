@@ -1162,6 +1162,15 @@ web-mode is awesome!
       (use-package sx-load
         :load-path "customizations/packages/sx.el")
     #+END_SRC
+** Eshell
+*** Aweshell
+    Holy crap is this cool, and it even works on Windows. If only I could install it from Melpa :-)
+    #+BEGIN_SRC emacs-lisp
+      (cond
+       ((file-directory-p "customizations/packages/aweshell")
+        (require 'aweshell)))
+    #+END_SRC
+    
 * Text Search
 ** Ack
 
