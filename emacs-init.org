@@ -256,8 +256,11 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
    #+END_SRC
 ** Line Numbers
    Of course you need this!
+
+   Oh wait, according the Xah this really slows things down. I'm going to turn it off for
+   now and see if that helps:
    #+BEGIN_SRC emacs-lisp
-     (global-linum-mode t)
+     ;; (global-linum-mode t)
    #+END_SRC
 ** Dumb Stuff
 *** Nyan Cat Stuff
