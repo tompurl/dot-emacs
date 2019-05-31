@@ -514,7 +514,7 @@ that you want it to look recursively.
  
 This is just a minor utility function.
  
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun escape-file-titles (title)
     "Take an arbitrary string and replace all of the bad chars with
     underscores"
@@ -1165,10 +1165,11 @@ web-mode is awesome!
 ** Eshell
 *** Aweshell
     Holy crap is this cool, and it even works on Windows. If only I could install it from Melpa :-)
+
     #+BEGIN_SRC emacs-lisp
-      (cond
-       ((file-directory-p "customizations/packages/aweshell")
-        (require 'aweshell)))
+      (if (not (require 'aweshell nil t))
+          (message "`aweshell' not found")
+        (message "awe-shell!!!"))
     #+END_SRC
     
 * Text Search
