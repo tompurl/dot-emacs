@@ -1071,6 +1071,20 @@ Let's just turn it on for everything :smile:
              (lisp-interaction-mode . enable-paredit-mode)
              (scheme-mode . enable-paredit-mode)))
   #+END_SRC
+*** Eshell
+**** Aweshell
+     Holy crap is this cool, and it even works on Windows. If only I could install it from Melpa :-)
+
+     #+BEGIN_SRC emacs-lisp
+       (if (not (require 'aweshell nil t))
+           (message "`aweshell' not found")
+         (message "awe-shell!!!"))
+     #+END_SRC
+*** Paren matching
+    These customizations make it easier to know where code blocks are.
+    #+BEGIN_SRC emacs-lisp
+      (show-paren-mode 1)
+    #+END_SRC
 ** Autoit
    Yet another package that we can't install from melpa.
 #+BEGIN_SRC emacs-lisp
@@ -1162,16 +1176,6 @@ web-mode is awesome!
       (use-package sx-load
         :load-path "customizations/packages/sx.el")
     #+END_SRC
-** Eshell
-*** Aweshell
-    Holy crap is this cool, and it even works on Windows. If only I could install it from Melpa :-)
-
-    #+BEGIN_SRC emacs-lisp
-      (if (not (require 'aweshell nil t))
-          (message "`aweshell' not found")
-        (message "awe-shell!!!"))
-    #+END_SRC
-    
 * Text Search
 ** Ack
 
