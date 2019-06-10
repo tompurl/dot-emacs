@@ -122,8 +122,9 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 *** Poet Theme
 #+BEGIN_SRC emacs-lisp
   ;; This has to be installed manually
-  (require 'poet-theme)
-  (load-theme 'poet 1)
+  (if (not (require 'poet-theme nil t))
+      (message "Package `poet-theme' not found")
+    (load-theme 'poet 1))
 #+END_SRC
 *** Dracula
     #+BEGIN_SRC emacs-lisp
@@ -145,6 +146,17 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
       ;;   :ensure t)
       ;; (load-theme 'gruvbox-light-soft t)
     #+END_SRC
+*** Soothe
+    This is a little too dark and funky for my tastes.
+#+BEGIN_SRC emacs-lisp
+  ;; (if (not (require 'soothe-theme nil t))
+  ;;     (message "Package `soothe-theme' not found")
+  ;;   (load-theme 'soothe 1))
+#+END_SRC
+
+#+RESULTS:
+: t
+
 ** Centering Prose
 *** Olivetti
     This is a *sweet* minor mode that makes prose pages look much nicer. 
