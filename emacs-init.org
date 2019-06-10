@@ -1085,6 +1085,17 @@ Let's just turn it on for everything :smile:
     #+BEGIN_SRC emacs-lisp
       (show-paren-mode 1)
     #+END_SRC
+*** Auto-Eval'ing Code
+    This /seemed/ like a good idea but caused lots and lots of weirdness that kept me from
+    closing Emacs.
+    #+BEGIN_SRC emacs-lisp
+      ;; (defun eval-emacs-lisp-buffer ()
+      ;;   "Eval a buffer if it's major mode is emacs-lisp."
+      ;;   (when (eq major-mode 'elisp-mode)
+      ;;     (eval-buffer)))
+
+      ;; (add-hook 'after-save-hook 'eval-buffer)
+    #+END_SRC
 ** Autoit
    Yet another package that we can't install from melpa.
 #+BEGIN_SRC emacs-lisp
