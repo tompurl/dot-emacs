@@ -1,0 +1,7 @@
+# key: rlp
+# name: require-local-package
+# --
+(if (not (require '$1 nil t))
+    (message "Package `$1' not found")
+  (${2:additional-config})
+  )

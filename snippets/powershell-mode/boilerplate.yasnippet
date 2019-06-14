@@ -1,0 +1,28 @@
+# -*- mode: snippet -*-
+# name: boilerplate
+# key: bp
+# --
+<#
+.Synopsis
+
+
+.Description
+
+
+.Notes
+
+
+.Example
+
+
+
+#>
+
+param(
+    [Parameter(Mandatory=$true)]
+   [ValidateSet("Dev", "Dev2", "Dev3", "Test", "SMB", "ATT", "PCSMB", "PCATT", "Utility", "Shared")]
+   [String]
+   $Environment,
+   [String]
+   $Location = "CentralUs"
+)
