@@ -325,6 +325,22 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
       (use-package presentation
         :ensure t)
     #+END_SRC
+*** org-re-reveal 
+    This plugin has changed my mother-flippin' life. 
+
+    [[./images/mother-flippin-mug.jpg]]
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package org-re-reveal
+        :ensure t
+        :config
+        (setq org-re-reveal-root "./reveal.js")
+        (setq org-re-reveal-title-slide "<h1>%t</h1><footer><h5>&copy;%a</h5></footer>")
+        )
+    #+END_SRC
+
+    Make sure that your Org file has that directory beneath it.
+
 * YAS
 ** Bootstrap
 #+BEGIN_SRC emacs-lisp
@@ -806,7 +822,7 @@ Of course you need these :smile:
    ... and this scales them down when viewing them inline:
 
    #+BEGIN_SRC emacs-lisp
-     (setq org-image-actual-width 600)
+     (setq org-image-actual-width 400)
    #+END_SRC
 
 * Magit
