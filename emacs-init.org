@@ -432,6 +432,15 @@ nuts. This fixes that:
                                      (file . find-file)
                                      (wl . wl-other-frame))))
 #+END_SRC
+*** Jump to a task's LOGBOOK
+    #+BEGIN_SRC emacs-lisp
+      (fset 'tp/org/jump-to-logbook
+            (lambda (&optional arg) 
+              "Keyboard macro."
+              (interactive "p")
+              (kmacro-exec-ring-item (quote ([19 108 111 103 98 return] 0 "%d")) arg)))
+      (global-set-key (kbd "\C-ck") 'tp/org/jump-to-logbook)
+    #+END_SRC
 ** Org-agenda
 *** Specify the files that can be used in an agenda
  
