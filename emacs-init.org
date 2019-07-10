@@ -127,23 +127,33 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 
 ** Character Encoding
-   UTF-8 is the only thing that makes sense for me.
-#+BEGIN_SRC emacs-lisp
-  ; Shamelessly stolen from https://writequit.org/eos/eos-core.html
-  (set-charset-priority 'unicode)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
-  (cond
-   ((string-equal system-type "windows-nt")
-    (progn
-      (setq default-process-coding-system '(utf-8-dos . utf-8-dos))))
-   ((string-equal system-type "gnu/linux")
-    (progn
-      (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))))
-#+END_SRC
+*** Defaults
+    UTF-8 is the only thing that makes sense for me.
+ #+BEGIN_SRC emacs-lisp
+   ; Shamelessly stolen from https://writequit.org/eos/eos-core.html
+   (set-charset-priority 'unicode)
+   (set-default-coding-systems 'utf-8)
+   (set-terminal-coding-system 'utf-8)
+   (set-keyboard-coding-system 'utf-8)
+   (set-selection-coding-system 'utf-8)
+   (prefer-coding-system 'utf-8)
+   (cond
+    ((string-equal system-type "windows-nt")
+     (progn
+       (setq default-process-coding-system '(utf-8-dos . utf-8-dos))))
+    ((string-equal system-type "gnu/linux")
+     (progn
+       (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))))
+ #+END_SRC
+*** File Conversion
+    Sometimes it's just easier to fix the carriage returns. Stolen from https://www.emacswiki.org/emacs/DosToUnix:
+
+    #+BEGIN_SRC emacs-lisp
+      (defun dos2unix ()
+        "Not exactly but it's easier to remember"
+        (interactive)
+        (set-buffer-file-coding-system 'utf-8-unix 't))
+    #+END_SRC
 ** Startup Stuff
    I don't want to see the startup screen. Just dump me into a scratch buffer.
    #+BEGIN_SRC emacs-lisp
