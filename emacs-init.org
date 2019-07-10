@@ -228,9 +228,9 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "Victor Mono SemiBold" :height 140)
-   (set-face-attribute 'fixed-pitch nil :family "Victor Mono SemiBold" :height 140)
-   (set-face-attribute 'variable-pitch nil :family "Roboto Condensed Light" :height 150)
+   (set-face-attribute 'default nil :family "Victor Mono SemiBold" :height 130)
+   (set-face-attribute 'fixed-pitch nil :family "Victor Mono SemiBold" :height 130)
+   (set-face-attribute 'variable-pitch nil :family "Roboto Condensed Light" :height 140)
  #+END_SRC
 
 *** Viewing monospaced and non-monospaced fonts in the same document
