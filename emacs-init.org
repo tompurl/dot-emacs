@@ -441,6 +441,27 @@ nuts. This fixes that:
               (kmacro-exec-ring-item (quote ([19 108 111 103 98 return] 0 "%d")) arg)))
       (global-set-key (kbd "\C-ck") 'tp/org/jump-to-logbook)
     #+END_SRC
+*** Move the last bullet in a sublist to the top of a sublist
+
+    I admit that this is a bit hacky because it requires the following:
+
+    1. Your mouse pointer has to be on the parent bullet of the sub-list.
+    2. The parent bullet needs another bullet at the same level beneath it.
+
+    However, it works really well for the intended purpose, which is taking sub-bullets
+    created by a capture template and moving them to the top of a sub-list.
+    #+BEGIN_SRC emacs-lisp
+      (defun tp/org/move-last-subbullet-to-top-of-sublist ()
+        "Move the last sub-bullet to the top of the list of sub-bullets."
+        (interactive)
+        (org-forward-heading-same-level 1)
+        (forward-line -1)
+        (kill-visual-line 1)
+        (org-backward-heading-same-level 1)
+        (forward-line 1)
+        (org-yank)
+        (forward-line -1))
+    #+END_SRC
 ** Org-agenda
 *** Specify the files that can be used in an agenda
  
