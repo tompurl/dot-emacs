@@ -228,9 +228,9 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "Ubuntu Mono" :height 140)
-   (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono" :height 140)
-   (set-face-attribute 'variable-pitch nil :family "Ubuntu Light" :height 140)
+   (set-face-attribute 'default nil :family "Victor Mono SemiBold" :height 140)
+   (set-face-attribute 'fixed-pitch nil :family "Victor Mono SemiBold" :height 140)
+   (set-face-attribute 'variable-pitch nil :family "Roboto Condensed Light" :height 150)
  #+END_SRC
 
 *** Viewing monospaced and non-monospaced fonts in the same document
@@ -432,6 +432,15 @@ nuts. This fixes that:
                                      (file . find-file)
                                      (wl . wl-other-frame))))
 #+END_SRC
+*** Jump to a task's LOGBOOK
+    #+BEGIN_SRC emacs-lisp
+      (fset 'tp/org/jump-to-logbook
+            (lambda (&optional arg) 
+              "Keyboard macro."
+              (interactive "p")
+              (kmacro-exec-ring-item (quote ([19 108 111 103 98 return] 0 "%d")) arg)))
+      (global-set-key (kbd "\C-ck") 'tp/org/jump-to-logbook)
+    #+END_SRC
 ** Org-agenda
 *** Specify the files that can be used in an agenda
  
@@ -515,7 +524,6 @@ make any changes to your org-agenda view.
    #+BEGIN_SRC emacs-lisp
      (setq org-clock-idle-time 15)
    #+END_SRC
-
 
 ** Org-capture
 *** Properties
@@ -785,21 +793,20 @@ block (unless it's overrided at a lower lever of course).
 These are the tags that I will use the most when creating new tasks.
  
 #+BEGIN_SRC emacs-lisp
-
   (setq org-tag-alist '(
                         ("c_admin" . ?a)
                         ("c_coding" . ?c)
+                        ("c_documentation" . ?d)
                         ("goal" . ?g)
                         ("c_hardware_troubleshooting" . ?h)
                         ("c_training" . ?i)
                         ("c_manual_testing" . ?m)
                         ("c_meetings" . ?e)
                         ("objective" . ?o)
-                        ("c_project_planning" . ?p)
-                        ("c_hr" . ?r)                      
+                        ("c_hr" . ?r)
+                        ("c_SAFE_stuff" . ?s)
                         ("today" . ?t)
-                        ("c_system_maintenance" . ?z)
-                        ))
+                        ("c_system_maintenance" . ?z)))
 #+END_SRC
 
 ** Org bullets
@@ -822,7 +829,7 @@ Of course you need these :smile:
    ... and this scales them down when viewing them inline:
 
    #+BEGIN_SRC emacs-lisp
-     (setq org-image-actual-width 400)
+     (setq org-image-actual-width t)
    #+END_SRC
 
 * Magit
