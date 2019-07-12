@@ -211,13 +211,13 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
                   (lambda ()
                     (olivetti-mode 1))))
       (custom-set-variables
-       '(olivetti-body-width 100))
+       '(olivetti-body-width 90))
     #+END_SRC
 
     Since the screen width for prose is now 100 I'm going to bump up paragraph width too:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default fill-column 90)
+  (setq-default fill-column 85)
 #+END_SRC
 
     Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't actually kill the
