@@ -149,7 +149,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
     Sometimes it's just easier to fix the carriage returns. Stolen from https://www.emacswiki.org/emacs/DosToUnix:
 
     #+BEGIN_SRC emacs-lisp
-      (defun dos2unix ()
+      (defun tp/encoding/dos2unix ()
         "Not exactly but it's easier to remember"
         (interactive)
         (set-buffer-file-coding-system 'utf-8-unix 't))
