@@ -1247,6 +1247,20 @@ web-mode is awesome!
       (use-package sx-load
         :load-path "customizations/packages/sx.el")
     #+END_SRC
+** Common Lisp
+*** Slime
+    #+BEGIN_SRC emacs-lisp
+      (use-package slime
+        :ensure t
+        :init
+        (cond
+         ((string-equal system-type "windows-nt")
+          (progn
+            (setq inferior-lisp-program "c:/who/knows")))
+         ((string-equal system-type "gnu/linux")
+          (progn
+            (setq inferior-lisp-program "/usr/bin/sbcl")))))
+    #+END_SRC
 * Text Search
 ** Ack
 
