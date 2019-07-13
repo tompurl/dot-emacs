@@ -127,23 +127,33 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 
 ** Character Encoding
-   UTF-8 is the only thing that makes sense for me.
-#+BEGIN_SRC emacs-lisp
-  ; Shamelessly stolen from https://writequit.org/eos/eos-core.html
-  (set-charset-priority 'unicode)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
-  (cond
-   ((string-equal system-type "windows-nt")
-    (progn
-      (setq default-process-coding-system '(utf-8-dos . utf-8-dos))))
-   ((string-equal system-type "gnu/linux")
-    (progn
-      (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))))
-#+END_SRC
+*** Defaults
+    UTF-8 is the only thing that makes sense for me.
+ #+BEGIN_SRC emacs-lisp
+   ; Shamelessly stolen from https://writequit.org/eos/eos-core.html
+   (set-charset-priority 'unicode)
+   (set-default-coding-systems 'utf-8)
+   (set-terminal-coding-system 'utf-8)
+   (set-keyboard-coding-system 'utf-8)
+   (set-selection-coding-system 'utf-8)
+   (prefer-coding-system 'utf-8)
+   (cond
+    ((string-equal system-type "windows-nt")
+     (progn
+       (setq default-process-coding-system '(utf-8-dos . utf-8-dos))))
+    ((string-equal system-type "gnu/linux")
+     (progn
+       (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))))
+ #+END_SRC
+*** File Conversion
+    Sometimes it's just easier to fix the carriage returns. Stolen from https://www.emacswiki.org/emacs/DosToUnix:
+
+    #+BEGIN_SRC emacs-lisp
+      (defun tp/encoding/dos2unix ()
+        "Not exactly but it's easier to remember"
+        (interactive)
+        (set-buffer-file-coding-system 'utf-8-unix 't))
+    #+END_SRC
 ** Startup Stuff
    I don't want to see the startup screen. Just dump me into a scratch buffer.
    #+BEGIN_SRC emacs-lisp
@@ -201,13 +211,13 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
                   (lambda ()
                     (olivetti-mode 1))))
       (custom-set-variables
-       '(olivetti-body-width 100))
+       '(olivetti-body-width 90))
     #+END_SRC
 
     Since the screen width for prose is now 100 I'm going to bump up paragraph width too:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default fill-column 90)
+  (setq-default fill-column 85)
 #+END_SRC
 
     Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't actually kill the
@@ -228,9 +238,9 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "Victor Mono SemiBold" :height 140)
-   (set-face-attribute 'fixed-pitch nil :family "Victor Mono SemiBold" :height 140)
-   (set-face-attribute 'variable-pitch nil :family "Roboto Condensed Light" :height 150)
+   (set-face-attribute 'default nil :family "Victor Mono SemiBold" :height 130)
+   (set-face-attribute 'fixed-pitch nil :family "Victor Mono SemiBold" :height 130)
+   (set-face-attribute 'variable-pitch nil :family "Roboto Condensed Light" :height 140)
  #+END_SRC
 
 *** Viewing monospaced and non-monospaced fonts in the same document
@@ -440,6 +450,27 @@ nuts. This fixes that:
               (interactive "p")
               (kmacro-exec-ring-item (quote ([19 108 111 103 98 return] 0 "%d")) arg)))
       (global-set-key (kbd "\C-ck") 'tp/org/jump-to-logbook)
+    #+END_SRC
+*** Move the last bullet in a sublist to the top of a sublist
+
+    I admit that this is a bit hacky because it requires the following:
+
+    1. Your mouse pointer has to be on the parent bullet of the sub-list.
+    2. The parent bullet needs another bullet at the same level beneath it.
+
+    However, it works really well for the intended purpose, which is taking sub-bullets
+    created by a capture template and moving them to the top of a sub-list.
+    #+BEGIN_SRC emacs-lisp
+      (defun tp/org/move-last-subbullet-to-top-of-sublist ()
+        "Move the last sub-bullet to the top of the list of sub-bullets."
+        (interactive)
+        (org-forward-heading-same-level 1)
+        (forward-line -1)
+        (kill-visual-line 1)
+        (org-backward-heading-same-level 1)
+        (forward-line 1)
+        (org-yank)
+        (forward-line -1))
     #+END_SRC
 ** Org-agenda
 *** Specify the files that can be used in an agenda
