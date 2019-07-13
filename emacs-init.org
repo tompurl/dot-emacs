@@ -613,7 +613,7 @@ that you want it to look recursively.
  
 This is just a minor utility function.
  
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun escape-file-titles (title)
     "Take an arbitrary string and replace all of the bad chars with
     underscores"
@@ -824,7 +824,11 @@ block (unless it's overrided at a lower lever of course).
 These are the tags that I will use the most when creating new tasks.
  
 #+BEGIN_SRC emacs-lisp
-  (setq org-tag-alist '(
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      ;; Work-related tags
+      (setq org-tag-alist '(
                         ("c_admin" . ?a)
                         ("c_coding" . ?c)
                         ("c_documentation" . ?d)
@@ -835,9 +839,16 @@ These are the tags that I will use the most when creating new tasks.
                         ("c_meetings" . ?e)
                         ("objective" . ?o)
                         ("c_hr" . ?r)
-                        ("c_SAFE_stuff" . ?s)
+                        ("c_agile_process_stuff" . ?s)
                         ("today" . ?t)
-                        ("c_system_maintenance" . ?z)))
+                        ("c_system_maintenance" . ?z)))))
+   ((string-equal system-type "gnu/linux")
+    (progn
+      (setq org-tag-alist '(
+                            ("c_bills" . ?b)
+                            ("c_chore" . ?c)
+                            ("c_errand" . ?e)
+                            ("c_self_care" . ?s))))))
 #+END_SRC
 
 ** Org bullets
