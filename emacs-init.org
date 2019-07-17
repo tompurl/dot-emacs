@@ -613,7 +613,7 @@ that you want it to look recursively.
  
 This is just a minor utility function.
  
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun escape-file-titles (title)
     "Take an arbitrary string and replace all of the bad chars with
     underscores"
@@ -824,7 +824,11 @@ block (unless it's overrided at a lower lever of course).
 These are the tags that I will use the most when creating new tasks.
  
 #+BEGIN_SRC emacs-lisp
-  (setq org-tag-alist '(
+  (cond
+   ((string-equal system-type "windows-nt")
+    (progn
+      ;; Work-related tags
+      (setq org-tag-alist '(
                         ("c_admin" . ?a)
                         ("c_coding" . ?c)
                         ("c_documentation" . ?d)
@@ -835,9 +839,16 @@ These are the tags that I will use the most when creating new tasks.
                         ("c_meetings" . ?e)
                         ("objective" . ?o)
                         ("c_hr" . ?r)
-                        ("c_SAFE_stuff" . ?s)
+                        ("c_agile_process_stuff" . ?s)
                         ("today" . ?t)
-                        ("c_system_maintenance" . ?z)))
+                        ("c_system_maintenance" . ?z)))))
+   ((string-equal system-type "gnu/linux")
+    (progn
+      (setq org-tag-alist '(
+                            ("c_bills" . ?b)
+                            ("c_chore" . ?c)
+                            ("c_errand" . ?e)
+                            ("c_self_care" . ?s))))))
 #+END_SRC
 
 ** Org bullets
@@ -903,25 +914,17 @@ After all of that I only needed the following config:
       (setenv "GIT_SSH" "C:/Program Files/PuTTY/plink.exe"))))
 #+END_SRC
 ** Keymaps
-   I like having my own custom keymap for Magit. 
-
 #+BEGIN_SRC emacs-lisp 
   (progn
     (define-prefix-command 'tp/magit/key-map)
     (define-key tp/magit/key-map (kbd "s") 'magit-status)
     (define-key tp/magit/key-map (kbd "b") 'magit-branch-popup)
     (define-key tp/magit/key-map (kbd "c") 'magit-checkout)
-    (define-key tp/magit/key-map (kbd "d") 'magit-diff-popup))
-  (global-set-key (kbd "\C-cm") tp/magit/key-map)
+    (define-key tp/magit/key-map (kbd "d") 'magit-diff-popup)
+    )
+
+ (global-set-key (kbd "\C-cm") tp/magit/key-map)
 #+END_SRC
-
-   I'm also already using =C-x gg= as a shortcut to jump to the top of a buffer, so
-   I'm not a huge fan of Magit using =C-x g= to run =magit-status=. So let's nuke
-   that:
-
-   #+BEGIN_SRC emacs-lisp
-     (global-unset-key (kbd "C-x g"))
-   #+END_SRC
 
 * Completion
 ** ido-ubiquitous
@@ -1292,6 +1295,20 @@ web-mode is awesome!
     #+BEGIN_SRC emacs-lisp
       (use-package sx-load
         :load-path "customizations/packages/sx.el")
+    #+END_SRC
+** Common Lisp
+*** Slime
+    #+BEGIN_SRC emacs-lisp
+      (use-package slime
+        :ensure t
+        :init
+        (cond
+         ((string-equal system-type "windows-nt")
+          (progn
+            (setq inferior-lisp-program "c:/who/knows")))
+         ((string-equal system-type "gnu/linux")
+          (progn
+            (setq inferior-lisp-program "/usr/bin/sbcl")))))
     #+END_SRC
 * Text Search
 ** Ack
