@@ -915,17 +915,25 @@ After all of that I only needed the following config:
       (setenv "GIT_SSH" "C:/Program Files/PuTTY/plink.exe"))))
 #+END_SRC
 ** Keymaps
+   I like having my own custom keymap for Magit. 
+
 #+BEGIN_SRC emacs-lisp 
   (progn
     (define-prefix-command 'tp/magit/key-map)
     (define-key tp/magit/key-map (kbd "s") 'magit-status)
     (define-key tp/magit/key-map (kbd "b") 'magit-branch-popup)
     (define-key tp/magit/key-map (kbd "c") 'magit-checkout)
-    (define-key tp/magit/key-map (kbd "d") 'magit-diff-popup)
-    )
-
- (global-set-key (kbd "\C-cm") tp/magit/key-map)
+    (define-key tp/magit/key-map (kbd "d") 'magit-diff-popup))
+  (global-set-key (kbd "\C-cm") tp/magit/key-map)
 #+END_SRC
+
+   I'm also already using =C-x gg= as a shortcut to jump to the top of a buffer, so
+   I'm not a huge fan of Magit using =C-x g= to run =magit-status=. So let's nuke
+   that:
+
+   #+BEGIN_SRC emacs-lisp
+     (global-unset-key (kbd "C-x g"))
+   #+END_SRC
 
 * Completion
 ** ido-ubiquitous
