@@ -848,7 +848,8 @@ These are the tags that I will use the most when creating new tasks.
                             ("c_bills" . ?b)
                             ("c_chore" . ?c)
                             ("c_errand" . ?e)
-                            ("c_self_care" . ?s))))))
+                            ("c_self_care" . ?s)
+                            ("today" . ?t))))))
 #+END_SRC
 
 ** Org bullets
