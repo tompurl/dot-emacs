@@ -1318,6 +1318,14 @@ web-mode is awesome!
           (progn
             (setq inferior-lisp-program "/usr/bin/sbcl")))))
     #+END_SRC
+** Plain Old REST
+*** Restclient!!!
+    This is a fantastic package for interacting with REST endpoints in an interactive way.
+    #+BEGIN_SRC emacs-lisp :exports code-or-both
+      (use-package restclient ;; or whatever the main el package name is
+        :load-path "customizations/packages/restclient.el")
+    #+END_SRC
+
 * Text Search
 ** Ack
 
