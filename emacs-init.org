@@ -164,9 +164,9 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 *** Poet Theme
 #+BEGIN_SRC emacs-lisp
   ;; This has to be installed manually
-  (if (not (require 'poet-theme nil t))
-      (message "Package `poet-theme' not found")
-    (load-theme 'poet 1))
+  ;; (if (not (require 'poet-theme nil t))
+  ;;     (message "Package `poet-theme' not found")
+  ;;   (load-theme 'poet 1))
 #+END_SRC
 *** Dracula
     #+BEGIN_SRC emacs-lisp
@@ -184,9 +184,9 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
     Man this is a great-looking, modular theme but like so many other awesome fonts it
     doesn't support variable-pitch fonts.
     #+BEGIN_SRC emacs-lisp
-      ;; (use-package gruvbox-theme
-      ;;   :ensure t)
-      ;; (load-theme 'gruvbox-light-soft t)
+      (use-package gruvbox-theme
+        :ensure t)
+      (load-theme 'gruvbox-light-soft t)
     #+END_SRC
 *** Soothe
     This is a little too dark and funky for my tastes.
