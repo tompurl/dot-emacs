@@ -915,7 +915,8 @@ First, install magit:
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
-    :ensure t)
+    :ensure t
+    :bind ("C-c m s" . magit-mode))
 #+END_SRC
  
 I'm currently stuck in dependency hell here and the old version of
@@ -1227,10 +1228,11 @@ Let's just turn it on for everything :smile:
      Holy crap is this cool, and it even works on Windows. If only I could install it from Melpa :-)
 
      #+BEGIN_SRC emacs-lisp
-       (if (not (require 'aweshell nil t))
-           (message "`aweshell' not found")
-         (message "awe-shell!!!"))
+       (use-package aweshell
+         :load-path "customizations/packages/aweshell"
+         :defer t)
      #+END_SRC
+
 *** Paren matching
     These customizations make it easier to know where code blocks are.
     #+BEGIN_SRC emacs-lisp
@@ -1303,6 +1305,7 @@ web-mode is awesome!
 #+BEGIN_SRC emacs-lisp
   (use-package virtualenvwrapper
     :ensure t
+    :mode ("\\.py\\'" . elpy-mode)
     :config
     (venv-initialize-interactive-shells)
     (venv-initialize-eshell))
@@ -1321,6 +1324,16 @@ web-mode is awesome!
       (use-package pip-requirements
         :ensure t)
     #+END_SRC
+*** Elpy
+    Let's see if this works better for me than regular old =python-mode=:
+    #+BEGIN_SRC emacs-lisp
+      (use-package elpy
+        :ensure t
+        :mode "\\.py\\'"
+        :init
+        (elpy-enable))
+    #+END_SRC
+
 ** Docker
    Let's add support for Dockerfiles!
    #+BEGIN_SRC emacs-lisp
