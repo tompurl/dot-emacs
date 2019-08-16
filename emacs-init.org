@@ -802,25 +802,27 @@ value.
 Here's the languages that I can interpret. Note that there's a difference between the way that the =shell= language is loaded between older and newer versions of Emacs. This my hacky way of fixing it for now:
  
 #+BEGIN_SRC emacs-lisp
-  (cond
-   ((string-equal system-type "windows-nt")
-    (progn
-      (org-babel-do-load-languages
-       'org-babel-load-languages
-       '((js . t)
-         (emacs-lisp . t)
-         (shell . t)
-         (python . t)
-         (dot . t)))))
-   ((string-equal system-type "gnu/linux")
-    (progn
-      (org-babel-do-load-languages
-       'org-babel-load-languages
-       '((js . t)
-         (emacs-lisp . t)
-         (sh . t)
-         (python . t)
-         (dot . t))))))
+    (cond
+     ((string-equal system-type "windows-nt")
+      (progn
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((js . t)
+           (emacs-lisp . t)
+           (shell . t)
+           (python . t)
+           (dot . t)
+           (plantuml . t)))))
+     ((string-equal system-type "gnu/linux")
+      (progn
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((js . t)
+           (emacs-lisp . t)
+           (sh . t)
+           (python . t)
+           (dot . t)
+           (plantuml . t))))))
 #+END_SRC
 
 I don't want to manually confirm that code written in the following
@@ -1355,8 +1357,17 @@ web-mode is awesome!
     This is a fantastic package for interacting with REST endpoints in an interactive way.
     #+BEGIN_SRC emacs-lisp :exports code-or-both
       (use-package restclient ;; or whatever the main el package name is
-        :load-path "customizations/packages/restclient.el")
+        :load-path "customizations/packages/restclient.el"
+        :mode "\\.rest\\'")
     #+END_SRC
+
+** PlantUML
+    #+BEGIN_SRC emacs-lisp :exports code-or-both
+      (use-package plantuml-mode
+        :ensure t
+        :config
+        (setq org-plantuml-jar-path "~/plantuml.jar"))
+    #+END_SRC  
 
 * Text Search
 ** Ack
