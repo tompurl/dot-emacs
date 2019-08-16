@@ -1201,8 +1201,14 @@ you need to install for your favorite programming languages:
  #+BEGIN_SRC emacs-lisp
    (load "robot-mode")
    (add-to-list 'auto-mode-alist
-                '("\\.txt\\'" . robot-mode)
+                '("\\.txt\\'" . robot-mode))
+   (add-to-list 'auto-mode-alist
                 '("\\.robot\\'" . robot-mode))
+ #+END_SRC
+*** Keymaps
+ #+BEGIN_SRC emacs-lisp
+   (add-hook 'robot-mode-hook
+             (lambda () (local-set-key (kbd "<f5>") #'robot-mode-find-kw)))
  #+END_SRC
 *** Hiding =^M= Characters In Robot Files
  #+BEGIN_SRC emacs-lisp
