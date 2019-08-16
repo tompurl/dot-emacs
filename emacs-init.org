@@ -111,11 +111,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
             (concat chocolatey-root "/" "bin"))
       (setq exec-path (append '("C:/Python27"
                                 "c:/ProgramData/chocolatey/bin")
-                              exec-path))))
-   ;; ((string-equal system-type "gnu/linux")
-   ;;  (progn
-   ;;    (2)))
-   )
+                              exec-path)))))
 
 #+END_SRC
 
@@ -163,7 +159,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 ** Themes
 *** Poet Theme
 #+BEGIN_SRC emacs-lisp
-  ;; This has to be installed manually
+  ;; ;; This has to be installed manually
   ;; (if (not (require 'poet-theme nil t))
   ;;     (message "Package `poet-theme' not found")
   ;;   (load-theme 'poet 1))
@@ -1414,6 +1410,7 @@ web-mode is awesome!
       (set-register ?r (cons 'file "~/braindump/index.org"))))
    )
 #+END_SRC
+
 ** Misc
 #+BEGIN_SRC emacs-lisp 
   (set-register ?e (cons 'file "~/.emacs.d/emacs-init.org"))
