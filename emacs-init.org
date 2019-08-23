@@ -303,7 +303,8 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
   ;;   :init
   ;;   (add-hook 'after-init-hook #'global-emojify-mode))
   (use-package emojify
-    :ensure t)
+    :ensure t
+    :mode ("\\.org\\'" . org-mode))
 #+END_SRC
 
 ** Powerline
@@ -350,6 +351,7 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
 *** Nyan Cat Stuff
 #+BEGIN_SRC emacs-lisp
   (use-package zone-nyan
+    :defer t
     :ensure t)
   (use-package nyan-mode
     :ensure t
@@ -358,6 +360,7 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
     :config
     (nyan-start-animation))
 #+END_SRC
+
 ** Presentation Helpers
 *** presentation mode
     This is a cool way to control font size and such for sharing:
@@ -893,7 +896,6 @@ Of course you need these :smile:
   (use-package org-bullets
     :ensure t
     :init
-    (require 'org-bullets)
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
 ** Images
@@ -1275,8 +1277,10 @@ Let's just turn it on for everything :smile:
 **** Bootstrap
 #+BEGIN_SRC emacs-lisp
   (use-package web-server
-    :ensure t)
+    :ensure t
+    :defer t)
 #+END_SRC
+
 **** Convenience Functions
      This function starts a server on port 9003 that serves up static
      content that's located in the PWD (which is also your DOCROOT). 
@@ -1312,7 +1316,7 @@ web-mode is awesome!
 #+BEGIN_SRC emacs-lisp
   (use-package virtualenvwrapper
     :ensure t
-    :mode ("\\.py\\'" . elpy-mode)
+    :mode ("\\.py\\'" . python-mode)
     :config
     (venv-initialize-interactive-shells)
     (venv-initialize-eshell))
@@ -1356,13 +1360,16 @@ web-mode is awesome!
 
     #+BEGIN_SRC emacs-lisp
       (use-package sx-load
+        :disabled
         :load-path "customizations/packages/sx.el")
     #+END_SRC
+
 ** Common Lisp
 *** Slime
     #+BEGIN_SRC emacs-lisp
       (use-package slime
         :ensure t
+        :mode "\\.cl\\'"
         :init
         (cond
          ((string-equal system-type "windows-nt")
@@ -1486,6 +1493,7 @@ web-mode is awesome!
 ** TODO Make mode change file to RO 
   #+BEGIN_SRC emacs-lisp
     (use-package logview
+      :disabled
       :ensure t
       )
   #+END_SRC
@@ -1559,8 +1567,10 @@ web-mode is awesome!
 
   #+BEGIN_SRC emacs-lisp
     (use-package markdown-mode
+      :mode "\\.md\\'"
       :ensure t)
   #+END_SRC
+
 * Window Management
   I just love this, it was stupid simple to write and I think I use it a least 10 times a
   day. It "moves" the current window into a new frame. 
