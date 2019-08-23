@@ -241,7 +241,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
                   (lambda ()
                     (olivetti-mode 1))))
       (custom-set-variables
-       '(olivetti-body-width 90))
+       '(olivetti-body-width 62))
     #+END_SRC
 
     Since the screen width for prose is now 100 I'm going to bump up paragraph width too:
