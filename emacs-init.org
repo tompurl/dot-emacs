@@ -919,12 +919,15 @@ Of course you need these :smile:
 
 First, install magit:
 
+*Note*: There /might/ be an issue with putting =defer= and =bind= in the same
+ =use-package= statement. So if things get super crazy consider that.
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
+    :defer 120
     :bind ("C-c m s" . magit-mode))
 #+END_SRC
- 
+
 I'm currently stuck in dependency hell here and the old version of
 magit doesn't work so I'm just going to comment all of this out.
  
