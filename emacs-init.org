@@ -869,6 +869,7 @@ These are the tags that I will use the most when creating new tasks.
                         ("c_hardware_troubleshooting" . ?h)
                         ("c_training" . ?i)
                         ("c_manual_testing" . ?m)
+                        ("c_monitoring" . ?n)
                         ("c_meetings" . ?e)
                         ("objective" . ?o)
                         ("c_hr" . ?r)
