@@ -1343,11 +1343,17 @@ web-mode is awesome!
     #+BEGIN_SRC emacs-lisp
       (use-package elpy
         :ensure t
-        :mode "\\.py\\'"
+        :mode ("\\.py\\'" . python-mode)
         :init
-        (elpy-enable))
+        (add-hook 'python-mode-hook #'elpy-enable)
+        :config
+        (setq python-shell-interpreter "jupyter"
+              python-shell-interpreter-args "console --simple-prompt"
+              python-shell-prompt-detect-failure-warning nil)
+        (add-to-list 'python-shell-completion-native-disabled-interpreters
+                     "jupyter"))
     #+END_SRC
-
+    
 ** Docker
    Let's add support for Dockerfiles!
    #+BEGIN_SRC emacs-lisp
