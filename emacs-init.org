@@ -425,7 +425,10 @@ information on the "*_ALL" properties check this out:
   (define-key global-map "\C-ca" 'org-agenda)
   (global-set-key (kbd "<f4>") 'set-org-agenda-files)
   (add-hook 'org-mode-hook
-            (lambda () (local-set-key (kbd "<f5>") #'org-toggle-inline-images)))
+            (lambda ()
+              (local-set-key (kbd "<f5>") #'org-toggle-inline-images)
+              (local-set-key (kbd "C-c n s") #'org-narrow-to-subtree)
+              (local-set-key (kbd "C-c w") #'widen)))
   (define-key global-map "\C-cc" 'org-capture)
   (global-set-key (kbd "C-c h") 'open-org-html-file-in-browser)
   (global-set-key (kbd "<f6>") (lambda() (interactive)(org-publish-current-file)))
