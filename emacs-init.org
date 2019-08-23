@@ -963,7 +963,9 @@ After all of that I only needed the following config:
     (define-key tp/magit/key-map (kbd "s") 'magit-status)
     (define-key tp/magit/key-map (kbd "b") 'magit-branch-popup)
     (define-key tp/magit/key-map (kbd "c") 'magit-checkout)
-    (define-key tp/magit/key-map (kbd "d") 'magit-diff-popup))
+    (define-key tp/magit/key-map (kbd "d") 'magit-diff-popup)
+    ;; Show the git log for the current file.
+    (define-key tp/magit/key-map (kbd "l") 'magit-log-buffer-file))
   (global-set-key (kbd "\C-cm") tp/magit/key-map)
 #+END_SRC
 
