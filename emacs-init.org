@@ -376,10 +376,10 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
     #+BEGIN_SRC emacs-lisp
       (use-package org-re-reveal
         :ensure t
+        :defer t
         :config
         (setq org-re-reveal-root "./reveal.js")
-        (setq org-re-reveal-title-slide "<h1>%t</h1><footer><h5>&copy;%a</h5></footer>")
-        )
+        (setq org-re-reveal-title-slide "<h1>%t</h1><footer><h5>&copy;%a</h5></footer>"))
     #+END_SRC
 
     Make sure that your Org file has that directory beneath it.
