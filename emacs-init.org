@@ -1016,7 +1016,8 @@ but I'm afraid to delete it at this point :-)
   (use-package helm
     :ensure t
     :bind (("M-x" . helm-M-x)
-           ("C-x b" . helm-mini)))
+           ("C-x b" . helm-mini)
+           ("C-c x" . helm-all-mark-rings)))
 #+END_SRC
 
 * Timestamp Stuff
@@ -1176,15 +1177,28 @@ you need to install for your favorite programming languages:
     :ensure t
     :init
     (setq projectile-keymap-prefix (kbd "C-c p"))
-    :config
-    (projectile-mode +1))
+    :bind-keymap
+    ("C-c p" . projectile-mode)
+    ;; :config
+    ;; (setq projectile-globally-ignored-file-suffixes
+    ;;       '(".pyc" ".jpg" ".png" ".log" ".swp"))
+    ;; (setq projectile-globally-ignored-directories
+    ;;       '(".git" ".pytest_cache" ".vscode" "Output" "venv"))
+    ;; (setq projectile-globally-ignored-files
+    ;;       '("*~" "*#" ".#*"))
+    ;; (setq projectile-indexing-method 'alien)
+    )
 
   (use-package helm-projectile
     :ensure t
+    :hook projectile-mode
     :config
     (setq projectile-completion-system 'helm)
     (helm-projectile-on))
 #+END_SRC
+
+#+RESULTS:
+| helm-projectile |
 
 *** Indent
     This turns off tabs and replaces them with 4 spaces for most major
@@ -1437,8 +1451,8 @@ web-mode is awesome!
 #+BEGIN_SRC emacs-lisp 
   (progn
     (define-prefix-command 'tp/find/ag/key-map)
-    ; I'm having trouble searching within a project in a really fast way. Oh well.
-    ;(define-key tp/find/ag/key-map (kbd "p") 'projectile-ag)
+    ; Find a file in the current project
+    (define-key tp/find/ag/key-map (kbd "p") 'projectile-ag)
     ; Find in the current buffer.
     (define-key tp/find/ag/key-map (kbd "b") 'helm-swoop)
     ; Find using all open buffers
@@ -1451,6 +1465,7 @@ web-mode is awesome!
 
   (global-set-key (kbd "\C-cf") tp/find/ag/key-map)
 #+END_SRC
+
 ** Wgrep
    Why not? It looks so *cool*.
 #+BEGIN_SRC emacs-lisp
