@@ -241,7 +241,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
                   (lambda ()
                     (olivetti-mode 1))))
       (custom-set-variables
-       '(olivetti-body-width 62))
+       '(olivetti-body-width 80))
     #+END_SRC
 
     Since the screen width for prose is now 100 I'm going to bump up paragraph width too:
@@ -250,15 +250,15 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
   (setq-default fill-column 85)
 #+END_SRC
 
-    Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't actually kill the
-    entire line. Thanks to Xah yet again I have a solution:
+    Since Olivetti breaks up long lines =C-k= (which maps to =kill-line=) doesn't
+    actually kill the entire line. Thanks to Xah yet again I have a solution:
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "M-9") 'kill-whole-line)
 #+END_SRC
 
 ** Font
-*** Font Choices
+*** Windows-Specific Stuff
     Big fonts + Windows makes Emacs something somthing (slow down terribly). 
 #+BEGIN_SRC emacs-lisp
   (cond
@@ -266,11 +266,11 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
     (progn
       (setq inhibit-compacting-font-caches 1))))
 #+END_SRC
-
+*** Font Choices
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "Input Mono Light" :height 140)
-   (set-face-attribute 'fixed-pitch nil :family "Input Mono Light" :height 140)
-   (set-face-attribute 'variable-pitch nil :family "Input Sans Light" :height 140)
+   (set-face-attribute 'default nil :family "InputMonoCondensed" :height 120)
+   (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 120)
+   (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 120)
  #+END_SRC
 
  #+RESULTS:
