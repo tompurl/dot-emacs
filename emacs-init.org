@@ -1653,3 +1653,9 @@ web-mode is awesome!
    #+BEGIN_SRC emacs-lisp
      (setq ring-bell-function (lambda ()))
    #+END_SRC
+** Trying Out New Packages
+   =try= is kindof fun:
+   #+BEGIN_SRC emacs-lisp
+     (use-package try
+       :ensure t)
+   #+END_SRC
