@@ -1474,6 +1474,14 @@ web-mode is awesome!
   (use-package wgrep
     :ensure t)
 #+END_SRC
+
+  Also, to be able to use this with ag I need to install the following:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package wgrep-ag
+      :ensure t)
+  #+END_SRC
+
 ** Swiper and Ivy
 
    The killer feather here is using Swiper instead of incremental search when hitting C-s:
