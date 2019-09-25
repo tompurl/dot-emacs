@@ -1474,6 +1474,14 @@ web-mode is awesome!
   (use-package wgrep
     :ensure t)
 #+END_SRC
+
+  Also, to be able to use this with ag I need to install the following:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package wgrep-ag
+      :ensure t)
+  #+END_SRC
+
 ** Swiper and Ivy
 
    The killer feather here is using Swiper instead of incremental search when hitting C-s:
@@ -1491,6 +1499,14 @@ web-mode is awesome!
       (global-set-key (kbd "<f6>") 'ivy-resume)
       (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)))
 #+END_SRC
+** Org-Rifle
+   This is pretty cool and handy when performing word searches across all of your
+   open org buffers.
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm-org-rifle
+       :ensure t)
+   #+END_SRC
 * Registers
 ** Org
 #+BEGIN_SRC emacs-lisp 
@@ -1652,4 +1668,10 @@ web-mode is awesome!
    For god's sake, please don't beep.
    #+BEGIN_SRC emacs-lisp
      (setq ring-bell-function (lambda ()))
+   #+END_SRC
+** Trying Out New Packages
+   =try= is kindof fun:
+   #+BEGIN_SRC emacs-lisp
+     (use-package try
+       :ensure t)
    #+END_SRC
