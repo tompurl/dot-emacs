@@ -268,9 +268,9 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 *** Font Choices
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "InputMonoCondensed" :height 120)
-   (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 120)
-   (set-face-attribute 'variable-pitch nil :family "InputSans" :height 120)
+   (set-face-attribute 'default nil :family "InputMonoCondensed" :height 130)
+   (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 130)
+   (set-face-attribute 'variable-pitch nil :family "InputSans" :height 130)
  #+END_SRC
 
  #+RESULTS:
@@ -607,6 +607,8 @@ make any changes to your org-agenda view.
           ("t" "Todo" entry (file+headline (lambda () (concat org-directory "inbox.org")) "In-Process") "* TODO %? %^g")
           ("w" "Work Log" entry (file+headline (lambda () (concat org-directory "/WorkLogs.org")) "On-Deck") "** %(create-org-link 1) %?")
           ("d" "Daily Review" entry (file+headline (lambda () (concat org-directory "/Personal_Reviews.org")) "Daily") "** %(create-org-link 1 \"Daily Review\") %?")
+          ("k" "Weekly Review" entry (file+headline (lambda () (concat org-directory "/Personal_Reviews.org")) "Weekly") "** %(create-org-link 1 \"Weekly Review\") %?")
+          ("s" "Start of Week Check-In" entry (file+headline (lambda () (concat org-directory "/Personal_Reviews.org")) "Weekly") "** %(create-org-link 1 \"Start of Week Check-In\") %?")
           ("r" "Research Note" entry (file+headline (lambda () (concat org-directory "/ResearchNotes.org")) "In-Process") "** %(create-org-link nil) %?")
           ("l" "Lessons Learned" entry (file+headline (lambda () (concat org-directory "/LessonsLearned.org")) "Drafts") "** %(create-org-link nil) %?")
           ("m" "Meeting Minute" entry (file+headline (lambda () (concat org-directory "/MeetingMinutes.org")) "In-Process") "** %(create-org-link 1) %?")
@@ -1673,5 +1675,11 @@ web-mode is awesome!
    =try= is kindof fun:
    #+BEGIN_SRC emacs-lisp
      (use-package try
+       :ensure t)
+   #+END_SRC
+** Systems Monitoring
+   Because why not?
+   #+BEGIN_SRC emacs-lisp
+     (use-package symon
        :ensure t)
    #+END_SRC
