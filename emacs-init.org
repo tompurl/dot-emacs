@@ -827,7 +827,7 @@ Here's the languages that I can interpret. Note that there's a difference betwee
          'org-babel-load-languages
          '((js . t)
            (emacs-lisp . t)
-           (sh . t)
+           (shell . t)
            (python . t)
            (dot . t)
            (plantuml . t))))))
