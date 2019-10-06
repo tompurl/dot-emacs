@@ -270,7 +270,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
  #+BEGIN_SRC emacs-lisp
    (set-face-attribute 'default nil :family "InputMonoCondensed" :height 120)
    (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 120)
-   (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 120)
+   (set-face-attribute 'variable-pitch nil :family "InputSans" :height 120)
  #+END_SRC
 
  #+RESULTS:
