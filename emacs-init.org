@@ -271,7 +271,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
  #+BEGIN_SRC emacs-lisp
    (set-face-attribute 'default nil :family "InputMonoCondensed" :height 130)
    (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 130)
-   (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 130)
+   (set-face-attribute 'variable-pitch nil :family "InputSans" :height 130)
  #+END_SRC
 
  #+RESULTS:
@@ -830,7 +830,7 @@ Here's the languages that I can interpret. Note that there's a difference betwee
          'org-babel-load-languages
          '((js . t)
            (emacs-lisp . t)
-           (sh . t)
+           (shell . t)
            (python . t)
            (dot . t)
            (plantuml . t))))))
