@@ -241,10 +241,11 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
                   (lambda ()
                     (olivetti-mode 1))))
       (custom-set-variables
-       '(olivetti-body-width 80))
+       '(olivetti-body-width 92))
     #+END_SRC
 
-    Since the screen width for prose is now 100 I'm going to bump up paragraph width too:
+    Since the screen width for prose is now 100 I'm going to bump up paragraph width
+    too:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default fill-column 85)
@@ -1212,7 +1213,10 @@ you need to install for your favorite programming languages:
    (setq-default c-basic-offset 4)
    (setq-default indent-tabs-mode nil)
  #+END_SRC
-
+*** Highlighting the Current Line
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode)
+#+END_SRC
 ** Powershell
  
  #+BEGIN_SRC emacs-lisp
