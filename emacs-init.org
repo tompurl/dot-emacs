@@ -1651,6 +1651,21 @@ web-mode is awesome!
       (delete-window))
   #+END_SRC
 
+* Dired Stuff
+** Find Files By Name in Dired and Edit the Buffer
+
+   This only works on a system with =find= installed. It asks you for a directory and
+   a search string, finds the files, and displays them in an editable =dired=
+   buffer. It's pretty freakin' sweet and so handy.
+
+   #+BEGIN_SRC emacs-lisp
+     (defun tp/dired/find-files-in-dired-and-edit ()
+       (interactive)
+       (find-name-dired
+        (read-directory-name "Directory: ")
+        (read-string "Search string: "))
+       (wdired-change-to-wdired-mode))
+   #+END_SRC
 * Misc?
 ** Timers
    Chronos seems to do this really well, but unfortunately it isn't available (as of 2/4/19) in
