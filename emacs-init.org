@@ -1185,13 +1185,10 @@ you need to install for your favorite programming languages:
     :bind-keymap
     ("C-c p" . projectile-mode)
     :config
-    ;; (setq projectile-globally-ignored-file-suffixes
-    ;;       '(".pyc" ".jpg" ".png" ".log" ".swp"))
     (setq projectile-globally-ignored-directories
-          (append '(".pytest_cache" ".vscode" "Output" "venv" "venv3")))
+          (append '(".git" ".pytest_cache" ".vscode" "Output" "venv" "venv3")))
     (setq projectile-globally-ignored-files
           (append '("*~" "*#" "log.html" "output.xml" "report.html")))
-    ;; (setq projectile-indexing-method 'alien)
     )
 
   (use-package helm-projectile
