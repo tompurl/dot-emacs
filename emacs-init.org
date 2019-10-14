@@ -1507,6 +1507,21 @@ web-mode is awesome!
      (use-package helm-org-rifle
        :ensure t)
    #+END_SRC
+* Ediff Stuff
+** Syncthing Conflicts
+   This is a great package for comparing syncthing conflicts:
+
+   #+BEGIN_SRC emacs-lisp
+       (use-package emacs-conflicts
+         :load-path "customizations/packages/emacs-conflicts"
+         :defer t)
+   #+END_SRC
+** Ediff In General
+   
+   If at all possible I prefer to splitt my diff windows horizontally:
+   #+BEGIN_SRC emacs-lisp
+     (setq ediff-split-window-function (quote split-window-horizontally))
+   #+END_SRC
 * Registers
 ** Org
 #+BEGIN_SRC emacs-lisp 
