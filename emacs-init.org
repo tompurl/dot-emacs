@@ -1184,13 +1184,13 @@ you need to install for your favorite programming languages:
     (setq projectile-keymap-prefix (kbd "C-c p"))
     :bind-keymap
     ("C-c p" . projectile-mode)
-    ;; :config
+    :config
     ;; (setq projectile-globally-ignored-file-suffixes
     ;;       '(".pyc" ".jpg" ".png" ".log" ".swp"))
-    ;; (setq projectile-globally-ignored-directories
-    ;;       '(".git" ".pytest_cache" ".vscode" "Output" "venv"))
-    ;; (setq projectile-globally-ignored-files
-    ;;       '("*~" "*#" ".#*"))
+    (setq projectile-globally-ignored-directories
+          (append '(".pytest_cache" ".vscode" "Output" "venv" "venv3")))
+    (setq projectile-globally-ignored-files
+          (append '("*~" "*#" "log.html" "output.xml" "report.html")))
     ;; (setq projectile-indexing-method 'alien)
     )
 
@@ -1201,9 +1201,6 @@ you need to install for your favorite programming languages:
     (setq projectile-completion-system 'helm)
     (helm-projectile-on))
 #+END_SRC
-
-#+RESULTS:
-| helm-projectile |
 
 *** Indent
     This turns off tabs and replaces them with 4 spaces for most major
