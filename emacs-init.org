@@ -1431,6 +1431,13 @@ web-mode is awesome!
         :config
         (setq org-plantuml-jar-path "~/plantuml.jar"))
     #+END_SRC
+** YAML
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+#+END_SRC
 
 * Text Search
 ** Ack
