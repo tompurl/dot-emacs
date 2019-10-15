@@ -387,6 +387,16 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
     #+END_SRC
 
     Make sure that your Org file has that directory beneath it.
+** Finding the Cursor More Easily
+   Beacon to the rescue!
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package beacon
+       :ensure t
+       :defer 120
+       :config
+       (beacon-mode 1))
+   #+END_SRC
 
 * YAS
 ** Bootstrap
