@@ -1653,20 +1653,41 @@ web-mode is awesome!
   #+END_SRC
 
 * Dired Stuff
+** Dired-hacks
+   This includes all kinds of cool stuff:
+
+    #+BEGIN_SRC emacs-lisp
+      (if (not (require 'dired-narrow nil t))
+          (message "Package `dired-narrow' not found"))
+
+      (if (not (require 'dired-subtree nil t))
+          (message "Package `dired-subtree' not found")
+        (bind-key "<tab>" #'dired-subtree-toggle dired-mode-map)
+        (bind-key "<backtab>" #'dired-subtree-cycle dired-mode-map))
+    #+END_SRC
+
 ** Find Files By Name in Dired and Edit the Buffer
 
-   This only works on a system with =find= installed. It asks you for a directory and
-   a search string, finds the files, and displays them in an editable =dired=
-   buffer. It's pretty freakin' sweet and so handy.
+*** Method 1: Finding Filer Recursively
+    This only works on a system with =find= installed. It asks you for a directory and
+    a search string, finds the files, and displays them in an editable =dired=
+    buffer. It's pretty freakin' sweet and so handy.
 
-   #+BEGIN_SRC emacs-lisp
-     (defun tp/dired/find-files-in-dired-and-edit ()
-       (interactive)
-       (find-name-dired
-        (read-directory-name "Directory: ")
-        (read-string "Search string: "))
-       (wdired-change-to-wdired-mode))
-   #+END_SRC
+    #+BEGIN_SRC emacs-lisp
+      (defun tp/dired/find-files-in-dired-and-edit ()
+        (interactive)
+        (find-name-dired
+         (read-directory-name "Directory: ")
+         (read-string "Search string: "))
+        (wdired-change-to-wdired-mode))
+    #+END_SRC
+
+*** Method 2: Using dired-narrow
+    I'm using the techniques from this video to "narrow" or filter the results of a
+    dired buffer:
+
+    - https://www.youtube.com/watch?v=pZzDayi5lRo
+
 * Misc?
 ** Timers
    Chronos seems to do this really well, but unfortunately it isn't available (as of 2/4/19) in
