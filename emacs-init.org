@@ -25,7 +25,8 @@ https://writequit.org/eos. I am standing on the shoulders of giants.
    (add-to-list 'load-path "~/.emacs.d/customizations/packages/")
  #+END_SRC
 
- To load these local packages, I add a code block to this document that looks something like this:
+ To load these local packages, I add a code block to this document that looks
+ something like this:
 
  #+BEGIN_EXAMPLE
    (if (not (require 'some-addon nil t))
