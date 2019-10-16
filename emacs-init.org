@@ -1704,6 +1704,37 @@ web-mode is awesome!
     dired buffer:
 
     - https://www.youtube.com/watch?v=pZzDayi5lRo
+* Buffer Management
+** ibuffer
+   First let's set the keystrokes:
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x C-b") 'ibuffer) ;; Use Ibuffer for Buffer List
+#+END_SRC
+
+   Next let's group buffers:
+
+   #+BEGIN_SRC emacs-lisp
+     (setq ibuffer-saved-filter-groups
+           '(("home"
+              ("emacs-config" (or (filename . ".emacs.d")
+                                  (filename . "emacs-init.org")))
+              ("Org" (or (mode . org-mode)
+                         (filename . "OrgMode")))
+              ("Org" (or (name . "\*dired\*")
+                         (name . "\*Sunrise\*")))
+              ("Web Dev" (or (mode . html-mode)
+                             (mode . css-mode)))
+              ("Magit" (name . "\*magit"))
+              ("Help" (or (name . "\*Help\*")
+                          (name . "\*Apropos\*")
+                          (name . "\*info\*"))))))
+
+     (add-hook 'ibuffer-mode-hook
+               '(lambda ()
+                  (ibuffer-switch-to-saved-filter-groups "home")))
+
+   #+END_SRC
 
 * Misc?
 ** Timers
