@@ -465,6 +465,9 @@ nuts. This fixes that:
 
 ** Spell Checking
 *** Configure Spell Checker Name
+    If you're running this on Windows then set then tell emacs to use =hunspell=
+    instead of =ispell=:
+
 #+BEGIN_SRC emacs-lisp
   (cond
    ((string-equal system-type "windows-nt")
@@ -474,6 +477,8 @@ nuts. This fixes that:
    )
 #+END_SRC
 *** Use flyspell in Org
+    Setup spell-checking in general and turn it on when you load =org-mode=:
+
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
     :ensure t
