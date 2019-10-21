@@ -465,6 +465,9 @@ nuts. This fixes that:
 
 ** Spell Checking
 *** Configure Spell Checker Name
+    If you're running this on Windows then set then tell emacs to use =hunspell=
+    instead of =ispell=:
+
 #+BEGIN_SRC emacs-lisp
   (cond
    ((string-equal system-type "windows-nt")
@@ -474,6 +477,8 @@ nuts. This fixes that:
    )
 #+END_SRC
 *** Use flyspell in Org
+    Setup spell-checking in general and turn it on when you load =org-mode=:
+
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
     :ensure t
@@ -1720,11 +1725,12 @@ web-mode is awesome!
               ("emacs-config" (or (filename . ".emacs.d")
                                   (filename . "emacs-init.org")))
               ("Org" (or (mode . org-mode)
-                         (filename . "OrgMode")))
-              ("Org" (or (name . "\*dired\*")
-                         (name . "\*Sunrise\*")))
-              ("Web Dev" (or (mode . html-mode)
-                             (mode . css-mode)))
+                         (filename . "OrgMode")
+                         (name . "\*Org Agenda\*")))
+              ("Dired" (or (name . "\*dired\*")
+                           (name . "\*Sunrise\*")))
+              ("Dev" (or (mode . python-mode)
+                         (mode . robot-mode)))
               ("Magit" (name . "\*magit"))
               ("Help" (or (name . "\*Help\*")
                           (name . "\*Apropos\*")
