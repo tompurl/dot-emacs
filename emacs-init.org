@@ -1727,7 +1727,7 @@ web-mode is awesome!
               ("Org" (or (mode . org-mode)
                          (filename . "OrgMode")
                          (name . "\*Org Agenda\*")))
-              ("Dired" (or (name . "\*dired\*")
+              ("Dired" (or (mode . dired-mode)
                            (name . "\*Sunrise\*")))
               ("Dev" (or (mode . python-mode)
                          (mode . robot-mode)))
