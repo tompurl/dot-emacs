@@ -1735,6 +1735,16 @@ web-mode is awesome!
                   (ibuffer-switch-to-saved-filter-groups "home")))
 
    #+END_SRC
+* Blogging
+** ox-hugo
+   This is a super sweet package:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-hugo
+    :ensure t
+    :after
+    ox)
+#+END_SRC
 
 * Misc?
 ** Timers
