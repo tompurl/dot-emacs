@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: new blog post
+# key: nbp
+# expand-env: ((yas-indent-line 'auto) (yas-wrap-around-region 'nil))
+# --
+** ${1:Blog Post Title}
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: $1
+   :EXPORT_DATE: `(get-current-date)`
+   :EXPORT_HUGO_MENU: :menu "braindump"
+   :EXPORT_HUGO_SECTION: bd
+   :END:
