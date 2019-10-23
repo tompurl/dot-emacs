@@ -1657,22 +1657,30 @@ web-mode is awesome!
   #+END_SRC
 
 * Window Management
-  I just love this, it was stupid simple to write and I think I use it a least 10 times a
-  day. It "moves" the current window into a new frame. 
+** Functions
+   I just love this, it was stupid simple to write and I think I use it a least 10 times a
+   day. It "moves" the current window into a new frame. 
 
-  What does that mean? Let's say you split your current window (which is called a *frame*
-  in Emacs) into 2 using =Ctrl-3= or something like that and then realize that you would
-  /really/ like to focus on the buffer in that "split" (which is called a *window* in
-  Emacs). Wouldn't it be great if you could just move it to a new frame?
+   What does that mean? Let's say you split your current window (which is called a *frame*
+   in Emacs) into 2 using =Ctrl-3= or something like that and then realize that you would
+   /really/ like to focus on the buffer in that "split" (which is called a *window* in
+   Emacs). Wouldn't it be great if you could just move it to a new frame?
 
-  #+BEGIN_SRC emacs-lisp 
-    (defun tp/wm/move-window-to-new-frame ()
-      "Take the content of the current window and move it to its own
-       frame"
-      (interactive)
-      (make-frame)
-      (delete-window))
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp 
+     (defun tp/wm/move-window-to-new-frame ()
+       "Take the content of the current window and move it to its own
+        frame"
+       (interactive)
+       (make-frame)
+       (delete-window))
+   #+END_SRC
+** Eyebrowse
+   #+BEGIN_SRC emacs-lisp
+     (use-package eyebrowse
+       :ensure t)
+   #+END_SRC
+
+   #+RESULTS:
 
 * Dired Stuff
 ** Dired-hacks
