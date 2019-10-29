@@ -1584,17 +1584,8 @@ web-mode is awesome!
   #+END_SRC
 * Sunrise Commander
   Sunrise commander is a clone of midnight commander, also known as an orthodox file
-  manager.
-
-  Unfortunately, this package isn't available in MELPA, so you need to install it manually.
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package sunrise-commander)
-    (use-package sunrise-x-checkpoints
-      :requires sunrise-commander)
-    (global-set-key "\C-x\C-f" 'sunrise-cd)
-  #+END_SRC
-
+  manager. I used to use this but then learned a lot more about =dired= so I no
+  longer need it.
 * Web Browsing
   Make =eww= create a new buffer if executed from a non-=eww= buffer. This allows you to
   easily create more than one =eww= buffer. Also, I copied this from
@@ -1717,6 +1708,18 @@ web-mode is awesome!
     dired buffer:
 
     - https://www.youtube.com/watch?v=pZzDayi5lRo
+** Make Dired Prettier
+*** Git integration
+    #+BEGIN_SRC emacs-lisp
+      (use-package dired-git
+        :ensure t
+        :after
+        dired
+        ;; :bind-keymap
+        ;; (")" . dired-git-info-mode)
+        )
+    #+END_SRC
+
 * Buffer Management
 ** ibuffer
    First let's set the keystrokes:
