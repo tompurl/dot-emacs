@@ -272,10 +272,14 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
  #+BEGIN_SRC emacs-lisp
    (set-face-attribute 'default nil :family "InputMonoCondensed" :height 130)
    (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 130)
-   (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 130)
+   (cond
+    ((string-equal system-type "windows-nt")
+     (progn
+       (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 130)))
+    ((string-equal system-type "gnu/linux")
+     (progn
+       (set-face-attribute 'variable-pitch nil :family "InputSansCondensedLight" :height 130))))
  #+END_SRC
-
- #+RESULTS:
 
 *** Viewing monospaced and non-monospaced fonts in the same document
     Emacs has a great feature that allows you to view non-code text using a proportional font (like
