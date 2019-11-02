@@ -1588,17 +1588,8 @@ web-mode is awesome!
   #+END_SRC
 * Sunrise Commander
   Sunrise commander is a clone of midnight commander, also known as an orthodox file
-  manager.
-
-  Unfortunately, this package isn't available in MELPA, so you need to install it manually.
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package sunrise-commander)
-    (use-package sunrise-x-checkpoints
-      :requires sunrise-commander)
-    (global-set-key "\C-x\C-f" 'sunrise-cd)
-  #+END_SRC
-
+  manager. I used to use this but then learned a lot more about =dired= so I no
+  longer need it.
 * Web Browsing
   Make =eww= create a new buffer if executed from a non-=eww= buffer. This allows you to
   easily create more than one =eww= buffer. Also, I copied this from
@@ -1661,22 +1652,30 @@ web-mode is awesome!
   #+END_SRC
 
 * Window Management
-  I just love this, it was stupid simple to write and I think I use it a least 10 times a
-  day. It "moves" the current window into a new frame. 
+** Functions
+   I just love this, it was stupid simple to write and I think I use it a least 10 times a
+   day. It "moves" the current window into a new frame. 
 
-  What does that mean? Let's say you split your current window (which is called a *frame*
-  in Emacs) into 2 using =Ctrl-3= or something like that and then realize that you would
-  /really/ like to focus on the buffer in that "split" (which is called a *window* in
-  Emacs). Wouldn't it be great if you could just move it to a new frame?
+   What does that mean? Let's say you split your current window (which is called a *frame*
+   in Emacs) into 2 using =Ctrl-3= or something like that and then realize that you would
+   /really/ like to focus on the buffer in that "split" (which is called a *window* in
+   Emacs). Wouldn't it be great if you could just move it to a new frame?
 
-  #+BEGIN_SRC emacs-lisp 
-    (defun tp/wm/move-window-to-new-frame ()
-      "Take the content of the current window and move it to its own
-       frame"
-      (interactive)
-      (make-frame)
-      (delete-window))
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp 
+     (defun tp/wm/move-window-to-new-frame ()
+       "Take the content of the current window and move it to its own
+        frame"
+       (interactive)
+       (make-frame)
+       (delete-window))
+   #+END_SRC
+** Eyebrowse
+   #+BEGIN_SRC emacs-lisp
+     (use-package eyebrowse
+       :ensure t)
+   #+END_SRC
+
+   #+RESULTS:
 
 * Dired Stuff
 ** Dired-hacks
@@ -1713,6 +1712,18 @@ web-mode is awesome!
     dired buffer:
 
     - https://www.youtube.com/watch?v=pZzDayi5lRo
+** Make Dired Prettier
+*** Git integration
+    #+BEGIN_SRC emacs-lisp
+      (use-package dired-git
+        :ensure t
+        :after
+        dired
+        ;; :bind-keymap
+        ;; (")" . dired-git-info-mode)
+        )
+    #+END_SRC
+
 * Buffer Management
 ** ibuffer
    First let's set the keystrokes:
@@ -1731,7 +1742,7 @@ web-mode is awesome!
               ("Org" (or (mode . org-mode)
                          (filename . "OrgMode")
                          (name . "\*Org Agenda\*")))
-              ("Dired" (or (name . "\*dired\*")
+              ("Dired" (or (mode . dired-mode)
                            (name . "\*Sunrise\*")))
               ("Dev" (or (mode . python-mode)
                          (mode . robot-mode)))
