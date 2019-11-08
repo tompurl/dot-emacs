@@ -17,7 +17,7 @@ url/
 /network-security.data
 /logview-cache.extmap
 /emacs-init.org.rej
-/snippets/org-mode/priv_*
+/snippets/**/priv_*
 snippets/dockerfile-mode
 .sx
 /persistent-scratch
