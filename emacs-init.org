@@ -1722,6 +1722,12 @@ web-mode is awesome!
       ;;   dired
       ;;   )
     #+END_SRC
+** Narrowing and Widening
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'dired
+            (lambda ()
+              (local-set-key (kbd "C-c n s") #'dired-narrow-regexp)))
+#+END_SRC
 
 * Buffer Management
 ** ibuffer
