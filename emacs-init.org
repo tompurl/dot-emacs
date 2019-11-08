@@ -1714,14 +1714,13 @@ web-mode is awesome!
     - https://www.youtube.com/watch?v=pZzDayi5lRo
 ** Make Dired Prettier
 *** Git integration
+    This is broken and I'm not sure why.
     #+BEGIN_SRC emacs-lisp
-      (use-package dired-git
-        :ensure t
-        :after
-        dired
-        ;; :bind-keymap
-        ;; (")" . dired-git-info-mode)
-        )
+      ;; (use-package dired-git
+      ;;   :ensure t
+      ;;   :after
+      ;;   dired
+      ;;   )
     #+END_SRC
 
 * Buffer Management
