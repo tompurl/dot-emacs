@@ -1711,16 +1711,8 @@ web-mode is awesome!
     - https://www.youtube.com/watch?v=pZzDayi5lRo
 ** Make Dired Prettier
 *** TODO Git integration
-    I'm having lots of issues with this and will try to fix it later.
-    #+BEGIN_SRC emacs-lisp
-      ;; (use-package dired-git
-      ;;   :ensure t
-      ;;   :after
-      ;;   dired
-      ;;   ;; :bind-keymap
-      ;;   ;; (")" . dired-git-info-mode)
-      ;;   )
-    #+END_SRC
+    I'm having lots of issues with this and will try to fix it later using
+    =dired-git=.
 ** Narrowing and Widening
 #+BEGIN_SRC emacs-lisp
   (add-hook 'dired
