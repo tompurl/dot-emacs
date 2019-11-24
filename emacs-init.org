@@ -410,6 +410,12 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
     :config
     (yas-global-mode 1))
 #+END_SRC
+** Install Snippets
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet-snippets
+    :ensure t)
+#+END_SRC
+
 * ORG!!!!!!!!!!!!!!!
 ** Global Varables
 #+BEGIN_SRC emacs-lisp 
