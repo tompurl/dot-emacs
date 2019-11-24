@@ -623,6 +623,13 @@ make any changes to your org-agenda view.
       (if (not (require 'org-super-agenda nil t))
           (message "Package `org-super-agenda' not found"))
     #+END_SRC
+** Org-ql
+   I'm hoping to use this to help organize things:
+
+   #+BEGIN_SRC emacs-lisp
+     (if (not (require 'org-ql nil t))
+         (message "Package `org-ql' not found"))
+   #+END_SRC
 ** Org-Clock
    Set your default parameters for clock reports when they are viewed i the agenda view:
 
