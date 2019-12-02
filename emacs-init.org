@@ -410,6 +410,12 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
     :config
     (yas-global-mode 1))
 #+END_SRC
+** Install Snippets
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet-snippets
+    :ensure t)
+#+END_SRC
+
 * ORG!!!!!!!!!!!!!!!
 ** Global Varables
 #+BEGIN_SRC emacs-lisp 
@@ -602,6 +608,28 @@ make any changes to your org-agenda view.
           (kmacro-exec-ring-item
            (quote ([6 6 6 6 101 1 11 return 14 1] 0 "%d")) arg)))
 #+END_SRC
+*** Super-agenda!
+
+    The time stamp package is a pre-req:
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package ts
+        :ensure t)
+    #+END_SRC
+
+    There isn't a current enough version of this in Melpa Stable ([[https://github.com/alphapapa/org-ql/issues/54][bug]]) so I need to
+    install it manually.
+    #+BEGIN_SRC emacs-lisp
+      (if (not (require 'org-super-agenda nil t))
+          (message "Package `org-super-agenda' not found"))
+    #+END_SRC
+** Org-ql
+   I'm hoping to use this to help organize things:
+
+   #+BEGIN_SRC emacs-lisp
+     (if (not (require 'org-ql nil t))
+         (message "Package `org-ql' not found"))
+   #+END_SRC
 ** Org-Clock
    Set your default parameters for clock reports when they are viewed i the agenda view:
 
