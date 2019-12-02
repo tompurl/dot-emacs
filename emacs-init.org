@@ -1207,7 +1207,7 @@ you need to install for your favorite programming languages:
     ("C-c p" . projectile-mode)
     :config
     (setq projectile-globally-ignored-directories
-          (append '(".git" ".pytest_cache" ".vscode" "Output" "venv" "venv3")))
+          (append '(".git" ".pytest_cache" ".vscode" "Output" "venv" "venv3" "node_modules")))
     (setq projectile-globally-ignored-files
           (append '("*~" "*#" "log.html" "output.xml" "report.html")))
     )
