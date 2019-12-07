@@ -236,13 +236,12 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
     #+BEGIN_SRC emacs-lisp
       (use-package olivetti
         :ensure t
-        :init
         :config
         (add-hook 'org-mode-hook
                   (lambda ()
-                    (olivetti-mode 1))))
-      (custom-set-variables
-       '(olivetti-body-width 92))
+                    (olivetti-mode 1)))
+        :custom
+        (olivetti-body-width 92))
     #+END_SRC
 
     Since the screen width for prose is now 100 I'm going to bump up paragraph width
