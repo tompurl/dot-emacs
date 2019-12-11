@@ -236,13 +236,12 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
     #+BEGIN_SRC emacs-lisp
       (use-package olivetti
         :ensure t
-        :init
         :config
         (add-hook 'org-mode-hook
                   (lambda ()
-                    (olivetti-mode 1))))
-      (custom-set-variables
-       '(olivetti-body-width 92))
+                    (olivetti-mode 1)))
+        :custom
+        (olivetti-body-width 92))
     #+END_SRC
 
     Since the screen width for prose is now 100 I'm going to bump up paragraph width
@@ -1358,22 +1357,14 @@ Let's just turn it on for everything :smile:
      This function starts a server on port 9003 that serves up static
      content that's located in the PWD (which is also your DOCROOT). 
 #+BEGIN_SRC emacs-lisp
-  (defun tp/http/start-server-in-pwd ()
+  (defun tp/httpd/start-server-in-pwd ()
     (interactive)
-    (lexical-let ((docroot default-directory))
-      (ws-start
-       (lambda (request)
-	 (with-slots (process headers) request
-	   (let ((path (substring (cdr (assoc :GET headers)) 1)))
-	     (if (ws-in-directory-p docroot path)
-		 (if (file-directory-p path)
-		     (ws-send-directory-list process
-					     (expand-file-name path docroot) "^[^\.]")
-		   (ws-send-file process (expand-file-name path docroot)))
-	       (ws-send-404 process)))))
-       9003))
-    (message "Serving up files on port 9003."))
+    (setq httpd-port 8001)
+    (setq httpd-root default-directory)
+    (httpd-start)
+    (message "Serving up files on port 8001."))
 #+END_SRC
+
 *** HTML
 web-mode is awesome!
 
