@@ -1840,3 +1840,9 @@ web-mode is awesome!
      (use-package symon
        :ensure t)
    #+END_SRC
+** Peg
+   I need this for =orq-ql=:
+   #+BEGIN_SRC emacs-lisp
+     (use-package peg
+       :ensure t)
+   #+END_SRC
