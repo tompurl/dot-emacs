@@ -1785,6 +1785,42 @@ web-mode is awesome!
     :after
     ox)
 #+END_SRC
+* Encryption
+** GPG
+*** Easy GPG Assistant
+    This is Emac's built-in interface GPG that I like to use to transparently encrypt
+    entire files. When you use it you should put something like this at the top of
+    your file:
+
+#+BEGIN_EXAMPLE
+# -*- mode:org; epa-file-encrypt-to: ("something@tompurl.com") -*-
+#+END_EXAMPLE
+
+You can replace the email address with the public key's id.
+
+    #+BEGIN_SRC emacs-lisp
+      (require 'epa-file)
+      (epa-file-enable)
+    #+END_SRC
+*** Org-mode
+    I use this to encrypt sections of org documents. You just have to tag the section
+    with =crypt=.
+
+      #+BEGIN_SRC emacs-lisp
+        (require 'org-crypt)
+        (org-crypt-use-before-save-magic)
+        (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+
+        (cond
+         ((string-equal system-type "windows-nt")
+          (progn
+            (setq org-crypt-key "989889BA8447C29C")))
+         ((string-equal system-type "gnu/linux")
+          (progn
+            (2)
+            (setq org-crypt-key "this-is-bogus"))))
+
+      #+END_SRC
 
 * Misc?
 ** Timers
