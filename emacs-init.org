@@ -945,6 +945,12 @@ These are the tags that I will use the most when creating new tasks.
                             ("today" . ?t))))))
 #+END_SRC
 
+Here's the tags that I exclude from tag inheritance:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+#+END_SRC
+
 ** Org bullets
 Of course you need these :smile:
  
@@ -1809,7 +1815,6 @@ You can replace the email address with the public key's id.
       #+BEGIN_SRC emacs-lisp
         (require 'org-crypt)
         (org-crypt-use-before-save-magic)
-        (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
         (cond
          ((string-equal system-type "windows-nt")
