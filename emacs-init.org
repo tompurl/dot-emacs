@@ -557,7 +557,7 @@ Here's my custom agenda view that uses "column view".
  
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-overriding-columns-format
-        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %11Effort(Est. Effort){:} %10POM_Pomodori(Poms) %12CLOCKSUM_T(Today's Time) %TAGS")
+        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %7POM_Pomodori(Poms) %12CLOCKSUM_T(Today's Time)")
   (setq org-agenda-view-columns-initially t)
   (setq org-agenda-custom-commands
         '(("." "Simple agenda view"
@@ -945,6 +945,12 @@ These are the tags that I will use the most when creating new tasks.
                             ("today" . ?t))))))
 #+END_SRC
 
+Here's the tags that I exclude from tag inheritance:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+#+END_SRC
+
 ** Org bullets
 Of course you need these :smile:
  
@@ -1234,7 +1240,7 @@ you need to install for your favorite programming languages:
     ("C-c p" . projectile-mode)
     :config
     (setq projectile-globally-ignored-directories
-          (append '(".git" ".pytest_cache" ".vscode" "Output" "venv" "venv3")))
+          (append '(".git" ".pytest_cache" ".vscode" "Output" "venv" "venv3" "node_modules")))
     (setq projectile-globally-ignored-files
           (append '("*~" "*#" "log.html" "output.xml" "report.html")))
     )
@@ -1734,15 +1740,9 @@ web-mode is awesome!
 
     - https://www.youtube.com/watch?v=pZzDayi5lRo
 ** Make Dired Prettier
-*** Git integration
-    This is broken and I'm not sure why.
-    #+BEGIN_SRC emacs-lisp
-      ;; (use-package dired-git
-      ;;   :ensure t
-      ;;   :after
-      ;;   dired
-      ;;   )
-    #+END_SRC
+*** TODO Git integration
+    I'm having lots of issues with this and will try to fix it later using
+    =dired-git=.
 ** Narrowing and Widening
 #+BEGIN_SRC emacs-lisp
   (add-hook 'dired
@@ -1792,6 +1792,41 @@ web-mode is awesome!
     :after
     ox)
 #+END_SRC
+* Encryption
+** GPG
+*** Easy GPG Assistant
+    This is Emac's built-in interface GPG that I like to use to transparently encrypt
+    entire files. When you use it you should put something like this at the top of
+    your file:
+
+#+BEGIN_EXAMPLE
+# -*- mode:org; epa-file-encrypt-to: ("something@tompurl.com") -*-
+#+END_EXAMPLE
+
+You can replace the email address with the public key's id.
+
+    #+BEGIN_SRC emacs-lisp
+      (require 'epa-file)
+      (epa-file-enable)
+    #+END_SRC
+*** Org-mode
+    I use this to encrypt sections of org documents. You just have to tag the section
+    with =crypt=.
+
+      #+BEGIN_SRC emacs-lisp
+        (require 'org-crypt)
+        (org-crypt-use-before-save-magic)
+
+        (cond
+         ((string-equal system-type "windows-nt")
+          (progn
+            (setq org-crypt-key "989889BA8447C29C")))
+         ((string-equal system-type "gnu/linux")
+          (progn
+            (2)
+            (setq org-crypt-key "this-is-bogus"))))
+
+      #+END_SRC
 
 * Misc?
 ** Timers
@@ -1836,5 +1871,11 @@ web-mode is awesome!
    Because why not?
    #+BEGIN_SRC emacs-lisp
      (use-package symon
+       :ensure t)
+   #+END_SRC
+** Peg
+   I need this for =orq-ql=:
+   #+BEGIN_SRC emacs-lisp
+     (use-package peg
        :ensure t)
    #+END_SRC
