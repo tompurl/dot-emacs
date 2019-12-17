@@ -1559,9 +1559,10 @@ web-mode is awesome!
    This is a great package for comparing syncthing conflicts:
 
    #+BEGIN_SRC emacs-lisp
-       (use-package emacs-conflicts
-         :load-path "customizations/packages/emacs-conflicts"
-         :defer t)
+     (use-package emacs-conflict
+       :load-path "customizations/packages/emacs-conflicts"
+       :bind
+       (("C-c r r" . emacs-conflict-resolve-conflicts)))
    #+END_SRC
 ** Ediff In General
    
