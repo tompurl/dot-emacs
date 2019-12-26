@@ -1749,6 +1749,14 @@ web-mode is awesome!
             (lambda ()
               (local-set-key (kbd "C-c n s") #'dired-narrow-regexp)))
 #+END_SRC
+** Rsync
+   This is a really good way of copying files remotely in an asynchronous way.
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package dired-rsync
+       :config
+       (bind-key "C-c C-r" 'dired-rsync dired-mode-map))
+   #+END_SRC
 
 * Buffer Management
 ** ibuffer
@@ -1823,10 +1831,11 @@ You can replace the email address with the public key's id.
             (setq org-crypt-key "989889BA8447C29C")))
          ((string-equal system-type "gnu/linux")
           (progn
-            (2)
-            (setq org-crypt-key "this-is-bogus"))))
-
+            (setq org-crypt-key "5BF5A514D04978DD"))))
       #+END_SRC
+
+      #+RESULTS:
+      : 5BF5A514D04978DD
 
 * Misc?
 ** Timers
