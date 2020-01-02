@@ -1014,24 +1014,39 @@ magit doesn't work so I'm just going to comment all of this out.
       )))
 #+END_SRC
 ** SSH Stuff
+*** Windows
 
-Pushing to an SSH repo using Windows is a bit tricky. Here's what I
-did to make it work:
+ Pushing to an SSH repo using Windows is a bit tricky. Here's what I
+ did to make it work:
 
-1. Install the regular Git package.
-2. Install the PuTTY tools, including =pageant= and =plink=.
-3. Manage your SSH keys using =pageant=
-   1. Ideally, load your git-related keys on Windows startup.
+ 1. Install the regular Git package.
+ 2. Install the PuTTY tools, including =pageant= and =plink=.
+ 3. Manage your SSH keys using =pageant=
+    1. Ideally, load your git-related keys on Windows startup.
 
-After all of that I only needed the following config:
+ After all of that I only needed the following config:
 
-#+BEGIN_SRC emacs-lisp 
-  (cond
-   ((string-equal system-type "windows-nt")
-    (progn
-      (setenv "SSH_ASKPASS" "git-gui--askpass")
-      (setenv "GIT_SSH" "C:/Program Files/PuTTY/plink.exe"))))
-#+END_SRC
+ #+BEGIN_SRC emacs-lisp 
+   (cond
+    ((string-equal system-type "windows-nt")
+     (progn
+       (setenv "SSH_ASKPASS" "git-gui--askpass")
+       (setenv "GIT_SSH" "C:/Program Files/PuTTY/plink.exe"))))
+ #+END_SRC
+*** Linux
+    I nee to copy some environment variables from my shell in order to use
+    =ssh-agent=. Please note that this also makes everything else (including
+    =rsync-dired=) work with =ssh-agent= too.
+
+    #+BEGIN_SRC emacs-lisp
+      (cond
+       ((string-equal system-type "gnu/linux")
+        (progn
+          (require 'exec-path-from-shell)
+          (exec-path-from-shell-copy-env "SSH_AGENT_PID")
+          (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+          )))
+    #+END_SRC
 ** Keymaps
    I like having my own custom keymap for Magit. 
 
@@ -1765,6 +1780,14 @@ web-mode is awesome!
             (lambda ()
               (local-set-key (kbd "C-c n s") #'dired-narrow-regexp)))
 #+END_SRC
+** Rsync
+   This is a really good way of copying files remotely in an asynchronous way.
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package dired-rsync
+       :config
+       (bind-key "C-c C-r" 'dired-rsync dired-mode-map))
+   #+END_SRC
 
 * Buffer Management
 ** ibuffer
@@ -1839,10 +1862,8 @@ You can replace the email address with the public key's id.
             (setq org-crypt-key "989889BA8447C29C")))
          ((string-equal system-type "gnu/linux")
           (progn
-            (setq org-crypt-key "this-is-bogus"))))
-
+            (setq org-crypt-key "5BF5A514D04978DD"))))
       #+END_SRC
-
 * Misc?
 ** Timers
    Chronos seems to do this really well, but unfortunately it isn't available (as of 2/4/19) in
