@@ -314,12 +314,28 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
     :mode ("\\.org\\'" . org-mode))
 #+END_SRC
 
-** Powerline
+** Status Line
+*** Powerline
+    My pendulum has swung in the direction of using a fancier modeline, so I'm going
+    to try =telephone-line= instead.
+ #+BEGIN_SRC emacs-lisp
+   ;; (use-package powerline
+   ;;   :ensure t
+   ;;   :config
+   ;;   (powerline-default-theme))
+ #+END_SRC
+*** Telephoneline
+    #+BEGIN_SRC emacs-lisp
+      (use-package telephone-line
+        :ensure t
+        :config
+        (telephone-line-mode 1))
+    #+END_SRC
+*** Displaying The Time
+    And why not?
 #+BEGIN_SRC emacs-lisp
-  (use-package powerline
-    :ensure t
-    :config
-    (powerline-default-theme))
+  (setq display-time-format "%I:%M")
+  (display-time-mode)
 #+END_SRC
 ** Hide DOS EOL Char's (^M)
    This is thanks to https://stackoverflow.com/a/750933/1380901
@@ -360,12 +376,12 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
   (use-package zone-nyan
     :defer t
     :ensure t)
-  (use-package nyan-mode
-    :ensure t
-    :init
-    (add-hook 'after-init-hook #'nyan-mode)
-    :config
-    (nyan-start-animation))
+  ;; (use-package nyan-mode
+  ;;   :ensure t
+  ;;   :init
+  ;;   (add-hook 'after-init-hook #'nyan-mode)
+  ;;   :config
+  ;;   (nyan-start-animation))
 #+END_SRC
 
 ** Presentation Helpers
@@ -1870,8 +1886,8 @@ You can replace the email address with the public key's id.
 ** Systems Monitoring
    Because why not?
    #+BEGIN_SRC emacs-lisp
-     (use-package symon
-       :ensure t)
+     ;; (use-package symon
+     ;;   :ensure t)
    #+END_SRC
 ** Peg
    I need this for =orq-ql=:
