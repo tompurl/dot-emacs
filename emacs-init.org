@@ -1839,7 +1839,6 @@ You can replace the email address with the public key's id.
             (setq org-crypt-key "989889BA8447C29C")))
          ((string-equal system-type "gnu/linux")
           (progn
-            (2)
             (setq org-crypt-key "this-is-bogus"))))
 
       #+END_SRC
