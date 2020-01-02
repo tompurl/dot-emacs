@@ -1611,7 +1611,7 @@ web-mode is awesome!
    ((string-equal system-type "gnu/linux")
     (progn
       (set-register ?g (cons 'file "~/.gitconfig"))
-      (set-register ?r (cons 'file "~/braindump/index.org"))))
+      (set-register ?r (cons 'file "~/gtd/kata-blog/index.org"))))
    )
 #+END_SRC
 
