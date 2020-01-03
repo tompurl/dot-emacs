@@ -561,12 +561,11 @@ nuts. This fixes that:
     (interactive)
     (message "Saving all org buffers to keep agenda files list clean")
     (org-save-all-org-buffers)
-    (setq org-agenda-files (list org-directory))
+    (setq org-agenda-files (list org-directory (concat org-directory "journal")))
     (message "Done setting org agenda files."))
 
   (set-org-agenda-files)
-#+END_SRC
- 
+#+END_SRC 
 *** Custom Views
  
 Here's my custom agenda view that uses "column view". 
