@@ -988,7 +988,19 @@ Of course you need these :smile:
    #+BEGIN_SRC emacs-lisp
      (setq org-image-actual-width t)
    #+END_SRC
+** Journaling
+*** org-journal
+    This seems like a promising way to keep track of what I do throughout the day.
 
+    #+BEGIN_SRC emacs-lisp
+      (use-package org-journal
+        :ensure t
+        :defer t
+        :custom
+        (org-journal-dir (concat org-directory "journal"))
+        (org-journal-date-format "%A, %d %B %Y")
+        (org-journal-file-format "%Y%m%d.org"))
+    #+END_SRC
 * Magit
 ** Bootstrap
 
