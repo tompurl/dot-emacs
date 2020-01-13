@@ -1796,6 +1796,7 @@ web-mode is awesome!
 
    #+BEGIN_SRC emacs-lisp
      (use-package dired-rsync
+       :ensure t
        :config
        (bind-key "C-c C-r" 'dired-rsync dired-mode-map))
    #+END_SRC
