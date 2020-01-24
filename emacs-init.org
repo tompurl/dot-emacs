@@ -989,17 +989,27 @@ Of course you need these :smile:
    #+END_SRC
 ** Journaling
 *** org-journal
-    This seems like a promising way to keep track of what I do throughout the day.
+**** Bootstrap
+     This seems like a promising way to keep track of what I do throughout the day.
 
-    #+BEGIN_SRC emacs-lisp
-      (use-package org-journal
-        :ensure t
-        :defer t
-        :custom
-        (org-journal-dir (concat org-directory "journal"))
-        (org-journal-date-format "%A, %d %B %Y")
-        (org-journal-file-format "%Y%m%d.org"))
-    #+END_SRC
+     #+BEGIN_SRC emacs-lisp
+       (use-package org-journal
+         :ensure t
+         :defer t
+         :custom
+         (org-journal-dir (concat org-directory "journal"))
+         (org-journal-date-format "%A, %d %B %Y")
+         (org-journal-file-format "%Y%m%d.org"))
+     #+END_SRC
+
+**** Keymap
+     #+BEGIN_SRC emacs-lisp
+       (progn
+           (define-key org-journal-mode-map (kbd "n") 'org-journal-new-entry)
+           (define-key org-journal-mode-map (kbd "o") (lambda () (interactive) (org-journal-new-entry 't)))
+           (define-key org-journal-mode-map (kbd "s") 'org-journal-search)
+           (global-set-key (kbd "\C-cj") org-journal-mode-map))
+     #+END_SRC
 * Magit
 ** Bootstrap
 
