@@ -994,6 +994,15 @@ Of course you need these :smile:
 
 **** Keymap
     UGH
+** Property Help
+*** Inherited Properties
+    Here's my list of properties that can be inherited. I like to keep this small so
+    as not to adversely affect the speed of agenda searches.
+
+    #+BEGIN_SRC emacs-lisp
+      (setq org-use-property-inheritance
+            (list "FEATURE_NUM"))
+    #+END_SRC
 * Magit
 ** Bootstrap
 
