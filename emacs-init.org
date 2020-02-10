@@ -62,7 +62,7 @@ https://writequit.org/eos. I am standing on the shoulders of giants.
  #+BEGIN_SRC emacs-lisp
    (require 'package) ;; You might already have this line
    (add-to-list 'package-archives
-                '("melpa" . "http://stable.melpa.org/packages/")
+                '("melpa" . "http://melpa.org/packages/")
                 '("org" . "https://orgmode.org/elpa/"))
    (package-initialize) ;; You might already have this line
  #+END_SRC
@@ -194,41 +194,46 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 *** Solarized
 #+BEGIN_SRC emacs-lisp
-  (use-package solarized-theme
-    :ensure t
-    :config
-    ;; make the fringe stand out from the background
-    (setq solarized-distinct-fringe-background t)
+  ;; (use-package solarized-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   ;; make the fringe stand out from the background
+  ;;   (setq solarized-distinct-fringe-background t)
 
-    ;; Don't change the font for some headings and titles
-    (setq solarized-use-variable-pitch t)
+  ;;   ;; Don't change the font for some headings and titles
+  ;;   (setq solarized-use-variable-pitch t)
 
-    ;; make the modeline high contrast
-    (setq solarized-high-contrast-mode-line t)
+  ;;   ;; make the modeline high contrast
+  ;;   (setq solarized-high-contrast-mode-line t)
 
-    ;; Use less bolding
-    (setq solarized-use-less-bold t)
+  ;;   ;; Use less bolding
+  ;;   (setq solarized-use-less-bold t)
 
-    ;; Use more italics
-    (setq solarized-use-more-italic t)
+  ;;   ;; Use more italics
+  ;;   (setq solarized-use-more-italic t)
 
-    ;; Use less colors for indicators such as git:gutter, flycheck and similar
-    (setq solarized-emphasize-indicators nil)
+  ;;   ;; Use less colors for indicators such as git:gutter, flycheck and similar
+  ;;   (setq solarized-emphasize-indicators nil)
 
-    ;; Don't change size of org-mode headlines (but keep other size-changes)
-    (setq solarized-scale-org-headlines nil)
+  ;;   ;; Don't change size of org-mode headlines (but keep other size-changes)
+  ;;   (setq solarized-scale-org-headlines nil)
 
-    ;; Avoid all font-size changes
-    (setq solarized-height-minus-1 1.0)
-    (setq solarized-height-plus-1 1.0)
-    (setq solarized-height-plus-2 1.0)
-    (setq solarized-height-plus-3 1.0)
-    (setq solarized-height-plus-4 1.0))
-  (load-theme 'solarized-light t)
+  ;;   ;; Avoid all font-size changes
+  ;;   (setq solarized-height-minus-1 1.0)
+  ;;   (setq solarized-height-plus-1 1.0)
+  ;;   (setq solarized-height-plus-2 1.0)
+  ;;   (setq solarized-height-plus-3 1.0)
+  ;;   (setq solarized-height-plus-4 1.0))
+  ;; (load-theme 'solarized-light t)
 #+END_SRC
 
 #+RESULTS:
 : t
+*** Cloud
+#+BEGIN_SRC emacs-lisp
+  (use-package cloud-theme
+    :ensure t)
+#+END_SRC
 
 ** Centering Prose
 *** Olivetti
@@ -571,9 +576,9 @@ nuts. This fixes that:
 Here's my custom agenda view that uses "column view". 
  
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-overriding-columns-format
-        "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %7POM_Pomodori(Poms) %12CLOCKSUM_T(Today's Time)")
-  (setq org-agenda-view-columns-initially t)
+  ;; (setq org-agenda-overriding-columns-format
+  ;;       "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %7POM_Pomodori(Poms) %12CLOCKSUM_T(Today's Time)")
+  ;; (setq org-agenda-view-columns-initially t)
   (setq org-agenda-custom-commands
         '(("." "Simple agenda view"
            ((tags "+today"
@@ -622,27 +627,12 @@ make any changes to your org-agenda view.
           (kmacro-exec-ring-item
            (quote ([6 6 6 6 101 1 11 return 14 1] 0 "%d")) arg)))
 #+END_SRC
-*** Super-agenda!
-
-    The time stamp package is a pre-req:
-
-    #+BEGIN_SRC emacs-lisp
-      (use-package ts
-        :ensure t)
-    #+END_SRC
-
-    There isn't a current enough version of this in Melpa Stable ([[https://github.com/alphapapa/org-ql/issues/54][bug]]) so I need to
-    install it manually.
-    #+BEGIN_SRC emacs-lisp
-      (if (not (require 'org-super-agenda nil t))
-          (message "Package `org-super-agenda' not found"))
-    #+END_SRC
 ** Org-ql
    I'm hoping to use this to help organize things:
 
    #+BEGIN_SRC emacs-lisp
-     (if (not (require 'org-ql nil t))
-         (message "Package `org-ql' not found"))
+     (use-package org-ql
+       :ensure t)
    #+END_SRC
 ** Org-Clock
    Set your default parameters for clock reports when they are viewed i the agenda view:
@@ -989,16 +979,29 @@ Of course you need these :smile:
    #+END_SRC
 ** Journaling
 *** org-journal
-    This seems like a promising way to keep track of what I do throughout the day.
+**** Bootstrap
+     This seems like a promising way to keep track of what I do throughout the day.
+
+     #+BEGIN_SRC emacs-lisp
+       (use-package org-journal
+         :ensure t
+         :defer t
+         :custom
+         (org-journal-dir (concat org-directory "journal"))
+         (org-journal-date-format "%A, %d %B %Y")
+         (org-journal-file-format "%Y%m%d.org"))
+     #+END_SRC
+
+**** Keymap
+    UGH
+** Property Help
+*** Inherited Properties
+    Here's my list of properties that can be inherited. I like to keep this small so
+    as not to adversely affect the speed of agenda searches.
 
     #+BEGIN_SRC emacs-lisp
-      (use-package org-journal
-        :ensure t
-        :defer t
-        :custom
-        (org-journal-dir (concat org-directory "journal"))
-        (org-journal-date-format "%A, %d %B %Y")
-        (org-journal-file-format "%Y%m%d.org"))
+      (setq org-use-property-inheritance
+            (list "FEATURE_NUM"))
     #+END_SRC
 * Magit
 ** Bootstrap
