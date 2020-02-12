@@ -581,7 +581,7 @@ Here's my custom agenda view that uses "column view".
   ;; (setq org-agenda-view-columns-initially t)
   (setq org-agenda-custom-commands
         '(("." "Simple agenda view"
-           ((tags "+today"
+           ((tags-todo "+today"
                        ((org-agenda-span 'day)
                         ))
             (agenda "")))))
