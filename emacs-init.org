@@ -111,7 +111,8 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
       (setq chocolatey-bin
             (concat chocolatey-root "/" "bin"))
       (setq exec-path (append '("C:/Python27"
-                                "c:/ProgramData/chocolatey/bin")
+                                "c:/ProgramData/chocolatey/bin"
+                                "C:/Users/tom.purl/AppData/Local/Programs/Python/Python36/Scripts")
                               exec-path)))))
 
 #+END_SRC
@@ -120,7 +121,8 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 
 #+BEGIN_SRC emacs-lisp
   (setenv "PATH" (concat (getenv "PATH") ";"
-                         "c:\\ProgramData\\chocolatey\\bin"))
+                         "c:\\ProgramData\\chocolatey\\bin" ";"
+                         "C:/Users/tom.purl/AppData/Local/Programs/Python/Python36/Scripts"))
 #+END_SRC
 
 ** Character Encoding
@@ -274,15 +276,15 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 *** Font Choices
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "InputMonoCondensed" :height 130)
-   (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 130)
+   (set-face-attribute 'default nil :family "InputMonoCondensed" :height 120)
+   (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 120)
    (cond
     ((string-equal system-type "windows-nt")
      (progn
-       (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 130)))
+       (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 120)))
     ((string-equal system-type "gnu/linux")
      (progn
-       (set-face-attribute 'variable-pitch nil :family "InputSansCondensedLight" :height 130))))
+       (set-face-attribute 'variable-pitch nil :family "InputSansCondensedLight" :height 120))))
  #+END_SRC
 
 *** Viewing monospaced and non-monospaced fonts in the same document
@@ -1430,12 +1432,27 @@ web-mode is awesome!
 *** Virtualenv
 #+BEGIN_SRC emacs-lisp
   (use-package virtualenvwrapper
-    :ensure t
-    :mode ("\\.py\\'" . python-mode)
-    :config
-    (venv-initialize-interactive-shells)
-    (venv-initialize-eshell))
+    :disabled
+    ;; :ensure t
+    ;; :mode ("\\.py\\'" . python-mode)
+    ;; :config
+    ;; (venv-initialize-interactive-shells)
+    ;; (venv-initialize-eshell)
+    )
 #+END_SRC
+
+    I've been using =pipenv= a lot lately on both Windows and Linux and it has
+    dramatically simplified my workflow. So let's try this out:
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package pipenv
+        :ensure t
+        :hook (python-mode . pipenv-mode)
+        :init
+        (setq
+         pipenv-projectile-after-switch-function
+         #'pipenv-projectile-after-switch-extended))
+    #+END_SRC
 
 *** Auto-completion
 #+BEGIN_SRC emacs-lisp
