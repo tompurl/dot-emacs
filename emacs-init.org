@@ -276,15 +276,15 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 *** Font Choices
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "InputMonoCondensed" :height 130)
-   (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 130)
+   (set-face-attribute 'default nil :family "InputMonoCondensed" :height 120)
+   (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 120)
    (cond
     ((string-equal system-type "windows-nt")
      (progn
-       (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 130)))
+       (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 120)))
     ((string-equal system-type "gnu/linux")
      (progn
-       (set-face-attribute 'variable-pitch nil :family "InputSansCondensedLight" :height 130))))
+       (set-face-attribute 'variable-pitch nil :family "InputSansCondensedLight" :height 120))))
  #+END_SRC
 
 *** Viewing monospaced and non-monospaced fonts in the same document
