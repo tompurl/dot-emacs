@@ -1880,6 +1880,16 @@ You can replace the email address with the public key's id.
       (require 'epa-file)
       (epa-file-enable)
     #+END_SRC
+
+    I hate to admit it but my current process for whole-file encryption goes like
+    this:
+
+    1. I add a line that looks something like this to the top of my file:
+       - =# -*- mode:org; epa-file-encrypt-to: ("5BF5A514D04978DD") -*-=
+    2. I then drop into the command line and run a command that looks something like
+       this:
+       - =gpg --output foo.org.gpg --encrypt --recipient 5BF5A514D04978DD foo.org
+    3. I then test that I can open =foo.org.gpg= in Emacs seamlessly.
 *** Org-mode
     I use this to encrypt sections of org documents. You just have to tag the section
     with =crypt=.
