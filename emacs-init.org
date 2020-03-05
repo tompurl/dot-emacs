@@ -196,45 +196,45 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 *** Solarized
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package solarized-theme
-  ;;   :ensure t
-  ;;   :config
-  ;;   ;; make the fringe stand out from the background
-  ;;   (setq solarized-distinct-fringe-background t)
+  (use-package solarized-theme
+    :ensure t
+    :config
+    ;; make the fringe stand out from the background
+    (setq solarized-distinct-fringe-background t)
 
-  ;;   ;; Don't change the font for some headings and titles
-  ;;   (setq solarized-use-variable-pitch t)
+    ;; Don't change the font for some headings and titles
+    (setq solarized-use-variable-pitch t)
 
-  ;;   ;; make the modeline high contrast
-  ;;   (setq solarized-high-contrast-mode-line t)
+    ;; make the modeline high contrast
+    (setq solarized-high-contrast-mode-line t)
 
-  ;;   ;; Use less bolding
-  ;;   (setq solarized-use-less-bold t)
+    ;; Use less bolding
+    (setq solarized-use-less-bold t)
 
-  ;;   ;; Use more italics
-  ;;   (setq solarized-use-more-italic t)
+    ;; Use more italics
+    (setq solarized-use-more-italic t)
 
-  ;;   ;; Use less colors for indicators such as git:gutter, flycheck and similar
-  ;;   (setq solarized-emphasize-indicators nil)
+    ;; Use less colors for indicators such as git:gutter, flycheck and similar
+    (setq solarized-emphasize-indicators nil)
 
-  ;;   ;; Don't change size of org-mode headlines (but keep other size-changes)
-  ;;   (setq solarized-scale-org-headlines nil)
+    ;; Don't change size of org-mode headlines (but keep other size-changes)
+    (setq solarized-scale-org-headlines nil)
 
-  ;;   ;; Avoid all font-size changes
-  ;;   (setq solarized-height-minus-1 1.0)
-  ;;   (setq solarized-height-plus-1 1.0)
-  ;;   (setq solarized-height-plus-2 1.0)
-  ;;   (setq solarized-height-plus-3 1.0)
-  ;;   (setq solarized-height-plus-4 1.0))
-  ;; (load-theme 'solarized-light t)
+    ;; Avoid all font-size changes
+    (setq solarized-height-minus-1 1.0)
+    (setq solarized-height-plus-1 1.0)
+    (setq solarized-height-plus-2 1.0)
+    (setq solarized-height-plus-3 1.0)
+    (setq solarized-height-plus-4 1.0))
+  (load-theme 'solarized-light t)
 #+END_SRC
 
 #+RESULTS:
 : t
 *** Cloud
 #+BEGIN_SRC emacs-lisp
-  (use-package cloud-theme
-    :ensure t)
+  ;; (use-package cloud-theme
+  ;;   :ensure t)
 #+END_SRC
 
 ** Centering Prose
@@ -583,7 +583,7 @@ Here's my custom agenda view that uses "column view".
   ;; (setq org-agenda-view-columns-initially t)
   (setq org-agenda-custom-commands
         '(("." "Simple agenda view"
-           ((tags "+today"
+           ((tags-todo "+today"
                        ((org-agenda-span 'day)
                         ))
             (agenda "")))))
@@ -1882,6 +1882,16 @@ You can replace the email address with the public key's id.
       (require 'epa-file)
       (epa-file-enable)
     #+END_SRC
+
+    I hate to admit it but my current process for whole-file encryption goes like
+    this:
+
+    1. I add a line that looks something like this to the top of my file:
+       - =# -*- mode:org; epa-file-encrypt-to: ("5BF5A514D04978DD") -*-=
+    2. I then drop into the command line and run a command that looks something like
+       this:
+       - =gpg --output foo.org.gpg --encrypt --recipient 5BF5A514D04978DD foo.org
+    3. I then test that I can open =foo.org.gpg= in Emacs seamlessly.
 *** Org-mode
     I use this to encrypt sections of org documents. You just have to tag the section
     with =crypt=.
