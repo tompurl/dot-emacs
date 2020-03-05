@@ -1003,8 +1003,10 @@ Of course you need these :smile:
 
     #+BEGIN_SRC emacs-lisp
       (setq org-use-property-inheritance
-            (list "FEATURE_NUM"))
+            (list "FEATURE_NUM"
+                  "STORY_NUM"))
     #+END_SRC
+
 * Magit
 ** Bootstrap
 
