@@ -454,7 +454,7 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
   (cond
    ((string-equal system-type "windows-nt")
     (progn
-      (setq org-directory "~/org/")))
+      (setq org-directory "~/Roaming-Home/org/")))
    ((string-equal system-type "gnu/linux")
     (progn
       (setq org-directory "~/gtd/org/"))))
