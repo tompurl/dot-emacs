@@ -1,14 +1,12 @@
 # -*- mode: snippet -*-
-# name: robotfunction
+# name: robotkeyword
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # contributor : Tom Purl <tom@tompurl.com>
-# key: f
+# key: kw
 # --
 
 ${1:keyword-name}
     [Documentation]    $2
-    [Tags]             wip    $3
-    [Setup]            ${4:Open Browser}
-    [Teardown]         ${5:Close Browser}
-
-    
+    [Arguments]        $3
+    $0
+  
