@@ -1279,8 +1279,9 @@ you need to install for your favorite programming languages:
 
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
-    :ensure t
-    :hook (after-init . global-flycheck-mode))
+    :disabld
+    ;; :hook (after-init . global-flycheck-mode)
+    )
 #+END_SRC
 *** Projectile
     [[https://www.projectile.mx/en/latest/usage/][Projectile]] is a fantastic package that makes it easier to work
