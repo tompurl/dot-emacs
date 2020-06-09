@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: testcase
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# contributor : Tom Purl <tom@tompurl.com>
+# key: tc
+# --
+
+${1:test-case-name}
+    [Documentation]    $2
+    [Tags]             wip    $3
+    [Setup]            ${4:Open Browser}
+    [Teardown]         ${5:Close Browser}
+    $0
+
+    
