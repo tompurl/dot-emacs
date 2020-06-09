@@ -1559,7 +1559,14 @@ web-mode is awesome!
         :load-path "customizations/packages/restclient.el"
         :mode "\\.rest\\'")
     #+END_SRC
-
+*** Verb
+    This also looks very promising. It integrates with org-mode.
+    #+BEGIN_SRC emacs-lisp
+      (use-package verb
+        :ensure t
+        :after org
+        :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
+    #+END_SRC
 ** PlantUML
     #+BEGIN_SRC emacs-lisp :exports code-or-both
       (use-package plantuml-mode
@@ -1990,4 +1997,12 @@ You can replace the email address with the public key's id.
    #+BEGIN_SRC emacs-lisp
      (use-package peg
        :ensure t)
+   #+END_SRC
+** Bookmarks
+   Since I run Emacs as a user service it is unceremoniously killed every time I log
+   out of a session. My bookmarks are therefore never saved. This fixes that by
+   saving my bookmarks every time I change one.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq bookmark-save-flag 1)
    #+END_SRC
