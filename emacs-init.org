@@ -1469,11 +1469,13 @@ web-mode is awesome!
 *** Auto-completion
 #+BEGIN_SRC emacs-lisp
   (use-package jedi
-    :ensure t
-    :hook (python-mode . jedi:setup)
-    :config
-    (setq jedi:complete-on-dot t))
+    :disabled
+    ;; :hook (python-mode . jedi:setup)
+    ;; :config
+    ;; (setq jedi:complete-on-dot t)
+    )
 #+END_SRC
+
 *** Editing Pip Requirements Files
     #+BEGIN_SRC emacs-lisp
       (use-package pip-requirements
@@ -1494,7 +1496,27 @@ web-mode is awesome!
         (add-to-list 'python-shell-completion-native-disabled-interpreters
                      "jupyter"))
     #+END_SRC
-    
+*** LSP
+    Why not?
+    #+BEGIN_SRC emacs-lisp
+      (setq lsp-keymap-prefix "s-l")
+
+      (use-package lsp-mode
+        :ensure t
+        :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+               (python-mode . lsp)
+               (robot-mode . lsp))
+        :commands lsp)
+
+      (use-package lsp-ui
+        :ensure t
+        :commands lsp-ui-mode)
+
+      (use-package company-lsp
+        :ensure t
+        :commands company-lsp)
+    #+END_SRC
+
 ** Docker
    Let's add support for Dockerfiles!
    #+BEGIN_SRC emacs-lisp
