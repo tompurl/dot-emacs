@@ -997,7 +997,6 @@ Of course you need these :smile:
      #+BEGIN_SRC emacs-lisp
        (use-package org-journal
          :ensure t
-         :defer t
          :custom
          (org-journal-dir (concat org-directory "journal"))
          (org-journal-date-format "%A, %d %B %Y")
