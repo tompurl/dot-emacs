@@ -2006,3 +2006,22 @@ You can replace the email address with the public key's id.
    #+BEGIN_SRC emacs-lisp
      (setq bookmark-save-flag 1)
    #+END_SRC
+* Server stuff
+
+   #+BEGIN_SRC emacs-lisp
+     (require 'server)
+     ;; Start a server if (server-running-p) does not return t (e.g. if it
+     ;; returns nil or :other)
+     (or (eq (server-running-p) t)
+         (server-start))
+
+     (when (equal window-system 'w32)
+       (setq server-use-tcp t))
+
+     (with-eval-after-load 'server
+       (when (equal window-system 'w32)
+         ;; Suppress error "directory  ~/.emacs.d/server is unsafe". It is needed
+         ;; needed for the server to start on Windows.
+         (defun server-ensure-safe-dir (dir) "Noop" t)))
+
+   #+END_SRC
