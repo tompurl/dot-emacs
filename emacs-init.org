@@ -593,10 +593,7 @@ Here's my custom agenda view that uses "column view".
   (setq org-agenda-view-columns-initially t)
   (setq org-agenda-custom-commands
         '(("." "Simple agenda view"
-           ((tags-todo "+today"
-                       ((org-agenda-span 'day)
-                        ))
-            (agenda "")))))
+           ((tags "+today")))))
 #+END_SRC
 
 This only shows today's tasks in the agenda view by default:
