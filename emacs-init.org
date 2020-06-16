@@ -592,10 +592,13 @@ Here's my custom agenda view that uses "column view".
         "%TODO %4PRIORITY(Pri.) %50ITEM(Task) %4POM_Estimate(Est.) %7POM_Pomodori(Poms) %12CLOCKSUM_T(Today's Time)")
   (setq org-agenda-view-columns-initially t)
   (setq org-agenda-custom-commands
-        '(("." "Pomodoro View"
+        '(("p" "Pomodoro View"
            ((tags "+today")))
-          ("x" "Daily Checklist"
-           ((tags-todo "+SCHEDULED<=\"<today>\"+daily_checklist")))))
+          ("c" "Daily Checklist"
+           ((org-ql-block '(and (todo)
+                                (tags "daily_checklist")
+                                (scheduled :to today))
+                          ((org-ql-block-header "Daily Checklist")))))))
 #+END_SRC
 
 This only shows today's tasks in the agenda view by default:
