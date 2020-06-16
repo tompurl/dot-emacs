@@ -598,7 +598,15 @@ Here's my custom agenda view that uses "column view".
            ((org-ql-block '(and (todo)
                                 (tags "daily_checklist")
                                 (scheduled :to today))
-                          ((org-ql-block-header "Daily Checklist")))))))
+                          ((org-ql-block-header "Daily Checklist")))))
+          ("A" "Remaining Agenda"
+           ((org-ql-block '(and (todo "TODO")
+                                (not (tags "today"))
+                                (or
+                                 (scheduled :to today)
+                                 (deadline auto)))
+                          ((org-ql-block-header "Remaining Agenda")))))
+          ))
 #+END_SRC
 
 This only shows today's tasks in the agenda view by default:
