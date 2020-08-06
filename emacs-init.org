@@ -606,7 +606,8 @@ Here's my custom agenda view that uses "column view".
                           ((org-ql-block-header "Daily Checklist")))))
           ("A" "Remaining Agenda"
            ((org-ql-block '(and (todo "TODO")
-                                (not (tags "today"))
+                                (not (or (tags "today")
+                                         (tags "daily_checklist")))
                                 (or
                                  (scheduled :to today)
                                  (deadline auto)))
