@@ -246,7 +246,13 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+RESULTS:
 : t
 
+*** Acme
 
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package acme-theme
+  ;;   :ensure t)
+  ;; (load-theme 'acme t)
+#+END_SRC
 ** Centering Prose
 *** Olivetti
     This is a *sweet* minor mode that makes prose pages look much nicer. 
@@ -416,7 +422,6 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
     #+BEGIN_SRC emacs-lisp
       (use-package org-re-reveal
         :ensure t
-        :defer t
         :config
         (setq org-re-reveal-root "./reveal.js")
         (setq org-re-reveal-title-slide "<h1>%t</h1><footer><h5>&copy;%a</h5></footer>"))
@@ -1703,7 +1708,6 @@ web-mode is awesome!
    ((string-equal system-type "windows-nt")
     (progn
       (set-register ?p (cons 'file "c:/tools/cmder/config/user-profile.ps1"))
-      (set-register ?h (cons 'file "~/Documents/Dev/AHK/hotstrings.ahk"))
       (set-register ?g (cons 'file "c:/users/tom.purl/.gitconfig"))
       (set-register ?r (cons 'file "c:/users/tom.purl/git/braindump/index.org"))))
    ((string-equal system-type "gnu/linux")
