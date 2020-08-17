@@ -184,10 +184,12 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
     Man this is a great-looking, modular theme but like so many other awesome fonts it
     doesn't support variable-pitch fonts.
     #+BEGIN_SRC emacs-lisp
-      ;; (use-package gruvbox-theme
-      ;;   :ensure t)
-      ;; (load-theme 'gruvbox-dark-medium t)
+      (use-package gruvbox-theme
+        :ensure t
+        :config
+        (load-theme 'gruvbox-light-medium t))
     #+END_SRC
+
 *** Soothe
     This is a little too dark and funky for my tastes.
 #+BEGIN_SRC emacs-lisp
@@ -241,7 +243,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+BEGIN_SRC emacs-lisp
   (use-package modus-operandi-theme
     :ensure t)
-  (load-theme 'modus-operandi t)
+  ;; (load-theme 'modus-operandi t)
 #+END_SRC
 
 #+RESULTS:
@@ -293,15 +295,15 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+END_SRC
 *** Font Choices
  #+BEGIN_SRC emacs-lisp
-   (set-face-attribute 'default nil :family "InputMonoCondensed" :height 120)
-   (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 120)
+   (set-face-attribute 'default nil :family "InputMonoCondensed" :height 130)
+   (set-face-attribute 'fixed-pitch nil :family "InputMonoCondensed" :height 130)
    (cond
     ((string-equal system-type "windows-nt")
      (progn
-       (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 120)))
+       (set-face-attribute 'variable-pitch nil :family "InputSansCondensed" :height 130)))
     ((string-equal system-type "gnu/linux")
      (progn
-       (set-face-attribute 'variable-pitch nil :family "InputSansCondensedLight" :height 120))))
+       (set-face-attribute 'variable-pitch nil :family "InputSansCondensedLight" :height 130))))
  #+END_SRC
 
 *** Viewing monospaced and non-monospaced fonts in the same document
@@ -1014,7 +1016,7 @@ Of course you need these :smile:
      #+BEGIN_SRC emacs-lisp
        (use-package org-journal
          :ensure t
-         :custom
+         :init
          (org-journal-dir (concat org-directory "journal"))
          (org-journal-date-format "%A, %d %B %Y")
          (org-journal-file-format "%Y%m%d.org"))
@@ -1604,6 +1606,31 @@ web-mode is awesome!
     :init
     (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 #+END_SRC
+** Bash
+*** shx
+    This is a great =shell= mode helper that gives you a bunch of extras:
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package shx
+        :ensure t
+        :config
+        (shx-global-mode))
+    #+END_SRC    
+
+*** emacs-bash-completion
+    This gives you bash completion when using shell mode.
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package bash-completion
+        :ensure t
+        :config
+        (progn
+          (autoload 'bash-completion-dynamic-complete
+            "bash-completion"
+            "BASH completion hook")
+          (add-hook 'shell-dynamic-complete-functions
+                    'bash-completion-dynamic-complete)))
+    #+END_SRC    
 
 * Text Search
 ** Ack
