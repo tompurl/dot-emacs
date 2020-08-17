@@ -183,10 +183,12 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
     Man this is a great-looking, modular theme but like so many other awesome fonts it
     doesn't support variable-pitch fonts.
     #+BEGIN_SRC emacs-lisp
-      ;; (use-package gruvbox-theme
-      ;;   :ensure t)
-      ;; (load-theme 'gruvbox-dark-medium t)
+      (use-package gruvbox-theme
+        :ensure t
+        :config
+        (load-theme 'gruvbox-light-medium t))
     #+END_SRC
+
 *** Soothe
     This is a little too dark and funky for my tastes.
 #+BEGIN_SRC emacs-lisp
@@ -240,7 +242,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 #+BEGIN_SRC emacs-lisp
   (use-package modus-operandi-theme
     :ensure t)
-  (load-theme 'modus-operandi t)
+  ;; (load-theme 'modus-operandi t)
 #+END_SRC
 
 #+RESULTS:
