@@ -1,9 +1,10 @@
 #+TITLE: Tom's Emacs Init File
  
-So this is fun. I can now use literate programming to configure my OS..err text editor.
+So this is fun. I can now use literate programming to configure my OS..err text
+editor.
 
-Pleas note that a *HUGE* chunk of this file was shamelessly stolen from the snippets in
-https://writequit.org/eos. I am standing on the shoulders of giants. 
+Pleas note that a *HUGE* chunk of this file was shamelessly stolen from the snippets
+in https://writequit.org/eos. I am standing on the shoulders of giants.
  
 * Bootstrap
   Let's get started by adding my custom folders to my load path:
@@ -1081,6 +1082,8 @@ magit doesn't work so I'm just going to comment all of this out.
     =ssh-agent=. Please note that this also makes everything else (including
     =rsync-dired=) work with =ssh-agent= too.
 
+    TODO - Install this automatically
+
     #+BEGIN_SRC emacs-lisp
       (cond
        ((string-equal system-type "gnu/linux")
@@ -1295,10 +1298,13 @@ you need to install for your favorite programming languages:
 
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
-    :disabld
+    :disabled
     ;; :hook (after-init . global-flycheck-mode)
     )
 #+END_SRC
+
+#+RESULTS:
+
 *** Projectile
     [[https://www.projectile.mx/en/latest/usage/][Projectile]] is a fantastic package that makes it easier to work
     within a project using Emacs.
@@ -1386,8 +1392,9 @@ Let's just turn it on for everything :smile:
              (scheme-mode . enable-paredit-mode)))
   #+END_SRC
 *** Eshell
-**** Aweshell
-     Holy crap is this cool, and it even works on Windows. If only I could install it from Melpa :-)
+**** Awesh]]]ell
+     Holy crap is this cool, and it even works on Windows. If only I could install it
+     from Melpa :-)
 
      #+BEGIN_SRC emacs-lisp
        (use-package aweshell
