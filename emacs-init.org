@@ -190,6 +190,9 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
         (load-theme 'gruvbox-light-medium t))
     #+END_SRC
 
+    #+RESULTS:
+    : t
+
 *** Soothe
     This is a little too dark and funky for my tastes.
 #+BEGIN_SRC emacs-lisp
@@ -241,13 +244,10 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
     A lot of people seem to also like this light theme:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package modus-operandi-theme
-    :ensure t)
+  ;; (use-package modus-operandi-theme
+  ;;   :ensure t)
   ;; (load-theme 'modus-operandi t)
 #+END_SRC
-
-#+RESULTS:
-: t
 
 *** Acme
 
@@ -266,8 +266,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
         (add-hook 'org-mode-hook
                   (lambda ()
                     (olivetti-mode 1)))
-        :custom
-        (olivetti-body-width 92))
+        (setq olivetti-body-width 84))
     #+END_SRC
 
     Since the screen width for prose is now 100 I'm going to bump up paragraph width
