@@ -1017,10 +1017,12 @@ Of course you need these :smile:
        (use-package org-journal
          :ensure t
          :init
-         (org-journal-dir (concat org-directory "journal"))
-         (org-journal-date-format "%A, %d %B %Y")
-         (org-journal-file-format "%Y%m%d.org"))
+         (setq org-journal-dir (concat org-directory "journal"))
+         (setq org-journal-date-format "%A, %d %B %Y")
+         (setq org-journal-file-format "%Y%m%d.org"))
      #+END_SRC
+
+     #+RESULTS:
 
 **** Keymap
     UGH
