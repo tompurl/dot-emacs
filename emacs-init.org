@@ -1302,7 +1302,7 @@ you need to install for your favorite programming languages:
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :disabled
-    ;; :hook (after-init . global-flycheck-mode)
+    :hook (after-init . global-flycheck-mode)
     )
 #+END_SRC
 
@@ -1467,41 +1467,6 @@ web-mode is awesome!
 #+END_SRC
 
 ** Python
-*** Virtualenv
-#+BEGIN_SRC emacs-lisp
-  (use-package virtualenvwrapper
-    :disabled
-    ;; :ensure t
-    ;; :mode ("\\.py\\'" . python-mode)
-    ;; :config
-    ;; (venv-initialize-interactive-shells)
-    ;; (venv-initialize-eshell)
-    )
-#+END_SRC
-
-    I've been using =pipenv= a lot lately on both Windows and Linux and it has
-    dramatically simplified my workflow. So let's try this out:
-
-    #+BEGIN_SRC emacs-lisp
-      (use-package pipenv
-        :ensure t
-        :hook (python-mode . pipenv-mode)
-        :init
-        (setq
-         pipenv-projectile-after-switch-function
-         #'pipenv-projectile-after-switch-extended))
-    #+END_SRC
-
-*** Auto-completion
-#+BEGIN_SRC emacs-lisp
-  (use-package jedi
-    :disabled
-    ;; :hook (python-mode . jedi:setup)
-    ;; :config
-    ;; (setq jedi:complete-on-dot t)
-    )
-#+END_SRC
-
 *** Editing Pip Requirements Files
     #+BEGIN_SRC emacs-lisp
       (use-package pip-requirements
@@ -1522,28 +1487,22 @@ web-mode is awesome!
         (add-to-list 'python-shell-completion-native-disabled-interpreters
                      "jupyter"))
     #+END_SRC
-*** LSP
-    Why not?
+*** Code Formatting
+**** Overview
+     Apparently I need all of these :-/
+**** autopep8
     #+BEGIN_SRC emacs-lisp
-      (setq lsp-keymap-prefix "s-l")
-
-      (use-package lsp-mode
+      (use-package py-autopep8
         :ensure t
-        :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-               (python-mode . lsp)
-               (robot-mode . lsp))
-        :commands lsp)
-
-      (use-package lsp-ui
-        :ensure t
-        :commands lsp-ui-mode)
-
-      (use-package company-lsp
-        :ensure t
-        :commands company-lsp)
+        :hook (elpy-mode . py-autopep8-enable-on-save))
+    #+END_SRC  
+**** Black
+    #+BEGIN_SRC emacs-lisp
+      (use-package blacken
+        :ensure t)
     #+END_SRC
 
-** Docker
+ ** Docker
    Let's add support for Dockerfiles!
    #+BEGIN_SRC emacs-lisp
      (use-package dockerfile-mode
@@ -1551,6 +1510,15 @@ web-mode is awesome!
        :init
        (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
    #+END_SRC
+*** Jupyter Notebook
+    This looks kindof cool
+    #+BEGIN_SRC emacs-lisp
+      (use-package ein
+        :ensure t)
+    #+END_SRC
+
+    #+RESULTS:
+
 ** Stack Overflow
 *** sx
     This a Stack Exchange browser for Emacs. As of today (3/20/2019) the version in MELPA
