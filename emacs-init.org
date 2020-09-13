@@ -1974,8 +1974,7 @@ web-mode is awesome!
    #+BEGIN_SRC emacs-lisp
      (setq ibuffer-saved-filter-groups
            '(("home"
-              ("emacs-config" (or (filename . ".emacs.d")
-                                  (filename . "emacs-init.org")))
+              ("emacs-config" (filename . "emacs-init.org"))
               ("Org" (or (mode . org-mode)
                          (filename . "OrgMode")
                          (name . "\*Org Agenda\*")))
@@ -1983,16 +1982,29 @@ web-mode is awesome!
                            (name . "\*Sunrise\*")))
               ("Dev" (or (mode . python-mode)
                          (mode . robot-mode)))
-              ("Magit" (name . "\*magit"))
-              ("Help" (or (name . "\*Help\*")
-                          (name . "\*Apropos\*")
-                          (name . "\*info\*"))))))
+              ("Magit" (or (name . "\*magit")
+                           (name . "magit")
+                           (mode . magit-mode)))
+              ("EXWM" (or (mode . exwm-mode)
+                          (name . "\*EXWM\*")))
+              ("Shells" (or (mode . eshell-mode)
+                            (mode . shell-mode)
+                            (mode . comint-mode))))
+             ("eww" (or (mode . eww-mode)
+                        (mode . eww-bookmark-mode)))
+             ("Help" (or (name . "\*Help\*")
+                         (name . "\*Apropos\*")
+                         (name . "\*info\*")))))
 
      (add-hook 'ibuffer-mode-hook
                '(lambda ()
                   (ibuffer-switch-to-saved-filter-groups "home")))
 
    #+END_SRC
+
+   #+RESULTS:
+   | lambda | nil | (ibuffer-switch-to-saved-filter-groups home) |
+
 * Blogging
 ** ox-hugo
    This is a super sweet package:
