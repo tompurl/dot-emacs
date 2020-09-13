@@ -2031,6 +2031,7 @@ You can replace the email address with the public key's id.
     #+BEGIN_SRC emacs-lisp
       (require 'epa-file)
       (epa-file-enable)
+      (setq epa-pinentry-mode 'loopback)
     #+END_SRC
 
     I hate to admit it but my current process for whole-file encryption goes like
@@ -2042,6 +2043,16 @@ You can replace the email address with the public key's id.
        this:
        - =gpg --output foo.org.gpg --encrypt --recipient 5BF5A514D04978DD foo.org
     3. I then test that I can open =foo.org.gpg= in Emacs seamlessly.
+*** Pinentry
+    This makes it possible to use =pinentry= from exwm:
+
+      #+BEGIN_SRC emacs-lisp
+        (use-package pinentry
+          :ensure t
+          :config
+          (pinentry-start))
+      #+END_SRC
+
 *** Org-mode
     I use this to encrypt sections of org documents. You just have to tag the section
     with =crypt=.
