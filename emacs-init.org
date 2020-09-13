@@ -2147,3 +2147,13 @@ You can replace the email address with the public key's id.
          (defun server-ensure-safe-dir (dir) "Noop" t)))
 
    #+END_SRC
+* Epub
+  =nov= looks like a pretty cool epub reader:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package nov
+       :ensure t
+       :config
+       (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+   #+END_SRC
+
