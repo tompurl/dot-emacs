@@ -131,6 +131,12 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
       (setq exec-path (append '("C:/Python27"
                                 "c:/ProgramData/chocolatey/bin"
                                 "C:/Users/tom.purl/AppData/Local/Programs/Python/Python36/Scripts")
+                              exec-path))))
+   ((string-equal system-type "gnu/linux")
+    (progn
+      (setq exec-path (append '("/home/tom/bin"
+                                "/home/tom/local/bin"
+                                "/home/tom/scripts")
                               exec-path)))))
 
 #+END_SRC
