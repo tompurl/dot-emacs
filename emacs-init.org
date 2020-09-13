@@ -71,9 +71,18 @@ in https://writequit.org/eos. I am standing on the shoulders of giants.
  #+BEGIN_SRC emacs-lisp
    (require 'package) ;; You might already have this line
    (add-to-list 'package-archives
-                '("melpa" . "http://melpa.org/packages/")
-                '("org" . "https://orgmode.org/elpa/"))
+		'("melpa" . "http://melpa.org/packages/")
+		'("org" . "https://orgmode.org/elpa/"))
    (package-initialize) ;; You might already have this line
+ #+END_SRC
+
+
+ I have to do this to work around a gnu repo TLS issue on versions of
+ Emacs < 26.3:
+
+ #+BEGIN_SRC emacs-lisp
+   ; https://www.reddit.com/r/emacs/comments/cdei4p/failed_to_download_gnu_archive_bad_request/
+   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
  #+END_SRC
 
  And finally, =use-package=:
