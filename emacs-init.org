@@ -511,6 +511,16 @@ nuts. This fixes that:
   (setq org-blank-before-new-entry
 	'((heading . nil) (plain-list-item . nil)))
 #+END_SRC
+*** Org-specific variable pitch
+    A version of variable pitch mode for Org docs that makes them look a little
+    better:
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package org-variable-pitch
+        :ensure t)
+    #+END_SRC
+
+    #+RESULTS:
 
 ** Spell Checking
 *** Configure Spell Checker Name
