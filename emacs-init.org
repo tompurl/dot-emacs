@@ -53,6 +53,14 @@ in https://writequit.org/eos. I am standing on the shoulders of giants.
  #+END_EXAMPLE
 
  Please note - I'm *not pointing at a file called some-addon.el*. That's the folder name.
+*** Exwm Bootstrap
+    These values have to be set before starting =exwm= or calling
+    =package-initialize=:
+
+ #+BEGIN_SRC emacs-lisp
+   (setq mouse-autoselect-window t
+         focus-follows-mouse t)
+ #+END_SRC
 
 *** Proper Package Managers
 
@@ -63,8 +71,8 @@ in https://writequit.org/eos. I am standing on the shoulders of giants.
  #+BEGIN_SRC emacs-lisp
    (require 'package) ;; You might already have this line
    (add-to-list 'package-archives
-                '("melpa" . "http://melpa.org/packages/")
-                '("org" . "https://orgmode.org/elpa/"))
+		'("melpa" . "http://melpa.org/packages/")
+		'("org" . "https://orgmode.org/elpa/"))
    (package-initialize) ;; You might already have this line
  #+END_SRC
 
@@ -114,6 +122,12 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
       (setq exec-path (append '("C:/Python27"
                                 "c:/ProgramData/chocolatey/bin"
                                 "C:/Users/tom.purl/AppData/Local/Programs/Python/Python36/Scripts")
+                              exec-path))))
+   ((string-equal system-type "gnu/linux")
+    (progn
+      (setq exec-path (append '("/home/tom/bin"
+                                "/home/tom/local/bin"
+                                "/home/tom/scripts")
                               exec-path)))))
 
 #+END_SRC
@@ -157,8 +171,50 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 ** Startup Stuff
    I don't want to see the startup screen. Just dump me into a scratch buffer.
    #+BEGIN_SRC emacs-lisp
-     (setq inhibit-startup-screen t)
+     (setq inhibit-startup-message t
+           initial-buffer-choice 'shell)
    #+END_SRC
+* Exwm
+** Basic Setup
+ #+BEGIN_SRC emacs-lisp
+   (use-package exwm
+     :ensure t
+     :config
+     (progn
+       (require 'exwm-config)
+       (exwm-config-default)))
+ #+END_SRC 
+
+** Systray
+ #+BEGIN_SRC emacs-lisp
+   (require 'exwm-systemtray)
+   (exwm-systemtray-enable)
+ #+END_SRC
+** Randr Stuff (Multi-Monitor)
+#+BEGIN_SRC emacs-lisp
+  (require 'exwm-randr)
+  (add-hook 'exwm-randr-screen-change-hook
+            (lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output HDMI-1 --auto --primary --output LVDS-1 --auto --left-of HDMI-1 --mode")))
+  (setq exwm-randr-workspace-output-plist '(0 "HDMI-1" 1 "HDMI-1" 2 "LVDS-1" 3 "LVDS-1"))
+  (exwm-randr-enable)
+
+#+END_SRC
+
+
+** Other config
+ #+BEGIN_SRC emacs-lisp
+   (setq exwm-worspace-number 9)
+ #+END_SRC
+
+** Last Line :-)
+ #+BEGIN_SRC emacs-lisp
+   ;; (exwm-enable)
+ #+END_SRC
+
+ #+RESULTS:
+
 * Eye Candy
 ** Themes
 *** Poet Theme
@@ -425,7 +481,7 @@ Actually, let's turn it off for a little bit. I think it's having way too big of
       (use-package org-re-reveal
         :ensure t
         :config
-        (setq org-re-reveal-root "./reveal.js")
+        (setq org-re-reveal-root "../reveal.js")
         (setq org-re-reveal-title-slide "<h1>%t</h1><footer><h5>&copy;%a</h5></footer>"))
     #+END_SRC
 
@@ -1893,6 +1949,22 @@ web-mode is awesome!
        :config
        (bind-key "C-c C-r" 'dired-rsync dired-mode-map))
    #+END_SRC
+** Omitting Non-Interesting Files
+   I don't like seeing all of the temp files in =dired=, so =dired-x= to the rescue!
+
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'dired-load-hook
+               (lambda ()
+                 (load "dired-x")
+                 ;; Set dired-x global variables here.  For example:
+                 ;; (setq dired-guess-shell-gnutar "gtar")
+                 ;; (setq dired-x-hands-off-my-keys nil)
+                 ))
+     (add-hook 'dired-mode-hook
+               (lambda ()
+                 ;; Set dired-x buffer-local variables here.  For example:
+                 (dired-omit-mode 1)))
+   #+END_SRC
 
 * Buffer Management
 ** ibuffer
@@ -1907,8 +1979,7 @@ web-mode is awesome!
    #+BEGIN_SRC emacs-lisp
      (setq ibuffer-saved-filter-groups
            '(("home"
-              ("emacs-config" (or (filename . ".emacs.d")
-                                  (filename . "emacs-init.org")))
+              ("emacs-config" (filename . "emacs-init.org"))
               ("Org" (or (mode . org-mode)
                          (filename . "OrgMode")
                          (name . "\*Org Agenda\*")))
@@ -1916,16 +1987,29 @@ web-mode is awesome!
                            (name . "\*Sunrise\*")))
               ("Dev" (or (mode . python-mode)
                          (mode . robot-mode)))
-              ("Magit" (name . "\*magit"))
-              ("Help" (or (name . "\*Help\*")
-                          (name . "\*Apropos\*")
-                          (name . "\*info\*"))))))
+              ("Magit" (or (name . "\*magit")
+                           (name . "magit")
+                           (mode . magit-mode)))
+              ("EXWM" (or (mode . exwm-mode)
+                          (name . "\*EXWM\*")))
+              ("Shells" (or (mode . eshell-mode)
+                            (mode . shell-mode)
+                            (mode . comint-mode))))
+             ("eww" (or (mode . eww-mode)
+                        (mode . eww-bookmark-mode)))
+             ("Help" (or (name . "\*Help\*")
+                         (name . "\*Apropos\*")
+                         (name . "\*info\*")))))
 
      (add-hook 'ibuffer-mode-hook
                '(lambda ()
                   (ibuffer-switch-to-saved-filter-groups "home")))
 
    #+END_SRC
+
+   #+RESULTS:
+   | lambda | nil | (ibuffer-switch-to-saved-filter-groups home) |
+
 * Blogging
 ** ox-hugo
    This is a super sweet package:
@@ -1952,6 +2036,7 @@ You can replace the email address with the public key's id.
     #+BEGIN_SRC emacs-lisp
       (require 'epa-file)
       (epa-file-enable)
+      (setq epa-pinentry-mode 'loopback)
     #+END_SRC
 
     I hate to admit it but my current process for whole-file encryption goes like
@@ -1963,6 +2048,16 @@ You can replace the email address with the public key's id.
        this:
        - =gpg --output foo.org.gpg --encrypt --recipient 5BF5A514D04978DD foo.org
     3. I then test that I can open =foo.org.gpg= in Emacs seamlessly.
+*** Pinentry
+    This makes it possible to use =pinentry= from exwm:
+
+      #+BEGIN_SRC emacs-lisp
+        (use-package pinentry
+          :ensure t
+          :config
+          (pinentry-start))
+      #+END_SRC
+
 *** Org-mode
     I use this to encrypt sections of org documents. You just have to tag the section
     with =crypt=.
@@ -2056,4 +2151,22 @@ You can replace the email address with the public key's id.
          ;; needed for the server to start on Windows.
          (defun server-ensure-safe-dir (dir) "Noop" t)))
 
+   #+END_SRC
+* Epub
+  =nov= looks like a pretty cool epub reader:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package nov
+       :ensure t
+       :config
+       (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+   #+END_SRC
+
+* Annotation
+  I'd love to be able to transparently annotate EPUB and PDF files using
+  Emacs. =org-noter= looks like a good way to do this:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package org-noter
+       :ensure t)
    #+END_SRC
