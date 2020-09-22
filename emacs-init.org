@@ -1828,12 +1828,15 @@ web-mode is awesome!
        (delete-window))
    #+END_SRC
 ** Eyebrowse
+   It's kindof like tmux for Emacs but it doesn't do quite as much.
    #+BEGIN_SRC emacs-lisp
      (use-package eyebrowse
-       :ensure t)
+       :ensure t
+       :config
+       (validate-setq eyebrowse-mode-line-separator " "
+                      eyebrowse-new-workspace t)
+       (eyebrowse-mode t))
    #+END_SRC
-
-   #+RESULTS:
 
 * Dired Stuff
 ** Dired-hacks
