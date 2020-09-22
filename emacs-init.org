@@ -1506,20 +1506,15 @@ web-mode is awesome!
         :ensure t
         :hook (elpy-mode . py-autopep8-enable-on-save))
     #+END_SRC  
+
 **** Black
     #+BEGIN_SRC emacs-lisp
       (use-package blacken
         :ensure t)
     #+END_SRC
 
- ** Docker
-   Let's add support for Dockerfiles!
-   #+BEGIN_SRC emacs-lisp
-     (use-package dockerfile-mode
-       :ensure t
-       :init
-       (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
-   #+END_SRC
+    #+RESULTS:
+
 *** Jupyter Notebook
     This looks kindof cool
     #+BEGIN_SRC emacs-lisp
@@ -1527,8 +1522,14 @@ web-mode is awesome!
         :ensure t)
     #+END_SRC
 
-    #+RESULTS:
-
+** Docker
+  Let's add support for Dockerfiles!
+  #+BEGIN_SRC emacs-lisp
+    (use-package dockerfile-mode
+      :ensure t
+      :init
+      (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+  #+END_SRC
 ** Stack Overflow
 *** sx
     This a Stack Exchange browser for Emacs. As of today (3/20/2019) the version in MELPA
