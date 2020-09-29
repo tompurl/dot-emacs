@@ -2171,3 +2171,10 @@ You can replace the email address with the public key's id.
      (use-package org-noter
        :ensure t)
    #+END_SRC
+* OS Stuff
+** helm-proc
+   This is a lot like =top= but managed using normal emacs conventions.
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm-proc
+       :ensure t)
+   #+END_SRC
