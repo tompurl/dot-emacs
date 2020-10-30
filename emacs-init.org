@@ -1710,6 +1710,25 @@ web-mode is awesome!
           (add-hook 'shell-dynamic-complete-functions
                     'bash-completion-dynamic-complete)))
     #+END_SRC    
+** Clojure
+*** Cider
+    #+BEGIN_SRC emacs-lisp
+      (use-package cider
+        :ensure t)
+    #+END_SRC
+
+    #+RESULTS:
+
+* NixOS Stuff
+** Syntax highlighting
+   #+BEGIN_SRC emacs-lisp
+     (use-package nix-mode
+       :ensure t)
+
+
+   #+END_SRC
+
+   #+RESULTS:
 
 * Text Search
 ** Ack
