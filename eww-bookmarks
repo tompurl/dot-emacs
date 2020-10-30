@@ -1,5 +1,6 @@
 ;; Auto-generated file; don't edit
-((:url "https://github.com/bbatsov/helm-projectile" :title "GitHub - bbatsov/helm-projectile: Helm UI for Projectile" :time "Thu Feb 28 10:08:44 2019")
+((:url "https://www.tompurl.com/" :title "Tom Purl's Website · Tom Purl" :time "Sun Oct  4 14:39:40 2020")
+ (:url "https://github.com/bbatsov/helm-projectile" :title "GitHub - bbatsov/helm-projectile: Helm UI for Projectile" :time "Thu Feb 28 10:08:44 2019")
  (:url "http://ergoemacs.org/emacs/emacs_eww_web_browser.html" :title "Emacs: Eww Web Browser" :time "Thu Feb 28 09:52:03 2019")
  (:url "https://github.com/jwiegley/use-package" :title "GitHub - jwiegley/use-package: A use-package declaration for simplifying your .emacs" :time "Thu Feb 28 09:10:25 2019")
  (:url "https://writequit.org/eos/eos.html" :title "The Emacs Operating System (EOS)" :time "Tue Feb 26 09:55:34 2019"))
