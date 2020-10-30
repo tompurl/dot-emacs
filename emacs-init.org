@@ -2159,6 +2159,20 @@ You can replace the email address with the public key's id.
    #+BEGIN_SRC emacs-lisp
      (setq bookmark-save-flag 1)
    #+END_SRC
+** Text Navigation
+*** Backspace to the beginning of the line
+    This is a nice little function that "de-indents" you back to the first column in
+    a line:
+
+    #+BEGIN_SRC emacs-lisp
+      (defun tp/backward-kill-line (arg)
+        "Kill ARG lines backward."
+        (interactive "p")
+        (kill-line (- 1 arg)))
+      (global-set-key [M-delete] 'scratch/backward-kill-line)
+      (global-set-key [M-backspace] 'scratch/backward-kill-line)
+    #+END_SRC
+
 * Server stuff
 
    #+BEGIN_SRC emacs-lisp
