@@ -83,6 +83,30 @@ in https://writequit.org/eos. I am standing on the shoulders of giants.
    (eval-when-compile
      (require 'use-package))
  #+END_SRC
+*** Quelpa
+    Quelpa is a package manager that you can use to install packages directly from
+    Git. I try not to do this because it usually ends in tears sooner or later, but
+    some cool packages (like [[https://github.com/alphapapa/burly.el][Burly]]) require it.
+
+    First let's install it:
+
+    #+BEGIN_SRC emacs-lisp
+      (unless (package-installed-p 'quelpa)
+        (with-temp-buffer
+          (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+          (eval-buffer)
+          (quelpa-self-upgrade)))
+    #+END_SRC
+
+    ...and let's integrate it with =use-package=:
+
+    #+BEGIN_SRC emacs-lisp
+      (quelpa
+       '(quelpa-use-package
+         :fetcher git
+         :url "https://github.com/quelpa/quelpa-use-package.git"))
+      (require 'quelpa-use-package)
+    #+END_SRC
 
 ** Global Properties
  
@@ -1868,10 +1892,6 @@ web-mode is awesome!
       :ensure t
       )
   #+END_SRC
-* Sunrise Commander
-  Sunrise commander is a clone of midnight commander, also known as an orthodox file
-  manager. I used to use this but then learned a lot more about =dired= so I no
-  longer need it.
 * Web Browsing
   Make =eww= create a new buffer if executed from a non-=eww= buffer. This allows you to
   easily create more than one =eww= buffer. Also, I copied this from
@@ -2020,18 +2040,15 @@ web-mode is awesome!
    I don't like seeing all of the temp files in =dired=, so =dired-x= to the rescue!
 
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'dired-load-hook
-               (lambda ()
-                 (load "dired-x")
-                 ;; Set dired-x global variables here.  For example:
-                 ;; (setq dired-guess-shell-gnutar "gtar")
-                 ;; (setq dired-x-hands-off-my-keys nil)
-                 ))
+     (require 'dired-x)
      (add-hook 'dired-mode-hook
                (lambda ()
                  ;; Set dired-x buffer-local variables here.  For example:
                  (dired-omit-mode 1)))
    #+END_SRC
+
+   #+RESULTS:
+   | dired-extra-startup | (lambda nil (dired-omit-mode 1)) |
 
 * Buffer Management
 ** ibuffer
@@ -2076,6 +2093,14 @@ web-mode is awesome!
 
    #+RESULTS:
    | lambda | nil | (ibuffer-switch-to-saved-filter-groups home) |
+** Burly - Saving window configs
+   This looks like an excellent tool for saving my window placement and size between
+   reboots.
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package burly
+       :quelpa (burly :fetcher github :repo "alphapapa/burly.el"))
+   #+END_SRC
 
 * Blogging
 ** ox-hugo
@@ -2200,6 +2225,20 @@ You can replace the email address with the public key's id.
    #+BEGIN_SRC emacs-lisp
      (setq bookmark-save-flag 1)
    #+END_SRC
+** Text Navigation
+*** Backspace to the beginning of the line
+    This is a nice little function that "de-indents" you back to the first column in
+    a line:
+
+    #+BEGIN_SRC emacs-lisp
+      (defun tp/backward-kill-line (arg)
+        "Kill ARG lines backward."
+        (interactive "p")
+        (kill-line (- 1 arg)))
+      (global-set-key [M-delete] 'scratch/backward-kill-line)
+      (global-set-key [M-backspace] 'scratch/backward-kill-line)
+    #+END_SRC
+
 * Server stuff
 
    #+BEGIN_SRC emacs-lisp
