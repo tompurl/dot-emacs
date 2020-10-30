@@ -2034,6 +2034,14 @@ web-mode is awesome!
 
    #+RESULTS:
    | lambda | nil | (ibuffer-switch-to-saved-filter-groups home) |
+** Burly - Saving window configs
+   This looks like an excellent tool for saving my window placement and size between
+   reboots.
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package burly
+       :quelpa (burly :fetcher github :repo "alphapapa/burly.el"))
+   #+END_SRC
 
 * Blogging
 ** ox-hugo
