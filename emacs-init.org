@@ -1826,10 +1826,6 @@ web-mode is awesome!
       :ensure t
       )
   #+END_SRC
-* Sunrise Commander
-  Sunrise commander is a clone of midnight commander, also known as an orthodox file
-  manager. I used to use this but then learned a lot more about =dired= so I no
-  longer need it.
 * Web Browsing
   Make =eww= create a new buffer if executed from a non-=eww= buffer. This allows you to
   easily create more than one =eww= buffer. Also, I copied this from
@@ -1978,18 +1974,15 @@ web-mode is awesome!
    I don't like seeing all of the temp files in =dired=, so =dired-x= to the rescue!
 
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'dired-load-hook
-               (lambda ()
-                 (load "dired-x")
-                 ;; Set dired-x global variables here.  For example:
-                 ;; (setq dired-guess-shell-gnutar "gtar")
-                 ;; (setq dired-x-hands-off-my-keys nil)
-                 ))
+     (require 'dired-x)
      (add-hook 'dired-mode-hook
                (lambda ()
                  ;; Set dired-x buffer-local variables here.  For example:
                  (dired-omit-mode 1)))
    #+END_SRC
+
+   #+RESULTS:
+   | dired-extra-startup | (lambda nil (dired-omit-mode 1)) |
 
 * Buffer Management
 ** ibuffer
