@@ -2178,3 +2178,10 @@ You can replace the email address with the public key's id.
      (use-package helm-proc
        :ensure t)
    #+END_SRC
+* Multimedia
+** Bongo (MP3 Player)
+   This looks really very cool:
+   #+BEGIN_SRC emacs-lisp
+     (use-package bongo
+       :ensure t)
+   #+END_SRC
