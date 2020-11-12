@@ -203,12 +203,12 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 * Exwm
 ** Basic Setup
  #+BEGIN_SRC emacs-lisp
-   (use-package exwm
-     :ensure t
-     :config
-     (progn
-       (require 'exwm-config)
-       (exwm-config-default)))
+   ;; (use-package exwm
+   ;;   :ensure t
+   ;;   :config
+   ;;   (progn
+   ;;     (require 'exwm-config)
+   ;;     (exwm-config-default)))
  #+END_SRC 
 
 ** Systray
@@ -276,7 +276,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
 
 ** Last Line :-)
  #+BEGIN_SRC emacs-lisp
-   (exwm-enable)
+   ;; (exwm-enable)
  #+END_SRC
 
  #+RESULTS:
@@ -355,7 +355,7 @@ You need t update two variables: =exec-path= and =PATH=. Let's first update =exe
     (setq solarized-height-plus-2 1.0)
     (setq solarized-height-plus-3 1.0)
     (setq solarized-height-plus-4 1.0))
-  (load-theme 'solarized-zenburn t)
+  (load-theme 'solarized-light t)
 #+END_SRC
 
 *** Cloud
