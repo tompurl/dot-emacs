@@ -1614,12 +1614,17 @@ web-mode is awesome!
         :init
         (add-hook 'python-mode-hook #'elpy-enable)
         :config
-        (setq python-shell-interpreter "jupyter"
-              python-shell-interpreter-args "console --simple-prompt"
-              python-shell-prompt-detect-failure-warning nil)
-        (add-to-list 'python-shell-completion-native-disabled-interpreters
-                     "jupyter"))
+        ;; (setq python-shell-interpreter "jupyter"
+        ;;       python-shell-interpreter-args "console --simple-prompt"
+        ;;       python-shell-prompt-detect-failure-warning nil)
+        ;; (add-to-list 'python-shell-completion-native-disabled-interpreters
+        ;;              "jupyter")
+        )
     #+END_SRC
+
+    I turned off the jupyter stuff because a) it wasn't really helping me and b) I'm
+    having issues using it on Nixos that I'm sure are just user error.
+
 *** Code Formatting
 **** Overview
      Apparently I need all of these :-/
@@ -1637,6 +1642,18 @@ web-mode is awesome!
     #+END_SRC
 
     #+RESULTS:
+*** Pipenv
+    This is my preferred way of installing dependencies and managing virtualenvs.
+    #+BEGIN_SRC emacs-lisp
+      (use-package pipenv
+        :ensure t
+        :hook (python-mode . pipenv-mode)
+        :init
+        (setq
+         pipenv-projectile-after-switch-function
+         #'pipenv-projectile-after-switch-extended))
+
+    #+END_SRC
 
 *** Jupyter Notebook
     This looks kindof cool
@@ -1653,6 +1670,17 @@ web-mode is awesome!
       :init
       (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
   #+END_SRC
+
+  Also, the docker porcelain is pretty freakin' sweet:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package docker
+      :ensure t
+      )
+  #+END_SRC
+
+  #+RESULTS:
+
 ** Stack Overflow
 *** sx
     This a Stack Exchange browser for Emacs. As of today (3/20/2019) the version in MELPA
