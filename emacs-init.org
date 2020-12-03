@@ -1770,6 +1770,11 @@ web-mode is awesome!
     #+END_SRC
 
     #+RESULTS:
+** Groovy
+   #+BEGIN_SRC emacs-lisp
+     (use-package groovy-mode
+       :ensure t)
+   #+END_SRC
 
 * NixOS Stuff
 ** Syntax highlighting
@@ -2318,3 +2323,22 @@ You can replace the email address with the public key's id.
      (use-package bongo
        :ensure t)
    #+END_SRC
+** Macros
+*** flac2mp3
+
+    It's a royal pain in a shell script to loop over a list of files using the shell,
+    so here's what I do instead.
+
+    1. =find . -name "*flac*" > flac.sh=
+    2. Add a shebang and =set -e= to the top of =flac.sh=
+    3. Execute this macro on every line after positioning the cursor in the first
+       column.
+
+    #+BEGIN_SRC emacs-lisp
+      (fset 'tp/mm/flac2mp3
+            (lambda (&optional arg)
+              "Keyboard macro."
+              (interactive "p")
+              (kmacro-exec-ring-item
+               (quote ([67108896 5 134217847 1 102 102 109 112 101 103 32 45 105 32 34 5 34 32 45 97 98 32 51 50 48 107 32 45 109 97 112 95 109 101 116 97 100 97 116 97 32 48 32 45 105 100 118 backspace 51 118 50 95 118 101 114 115 105 111 110 32 51 32 34 25 backspace backspace backspace backspace 109 112 51 34 14 1] 0 "%d")) arg)))
+    #+END_SRC
