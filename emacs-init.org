@@ -1169,6 +1169,21 @@ Of course you need these :smile:
                   "STORY_NUM"))
     #+END_SRC
 
+
+* Zetteldeft
+  Why not try?
+  #+begin_src emacs-lisp :results silent
+    (use-package deft
+      :ensure t
+      :init
+        (setq deft-extensions '("org" "md" "txt")
+              deft-use-filename-as-title t))
+
+    (use-package zetteldeft
+      :ensure t
+      :after deft
+      :config (zetteldeft-set-classic-keybindings))
+#+end_src
 * Magit
 ** Bootstrap
 
